@@ -1,10 +1,8 @@
 # easyGroceries
 
-A new Flutter project.
+"EasyGroceries" is a IOS/Android app developed with Flutter. The purpose of this app is to help the user to make his groceries list by proposing different ingredients based on cooking recipes from a cooking recipes API. 
 
 ## Getting Started
-
-"EasyGroceries" is a IOS/Android app developed with Flutter. The purpose of this app is to help the user to make his groceries list by proposing different ingredients based on cooking recipes from a cooking recipes API. 
 
 A few resources to get you started if this is your first Flutter project:
 
