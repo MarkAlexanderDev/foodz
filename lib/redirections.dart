@@ -1,5 +1,7 @@
 import 'package:easyGroceries/appStates.dart';
 import 'package:easyGroceries/consts.dart';
+import 'package:easyGroceries/screens/home/home.dart';
+import 'package:easyGroceries/screens/onboarding/onboarding.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -20,10 +22,13 @@ class Redirections extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     _initApp(context);
-    return Scaffold(
-      body: Center(
-        child: Text("Hello world!"),
-      ),
-    );
+    return Obx(() => _getPage(appStates.isOnboardingDone.value));
+  }
+
+  _getPage(bool isOnboardingDone) {
+    if (!isOnboardingDone)
+      return Onboarding();
+    else
+      return Home();
   }
 }
