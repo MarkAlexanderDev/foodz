@@ -1,5 +1,5 @@
-import 'package:easyGroceries/screens/appStates.dart';
-import 'package:easyGroceries/screens/onboarding/consts.dart';
+import 'package:EasyGroceries/screens/appStates.dart';
+import 'package:EasyGroceries/screens/onboarding/consts.dart';
 import 'package:get/get.dart';
 
 class OnboardingStates extends GetxController {

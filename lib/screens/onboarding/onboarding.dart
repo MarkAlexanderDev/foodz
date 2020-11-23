@@ -1,9 +1,9 @@
+import 'package:EasyGroceries/screens/consts.dart';
+import 'package:EasyGroceries/screens/onboarding/consts.dart';
+import 'package:EasyGroceries/screens/onboarding/onboardingStates.dart';
+import 'package:EasyGroceries/style/colors.dart';
+import 'package:EasyGroceries/style/textStyle.dart';
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:easyGroceries/screens/consts.dart';
-import 'package:easyGroceries/screens/onboarding/consts.dart';
-import 'package:easyGroceries/screens/onboarding/onboardingStates.dart';
-import 'package:easyGroceries/style/colors.dart';
-import 'package:easyGroceries/style/textStyle.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
