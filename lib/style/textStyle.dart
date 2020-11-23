@@ -1,4 +1,4 @@
-import 'package:easyGroceries/utils/colors.dart';
+import 'package:easyGroceries/style/colors.dart';
 import 'package:flutter/cupertino.dart';
 
 const TextStyle textStyleH1 = TextStyle(

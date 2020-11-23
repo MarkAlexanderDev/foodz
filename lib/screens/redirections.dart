@@ -1,7 +1,8 @@
-import 'package:easyGroceries/appStates.dart';
-import 'package:easyGroceries/consts.dart';
+import 'package:easyGroceries/screens/appStates.dart';
+import 'package:easyGroceries/screens/consts.dart';
 import 'package:easyGroceries/screens/home/home.dart';
 import 'package:easyGroceries/screens/onboarding/onboarding.dart';
+import 'package:easyGroceries/utils/loading.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -22,7 +23,14 @@ class Redirections extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     _initApp(context);
-    return Obx(() => _getPage(appStates.isOnboardingDone.value));
+    return FutureBuilder(
+        future: appStates.getData(),
+        builder: (BuildContext context, res) {
+          if (res.hasData)
+            return Obx(() => _getPage(appStates.isOnboardingDone.value));
+          else
+            return Loading();
+        });
   }
 
   _getPage(bool isOnboardingDone) {

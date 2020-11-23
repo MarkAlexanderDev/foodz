@@ -1,9 +1,9 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:easyGroceries/consts.dart';
+import 'package:easyGroceries/screens/consts.dart';
 import 'package:easyGroceries/screens/onboarding/consts.dart';
 import 'package:easyGroceries/screens/onboarding/onboardingStates.dart';
-import 'package:easyGroceries/utils/colors.dart';
-import 'package:easyGroceries/utils/textStyle.dart';
+import 'package:easyGroceries/style/colors.dart';
+import 'package:easyGroceries/style/textStyle.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -81,24 +81,28 @@ class Onboarding extends StatelessWidget {
           Flexible(
               flex: 1,
               child: Center(
-                  child: Obx(() =>Visibility(
-                visible: onboardingStates.onboardingStep.value != 0,
-                child: GestureDetector(
-                  onTap: () => onboardingStates
-                      .setOnboardingStep(onboardingSlide.length),
-                  child: AutoSizeText(
-                    "Skip",
-                    style: textStyleSkip,
-                  ),
-                ),
-              )))),
+                  child: Obx(() => Visibility(
+                        visible: onboardingStates.onboardingStep.value != 0,
+                        child: GestureDetector(
+                          onTap: () async {
+                            await onboardingStates
+                                .setOnboardingStep(onboardingSlide.length);
+                          },
+                          child: AutoSizeText(
+                            "Skip",
+                            style: textStyleSkip,
+                          ),
+                        ),
+                      )))),
           Flexible(flex: 1, child: Container()),
           Flexible(
               flex: 1,
               child: Center(
                   child: GestureDetector(
-                onTap: () => onboardingStates.setOnboardingStep(
-                    onboardingStates.onboardingStep.value + 1),
+                onTap: () async {
+                  await onboardingStates.setOnboardingStep(
+                      onboardingStates.onboardingStep.value + 1);
+                },
                 child: AutoSizeText(
                   "Next",
                   style: textStyleNext,

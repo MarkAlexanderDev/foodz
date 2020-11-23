@@ -1,4 +1,4 @@
-import 'package:easyGroceries/appStates.dart';
+import 'package:easyGroceries/screens/appStates.dart';
 import 'package:easyGroceries/screens/onboarding/consts.dart';
 import 'package:get/get.dart';
 
@@ -7,9 +7,9 @@ class OnboardingStates extends GetxController {
 
   final AppStates appStates = Get.put(AppStates());
 
-  setOnboardingStep(value) {
+  setOnboardingStep(value) async {
     if (value == onboardingSlide.length)
-      appStates.setIsOnboardingDone(true);
+      await appStates.setIsOnboardingDone(true);
     else
       onboardingStep.value = value;
   }
