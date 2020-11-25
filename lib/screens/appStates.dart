@@ -14,7 +14,7 @@ class AppStates extends GetxController {
 
   RxBool isOnboardingDone = false.obs;
 
-  getData() async {
+  Future<bool> getData() async {
     isOnboardingDone.value =
         await localStorage.getBoolData(SHARED_PREF_KEY_IS_ONBOARDING_DONE);
     return true;

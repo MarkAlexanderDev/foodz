@@ -8,8 +8,33 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
-class Redirections extends StatelessWidget {
+class Redirections extends StatefulWidget {
+  @override
+  _Redirections createState() => _Redirections();
+}
+
+class _Redirections extends State<Redirections> {
   final AppStates appStates = Get.put(AppStates());
+  Future<bool> _future;
+
+  @override
+  void initState() {
+    _future = appStates.getData();
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    _initApp(context);
+    return FutureBuilder(
+        future: _future,
+        builder: (BuildContext context, res) {
+          if (res.hasData)
+            return Obx(() => _getPage(appStates.isOnboardingDone.value));
+          else
+            return Loading();
+        });
+  }
 
   _initApp(context) {
     appHeight = MediaQuery.of(context).size.height;
@@ -24,19 +49,6 @@ class Redirections extends StatelessWidget {
       statusBarIconBrightness: Brightness.dark,
       systemNavigationBarIconBrightness: Brightness.dark,
     );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    _initApp(context);
-    return FutureBuilder(
-        future: appStates.getData(),
-        builder: (BuildContext context, res) {
-          if (res.hasData)
-            return Obx(() => _getPage(appStates.isOnboardingDone.value));
-          else
-            return Loading();
-        });
   }
 
   _getPage(bool isOnboardingDone) {
