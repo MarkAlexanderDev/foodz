@@ -10,13 +10,17 @@ class CAcard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {},
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: GestureDetector(
+        onTap: slide["onClick"],
         child: Container(
-          decoration: BoxDecoration(
-              color: Colors.black, borderRadius: BorderRadius.circular(10.0)),
+          decoration: slide["image"].isEmpty
+              ? BoxDecoration()
+              : BoxDecoration(
+                  image: DecorationImage(
+                      image: NetworkImage(slide["image"]), fit: BoxFit.cover),
+                  borderRadius: BorderRadius.circular(10.0)),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
