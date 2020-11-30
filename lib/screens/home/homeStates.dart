@@ -12,7 +12,4 @@ class HomeStates extends GetxController {
   Future<bool> getData() async {
     return true;
   }
-
-  RxList caSlides = List().obs;
-  RxList recipeOfTheWeek = List().obs;
 }

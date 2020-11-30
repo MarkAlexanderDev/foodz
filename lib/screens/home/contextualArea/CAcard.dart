@@ -20,7 +20,6 @@ class CAcard extends StatelessWidget {
               : BoxDecoration(
                   image: DecorationImage(
                       image: NetworkImage(slide["image"]), fit: BoxFit.cover),
-                  color: Colors.black,
                   borderRadius: BorderRadius.circular(10.0)),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
