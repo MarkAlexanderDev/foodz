@@ -27,7 +27,6 @@ class LocalStorage {
   }
 
   Future<void> setBoolData(key, value) async {
-    print(value);
     final data = await SharedPreferences.getInstance();
     await data.setBool(key, value);
   }
@@ -54,8 +53,8 @@ class LocalStorage {
     await data.setStringList(key, value);
   }
 
-  void eraseData() async {
+  Future<void> eraseData() async {
     final data = await SharedPreferences.getInstance();
-    data.clear();
+    await data.clear();
   }
 }

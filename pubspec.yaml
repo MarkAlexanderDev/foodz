@@ -19,6 +19,9 @@ dependencies:
   flutter_spinkit: "^4.1.2"
   flutter_launcher_icons: "^0.8.0"
   flutter_swiper: ^1.1.6
+  url_launcher: ^5.7.10
+  http_interceptor: ^0.3.3
+  intl: ^0.16.1
 
 flutter_icons:
   android: "launcher_icon"
