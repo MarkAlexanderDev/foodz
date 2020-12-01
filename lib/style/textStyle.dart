@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:EasyGroceries/style/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -5,6 +7,15 @@ import 'package:flutter/material.dart';
 const TextStyle textStyleH1 = TextStyle(
   fontWeight: FontWeight.w300,
   fontSize: 22.0,
+);
+
+const TextStyle textStyleH1Green =
+    TextStyle(fontWeight: FontWeight.w300, fontSize: 22.0, color: mainColor);
+
+const TextStyle textStyleH1BoldUnderLine = TextStyle(
+  fontWeight: FontWeight.w500,
+  fontSize: 22.0,
+  decoration: TextDecoration.underline,
 );
 
 const TextStyle textStyleH1Accent =
@@ -16,6 +27,11 @@ const TextStyle textStyleH2 = TextStyle(
   fontWeight: FontWeight.w300,
   fontSize: 16.0,
 );
+
+const TextStyle textStyleH2BoldUnderLine = TextStyle(
+    fontWeight: FontWeight.w500,
+    fontSize: 16.0,
+    decoration: TextDecoration.underline);
 
 const TextStyle textStyleH2Accent =
     TextStyle(fontWeight: FontWeight.w300, fontSize: 16.0, color: accentColor);
