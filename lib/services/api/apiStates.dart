@@ -38,9 +38,8 @@ class ApiStates extends GetxController {
       recipeOfTheWeek.add(res["hits"][0]["recipe"]["image"]);
       recipeOfTheWeek.add(res["hits"][0]["recipe"]["url"]);
       recipeOfTheWeek.add((res["hits"][0]["recipe"]["calories"]).toString());
-      recipeOfTheWeek
-        ..addAll(
-            new List<String>.from(res["hits"][0]["recipe"]["ingredientLines"]));
+      recipeOfTheWeek.addAll(
+          new List<String>.from(res["hits"][0]["recipe"]["ingredientLines"]));
       await localStorage.setStringListData(
           SHARED_PREF_KEY_RECIPE_OF_THE_WEEK, recipeOfTheWeek);
       return recipeOfTheWeek;
