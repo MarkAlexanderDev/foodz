@@ -21,6 +21,9 @@ const TextStyle textStyleH1BoldUnderLine = TextStyle(
 const TextStyle textStyleH1Accent =
     TextStyle(fontWeight: FontWeight.w300, fontSize: 22.0, color: accentColor);
 
+const TextStyle textStyleH1White =
+    TextStyle(fontWeight: FontWeight.w300, fontSize: 22.0, color: Colors.white);
+
 // H2
 
 const TextStyle textStyleH2 = TextStyle(
@@ -38,6 +41,11 @@ const TextStyle textStyleH2Accent =
 
 const TextStyle textStyleH2White =
     TextStyle(fontWeight: FontWeight.w300, fontSize: 16.0, color: Colors.white);
+
+const TextStyle textStyleH2Grey =
+    TextStyle(fontWeight: FontWeight.w300, fontSize: 16.0, color: Colors.grey);
+const TextStyle textStyleH2Green =
+    TextStyle(fontWeight: FontWeight.w300, fontSize: 16.0, color: mainColor);
 
 // H3
 

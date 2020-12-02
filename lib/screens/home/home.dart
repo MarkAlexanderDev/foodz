@@ -3,6 +3,7 @@ import 'package:EasyGroceries/screens/home/contextualArea/contextualArea.dart';
 import 'package:EasyGroceries/screens/home/homeStates.dart';
 import 'package:EasyGroceries/style/colors.dart';
 import 'package:EasyGroceries/style/textStyle.dart';
+import 'package:EasyGroceries/urls.dart';
 import 'package:EasyGroceries/utils/loading.dart';
 import 'package:EasyGroceries/utils/profilePicture.dart';
 import 'package:auto_size_text/auto_size_text.dart';
@@ -64,15 +65,19 @@ class _Home extends State<Home> {
         children: [
           Flexible(
             flex: 10,
-            child: ProfilePicture(
-              height: 100,
-              width: 100,
+            child: GestureDetector(
+              onTap: () => Get.toNamed(URL_PROFILE),
+              child: ProfilePicture(
+                height: 100,
+                width: 100,
+              ),
             ),
           ),
           Flexible(flex: 1, child: Container()),
           Flexible(
               flex: 1,
-              child: AutoSizeText("Hey there ! ✌️", style: textStyleH1))
+              child: AutoSizeText("Hey there " + homeStates.name.value + "! ✌️",
+                  style: textStyleH1))
         ],
       ),
     );

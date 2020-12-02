@@ -16,7 +16,7 @@ class ContextualAreaStates extends GetxController {
     recipeOfTheWeek.addAll(await apiStates.getRecipeOfTheWeek());
     caSlides.addAll([
       {
-        "title": "RECIEPE OF THE WEEK",
+        "title": "RECIPE OF THE WEEK",
         "desc": recipeOfTheWeek[KEY_RECIPE_OF_THE_WEEK_LABEL],
         "image": recipeOfTheWeek[KEY_RECIPE_OF_THE_WEEK_IMG],
         "clickHint": "Let's cook it !",

@@ -1,15 +1,16 @@
-import 'package:EasyGroceries/services/api/apiStates.dart';
+import 'package:EasyGroceries/services/localStorage/consts.dart';
+import 'package:EasyGroceries/services/localStorage/localStorage.dart';
 import 'package:get/get.dart';
-
-const CA_SLIDE_ID_RECIEPE = 1;
-const CA_SLIDE_ID_MAP = 2;
-const CA_SLIDE_ID_FOOD_SEASON = 3;
 
 class HomeStates extends GetxController {
   static HomeStates get to => Get.find();
-  final ApiStates apiStates = Get.put(ApiStates());
+
+  LocalStorage _localStorage = new LocalStorage();
 
   Future<bool> getData() async {
+    await _localStorage.setStringData(SHARED_PREF_KEY_USER_NAME, name.value);
     return true;
   }
+
+  RxString name = "".obs;
 }
