@@ -9,7 +9,7 @@ import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class RecipeOfTheWeek extends StatelessWidget {
-  final slide = Get.arguments();
+  final slide = Get.arguments;
 
   @override
   Widget build(BuildContext context) {

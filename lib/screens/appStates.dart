@@ -5,8 +5,6 @@ import 'package:get/get.dart';
 class AppStates extends GetxController {
   static AppStates get to => Get.find();
 
-  LocalStorage localStorage = LocalStorage();
-
   setIsOnboardingDone(value) async {
     isOnboardingDone.value = value;
     await localStorage.setBoolData(SHARED_PREF_KEY_IS_ONBOARDING_DONE, value);
@@ -15,8 +13,9 @@ class AppStates extends GetxController {
   RxBool isOnboardingDone = false.obs;
 
   Future<bool> getData() async {
+    await localStorage.init();
     isOnboardingDone.value =
-        await localStorage.getBoolData(SHARED_PREF_KEY_IS_ONBOARDING_DONE);
+        localStorage.getBoolData(SHARED_PREF_KEY_IS_ONBOARDING_DONE);
     return true;
   }
 }

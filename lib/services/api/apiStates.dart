@@ -11,12 +11,10 @@ import 'package:http_interceptor/http_interceptor.dart';
 class ApiStates extends GetxController {
   static ApiStates get to => Get.find();
 
-  LocalStorage localStorage = LocalStorage();
-
   Future<List<String>> getRecipeOfTheWeek() async {
     final int recipeId = weekNumber(DateTime.now());
 
-    if (await localStorage.getIntData(SHARED_PREF_KEY_CURRENT_WEEK_NB) !=
+    if (localStorage.getIntData(SHARED_PREF_KEY_CURRENT_WEEK_NB) !=
         recipeId) {
       await localStorage.setIntData(SHARED_PREF_KEY_CURRENT_WEEK_NB, recipeId);
       final Api api = Api(

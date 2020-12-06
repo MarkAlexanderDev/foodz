@@ -5,11 +5,8 @@ import 'package:get/get.dart';
 class HomeStates extends GetxController {
   static HomeStates get to => Get.find();
 
-  LocalStorage _localStorage = new LocalStorage();
-
-  Future<bool> getData() async {
-    await _localStorage.setStringData(SHARED_PREF_KEY_USER_NAME, name.value);
-    return true;
+  getData()  {
+    name.value = localStorage.getStringData(SHARED_PREF_KEY_USER_NAME);
   }
 
   RxString name = "".obs;

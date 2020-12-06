@@ -12,9 +12,9 @@ class ContextualAreaStates extends GetxController {
   static ContextualAreaStates get to => Get.find();
   final ApiStates apiStates = Get.put(ApiStates());
 
-  Future<bool> getSlideData() async {
-    recipeOfTheWeek.addAll(await apiStates.getRecipeOfTheWeek());
-    caSlides.addAll([
+  Future getSlideData() async {
+    final recipeOfTheWeek = await apiStates.getRecipeOfTheWeek();
+    return [
       {
         "title": "RECIPE OF THE WEEK",
         "desc": recipeOfTheWeek[KEY_RECIPE_OF_THE_WEEK_LABEL],
@@ -40,10 +40,6 @@ class ContextualAreaStates extends GetxController {
           }
         }
       },
-    ]);
-    return true;
+    ];
   }
-
-  RxList caSlides = List().obs;
-  RxList recipeOfTheWeek = List().obs;
 }

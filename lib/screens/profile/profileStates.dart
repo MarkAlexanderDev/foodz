@@ -4,34 +4,26 @@ import 'package:get/get.dart';
 
 class ProfileStates extends GetxController {
   static ProfileStates get to => Get.find();
-  LocalStorage _localStorage = new LocalStorage();
-
-  void setLoading(bool newLoading) {
-    loading.value = newLoading;
-  }
 
   void setName(String newName) {
     name.value = newName;
   }
 
   void setPictureUrl(String newPictureUrl) {
-    pictureUrl.value = newPictureUrl;
-  }
-
-  Future<bool> getData() async {
-    name.value = await _localStorage.getStringData(SHARED_PREF_KEY_USER_NAME);
-    pictureUrl.value =
-        await _localStorage.getStringData(SHARED_PREF_KEY_USER_PIC_URL);
-    return true;
+    if (!newPictureUrl.isNull) {
+      if (newPictureUrl != "" && newPictureUrl[0] == "/")
+        pictureUrl.value = newPictureUrl.substring(1);
+      pictureUrl.value = newPictureUrl;
+    }
   }
 
   Future<void> saveData() async {
-    await _localStorage.setStringData(SHARED_PREF_KEY_USER_NAME, name.value);
-    await _localStorage.setStringData(
+    await localStorage.setStringData(SHARED_PREF_KEY_USER_NAME, name.value);
+    await localStorage.setStringData(
         SHARED_PREF_KEY_USER_PIC_URL, pictureUrl.value);
   }
 
-  RxString name = "".obs;
-  RxString pictureUrl = "".obs;
-  RxBool loading = false.obs;
+  RxString name = localStorage.getStringData(SHARED_PREF_KEY_USER_NAME).obs;
+  RxString pictureUrl =
+      localStorage.getStringData(SHARED_PREF_KEY_USER_PIC_URL).obs;
 }
