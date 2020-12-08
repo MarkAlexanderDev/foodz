@@ -1,7 +1,7 @@
 final onboardingSlide = [
   {
     "title": "EASY GROCERIES",
-    "lottiePath": "assets/shoppingGroceries.json",
+    "lottiePath": "assets/lotties/shoppingGroceries.json",
     "text": "Your best friend app for grocery\nshopping"
   },
   {

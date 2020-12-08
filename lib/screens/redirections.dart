@@ -2,6 +2,7 @@ import 'package:EasyGroceries/screens/appStates.dart';
 import 'package:EasyGroceries/screens/consts.dart';
 import 'package:EasyGroceries/screens/home/home.dart';
 import 'package:EasyGroceries/screens/onboarding/onboarding.dart';
+import 'package:EasyGroceries/widgets/bottomNavigationBar.dart';
 import 'package:EasyGroceries/widgets/loading.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -52,9 +53,14 @@ class _Redirections extends State<Redirections> {
   }
 
   _getPage(bool isOnboardingDone) {
+    final List appScreens = [Home()];
     if (!isOnboardingDone)
       return Onboarding();
-    else
-      return Home();
+    else {
+      return Scaffold(
+          body: Home(),
+          bottomNavigationBar: NavBar(sizeIcon: 25.0)
+      );
+    }
   }
 }

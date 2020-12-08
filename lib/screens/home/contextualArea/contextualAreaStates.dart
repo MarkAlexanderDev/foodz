@@ -19,6 +19,7 @@ class ContextualAreaStates extends GetxController {
         "title": "RECIPE OF THE WEEK",
         "desc": recipeOfTheWeek[KEY_RECIPE_OF_THE_WEEK_LABEL],
         "image": recipeOfTheWeek[KEY_RECIPE_OF_THE_WEEK_IMG],
+        "imageFromNetwork" : true,
         "clickHint": "Let's cook it !",
         "onClick": () {
           Get.toNamed(URL_RECIPE_OF_THE_WEEK, arguments: recipeOfTheWeek);
@@ -27,7 +28,8 @@ class ContextualAreaStates extends GetxController {
       {
         "title": "EASYGROCERIES MAP",
         "desc": "Find all the closest grocery stores from you !",
-        "image": "",
+        "image": "assets/images/map.png",
+        "imageFromNetwork" : false,
         "clickHint": "Let's go !",
         "onClick": () async {
           String googleUrl =
