@@ -2,7 +2,6 @@ import 'package:EasyGroceries/screens/consts.dart';
 import 'package:EasyGroceries/screens/home/contextualArea/contextualArea.dart';
 import 'package:EasyGroceries/screens/home/homeStates.dart';
 import 'package:EasyGroceries/screens/profile/profileStates.dart';
-import 'package:EasyGroceries/style/colors.dart';
 import 'package:EasyGroceries/style/textStyle.dart';
 import 'package:EasyGroceries/urls.dart';
 import 'package:EasyGroceries/widgets/profilePicture.dart';

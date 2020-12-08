@@ -1,8 +1,8 @@
+import 'package:EasyGroceries/style/colors.dart';
 import 'package:EasyGroceries/style/textStyle.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 class CAcard extends StatelessWidget {
   final Map<String, dynamic> slide;
@@ -19,19 +19,18 @@ class CAcard extends StatelessWidget {
           decoration: slide["image"].isEmpty
               ? BoxDecoration()
               : BoxDecoration(
+                  color: Colors.black,
                   image: DecorationImage(
-                      colorFilter: ColorFilter.mode(
-                          Colors.black.withOpacity(0.50), BlendMode.darken),
-                      image: slide["imageFromNetwork"]
-                          ? NetworkImage(slide["image"])
-                          : AssetImage(slide["image"]),
-                      fit: BoxFit.cover),
+                      image: NetworkImage(slide["image"]),
+                      fit: BoxFit.cover,
+                      colorFilter: new ColorFilter.mode(
+                          Colors.black.withOpacity(0.4), BlendMode.dstATop)),
                   borderRadius: BorderRadius.circular(10.0)),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(15.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -51,7 +50,7 @@ class CAcard extends StatelessWidget {
               Expanded(child: Container()),
               Center(
                   child: Container(
-                height: 40,
+                height: 50,
                 width: 100,
                 decoration: BoxDecoration(
                     color: Colors.white.withOpacity(0.5),
@@ -59,14 +58,19 @@ class CAcard extends StatelessWidget {
                         topLeft: Radius.circular(10.0),
                         topRight: Radius.circular(10.0))),
                 child: Padding(
-                  padding: const EdgeInsets.all(4.0),
+                  padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 0),
                   child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      AutoSizeText(slide["clickHint"],
-                          style: textStyleH2Accent, maxLines: 1),
-                      Expanded(
-                          child:
-                              SvgPicture.asset("assets/images/arrowDown.svg"))
+                      AutoSizeText(
+                        slide["clickHint"],
+                        style: textStyleH2Accent,
+                        maxLines: 1,
+                      ),
+                      Icon(
+                        Icons.keyboard_arrow_down,
+                        color: accentColor,
+                      )
                     ],
                   ),
                 ),
