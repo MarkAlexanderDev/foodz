@@ -19,7 +19,7 @@ const TextStyle textStyleH1BoldUnderLine = TextStyle(
 );
 
 const TextStyle textStyleH1Accent =
-    TextStyle(fontWeight: FontWeight.w300, fontSize: 22.0, color: accentColor);
+    TextStyle(fontWeight: FontWeight.w400, fontSize: 22.0, color: accentColor);
 
 const TextStyle textStyleH1White =
     TextStyle(fontWeight: FontWeight.w300, fontSize: 22.0, color: Colors.white);
