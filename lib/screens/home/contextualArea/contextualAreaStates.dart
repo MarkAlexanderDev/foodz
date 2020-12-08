@@ -27,8 +27,7 @@ class ContextualAreaStates extends GetxController {
       {
         "title": "EASYGROCERIES MAP",
         "desc": "Find all the closest grocery stores from you !",
-        "image":
-            "https://searchengineland.com/figz/wp-content/seloads/2014/08/map-local-search-ss-1920.jpg",
+        "image": "https://searchengineland.com/figz/wp-content/seloads/2014/08/map-local-search-ss-1920.jpg",
         "clickHint": "Let's go !",
         "onClick": () async {
           String googleUrl =

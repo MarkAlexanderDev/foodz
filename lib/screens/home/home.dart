@@ -2,7 +2,6 @@ import 'package:EasyGroceries/screens/consts.dart';
 import 'package:EasyGroceries/screens/home/contextualArea/contextualArea.dart';
 import 'package:EasyGroceries/screens/home/homeStates.dart';
 import 'package:EasyGroceries/screens/profile/profileStates.dart';
-import 'package:EasyGroceries/style/colors.dart';
 import 'package:EasyGroceries/style/textStyle.dart';
 import 'package:EasyGroceries/urls.dart';
 import 'package:EasyGroceries/widgets/profilePicture.dart';
@@ -28,8 +27,7 @@ class _Home extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: Column(
+    return Column(
       children: [
         Flexible(
           flex: 4,
@@ -47,7 +45,7 @@ class _Home extends State<Home> {
           child: _getShoppingListSection(),
         )
       ],
-    ));
+    );
   }
 
   _getProfileSection() {
@@ -78,17 +76,38 @@ class _Home extends State<Home> {
   }
 
   _getShoppingListSection() {
-    return Container(
-      width: appWidth,
-      color: mainColor,
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: AutoSizeText(
-          "MY NEXT GROCERY SHOPPING LIST",
-          style: textStyleH3Bold,
-          maxLines: 1,
-        ),
-      ),
+    return ListView(
+      physics: NeverScrollableScrollPhysics(),
+      children: [
+        AutoSizeText("MY SHOPPING LIST", style: textStyleH2BoldUnderLine),
+        Container(height: 25),
+        Container(
+          height: 125,
+          width: appWidth,
+          decoration: BoxDecoration(
+              image: DecorationImage(
+                fit: BoxFit.fill,
+                  colorFilter: ColorFilter.mode(Colors.black.withOpacity(0.50), BlendMode.darken),
+                  image: AssetImage("assets/images/grocery.png"))),
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                AutoSizeText(
+                  "MONDAY’S GROCERY LIST",
+                  style: textStyleH1White,
+                ),
+                AutoSizeText(
+                  "All my needs for the week !",
+                  style: textStyleH2White,
+                )
+              ],
+            ),
+          ),
+        )
+      ],
     );
   }
 }
