@@ -1,0 +1,16 @@
+{
+  "rules": {
+    "Configuration": {
+      ".read": "auth != null",
+      ".write": false
+    },
+    "Entries": {
+      "Account": {
+        "$uid": {
+          ".read": "auth != null",
+          ".write": "$uid == auth.uid"
+        }
+      },
+    }
+  }
+}
