@@ -15,11 +15,27 @@
       },
       "oauth_client": [
         {
+          "client_id": "204365600955-cnkl67qpia9q7luv392f5vn5bd9necfp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.foodz.foodz",
+            "certificate_hash": "15ac966749358672cdbb30ec4bf8b784741626fe"
+          }
+        },
+        {
           "client_id": "204365600955-m8d12q87ooil3iedhc30dmnq9ps2aacr.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.foodz.foodz",
             "certificate_hash": "6e8cdac1e6d989c3cee81570d87fe0a23c7ed36f"
+          }
+        },
+        {
+          "client_id": "204365600955-vfm3idnnm73kp49tm2hhe7293n78vt1l.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.foodz.foodz",
+            "certificate_hash": "3f89fe1f2af62d3c07b77651b579c5621a7239ca"
           }
         },
         {
