@@ -31,7 +31,8 @@ class _Redirections extends State<Redirections> {
         future: _future,
         builder: (BuildContext context, res) {
           if (res.hasData)
-            return Obx(() => _getPage(appStates.isOnboardingDone.value));
+            return Obx(() =>
+                _getPage(appStates.currentAccount, appStates.loading.value));
           else
             return Loading();
         });
@@ -52,15 +53,16 @@ class _Redirections extends State<Redirections> {
     );
   }
 
-  _getPage(bool isOnboardingDone) {
+  _getPage(currentUser, loading) {
     final List appScreens = [Home()];
-    if (!isOnboardingDone)
+    if (loading)
+      return Loading();
+    else if (currentUser.isEmpty ||
+        currentUser["onboardingFlag"] < ONBOARDING_STEP_ID_PROFILE + 1)
       return Onboarding();
-    else {
+    else
       return Scaffold(
-          body: Home(),
-          bottomNavigationBar: NavBar(sizeIcon: 25.0)
-      );
-    }
+          body: appScreens[appStates.indexBar.value],
+          bottomNavigationBar: NavBar(sizeIcon: 25.0));
   }
 }

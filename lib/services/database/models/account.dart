@@ -2,21 +2,24 @@ import 'dart:collection';
 import 'dart:convert';
 import 'dart:core';
 
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:EasyGroceries/screens/onboarding/onboarding.dart';
 
 class Account {
   String uid = "";
   String firstName;
   String lastName;
   String pictureUrl;
+  int onboardingFlag = ONBOARDING_STEP_ID_ALLERGIC;
   String createdAt = ".";
   String updatedAt = ".";
 
   toMap() {
     return {
+      "uid": this.uid,
       "firstName": this.firstName,
       "lastName": this.lastName,
       "pictureUrl": this.pictureUrl,
+      "onboardingFlag": this.onboardingFlag,
       "createdAt": this.createdAt,
       "updatedAt": this.updatedAt,
     };
@@ -28,10 +31,11 @@ class Account {
 
   bool fromJson(LinkedHashMap<dynamic, dynamic> data) {
     if (data == null) return false;
-    this.uid = FirebaseAuth.instance.currentUser.uid;
+    this.uid = data["uid"];
     this.firstName = data["firstName"];
     this.lastName = data["lastName"];
     this.pictureUrl = data["pictureUrl"];
+    this.onboardingFlag = data["onboardingFlag"];
     this.createdAt = data["createdAt"];
     this.updatedAt = data["updatedAt"];
     return true;

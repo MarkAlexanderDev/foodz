@@ -31,6 +31,7 @@ class AuthService {
 
   Future<void> signOut() async {
     try {
+      await localStorage.eraseData();
       await _auth.signOut();
     } catch (e) {
       print(e);

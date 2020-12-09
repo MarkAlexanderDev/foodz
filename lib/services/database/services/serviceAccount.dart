@@ -11,8 +11,14 @@ class ServiceAccount {
   }
 
   create(Account account) async {
-    var id = databaseReference.child(endpointAccount + "/" + account.uid);
+    var id = get().child(account.uid);
     await id.set(account.toMap());
+    return id;
+  }
+
+  update(Account account) async {
+    var id = get().child(account.uid);
+    await id.update(account.toMap());
     return id;
   }
 
@@ -29,9 +35,21 @@ class ServiceAccount {
     return map;
   }
 
-  isExist(uid) async {
+  exist(uid) async {
     final DataSnapshot snap = await get().child(uid).once();
     if (snap.value == null) return false;
     return true;
   }
+}
+
+Account fromMapToAccount(Map mapAccount) {
+  Account account = new Account();
+  account.uid = mapAccount["uid"];
+  account.firstName = mapAccount["firstName"];
+  account.lastName = mapAccount["lastName"];
+  account.onboardingFlag = mapAccount["onboardingFlag"];
+  account.pictureUrl = mapAccount["pictureUrl"];
+  account.createdAt = mapAccount["createdAt"];
+  account.updatedAt = mapAccount["updatedAt"];
+  return account;
 }
