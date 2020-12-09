@@ -5,11 +5,14 @@ import 'package:EasyGroceries/screens/redirections.dart';
 import 'package:EasyGroceries/style/colors.dart';
 import 'package:EasyGroceries/urls.dart';
 import 'package:device_preview/device_preview.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   if (EnvironmentConfig.ENABLE_DEVICE_PREVEW)
     runApp(MaterialApp(
         home: DevicePreview(builder: (context) => Scaffold(body: MyApp()))));
