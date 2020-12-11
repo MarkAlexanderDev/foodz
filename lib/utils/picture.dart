@@ -1,4 +1,10 @@
+import 'dart:io';
+
+import 'package:EasyGroceries/screens/profile/ProfileStates.dart';
+import 'package:EasyGroceries/services/database/database.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
 Future<String> getImage(context, bool hasUserProfilePicture) async {
@@ -43,5 +49,26 @@ Future<String> getImage(context, bool hasUserProfilePicture) async {
           ),
         );
       });
-  return imagePath;
+  if (imagePath.isEmpty) return imagePath;
+  return uploadPictureFromLocalStorage(imagePath, "/images");
+}
+
+Future<String> uploadPictureFromLocalStorage(
+    String pictureLocalStorageUrl, String storageRef) async {
+  final ProfileStates profileStates = Get.put(ProfileStates());
+  profileStates.setLoading(true);
+  if (pictureLocalStorageUrl == "") return "";
+  final reference = firebaseStorage
+      .ref()
+      .child(storageRef + getImgNameFromPath(pictureLocalStorageUrl));
+  final UploadTask uploadTask =
+      reference.putFile(new File(pictureLocalStorageUrl));
+  final snapshot = await uploadTask;
+  final String url = await snapshot.ref.getDownloadURL();
+  profileStates.setLoading(false);
+  return url;
+}
+
+String getImgNameFromPath(String imgPath) {
+  return (imgPath.substring(imgPath.lastIndexOf("/"), imgPath.length));
 }

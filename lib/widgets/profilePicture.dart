@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:EasyGroceries/style/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -41,7 +39,7 @@ class ProfilePicture extends StatelessWidget {
                         border: Border.all(color: mainColor, width: 2),
                         shape: BoxShape.circle,
                         image: new DecorationImage(
-                          image: FileImage(new File(pictureUrl)),
+                          image: NetworkImage(pictureUrl),
                           fit: BoxFit.cover,
                         ),
                       ),
