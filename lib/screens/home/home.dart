@@ -1,7 +1,6 @@
+import 'package:EasyGroceries/screens/appStates.dart';
 import 'package:EasyGroceries/screens/consts.dart';
 import 'package:EasyGroceries/screens/home/contextualArea/contextualArea.dart';
-import 'package:EasyGroceries/screens/home/homeStates.dart';
-import 'package:EasyGroceries/screens/profile/profileStates.dart';
 import 'package:EasyGroceries/style/textStyle.dart';
 import 'package:EasyGroceries/urls.dart';
 import 'package:EasyGroceries/widgets/profilePicture.dart';
@@ -16,12 +15,10 @@ class Home extends StatefulWidget {
 }
 
 class _Home extends State<Home> {
-  final HomeStates homeStates = Get.put(HomeStates());
-  final ProfileStates profileStates = Get.put(ProfileStates());
+  final AppStates appStates = Get.put(AppStates());
 
   @override
   void initState() {
-    homeStates.getData();
     super.initState();
   }
 
@@ -60,7 +57,7 @@ class _Home extends State<Home> {
               child: ProfilePicture(
                 height: 100,
                 width: 100,
-                pictureUrl: profileStates.pictureUrl.value,
+                pictureUrl: appStates.currentAccount["pictureUrl"],
                 editMode: false,
               ),
             ),
@@ -68,7 +65,8 @@ class _Home extends State<Home> {
           Flexible(flex: 1, child: Container()),
           Flexible(
               flex: 1,
-              child: AutoSizeText("Hey there " + homeStates.name.value + "! ✌️",
+              child: AutoSizeText(
+                  "Hey there " + appStates.currentAccount["firstName"] + "! ✌️",
                   style: textStyleH1))
         ],
       ),
@@ -86,8 +84,9 @@ class _Home extends State<Home> {
           width: appWidth,
           decoration: BoxDecoration(
               image: DecorationImage(
-                fit: BoxFit.fill,
-                  colorFilter: ColorFilter.mode(Colors.black.withOpacity(0.50), BlendMode.darken),
+                  fit: BoxFit.fill,
+                  colorFilter: ColorFilter.mode(
+                      Colors.black.withOpacity(0.50), BlendMode.darken),
                   image: AssetImage("assets/images/grocery.png"))),
           child: Padding(
             padding: const EdgeInsets.all(8.0),

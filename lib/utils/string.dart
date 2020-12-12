@@ -10,5 +10,5 @@ String fullNameToLastName(String fullName) {
 
 String firstNameAndLastNameToFullName(String firstName, String lastName) {
   if (lastName == "") return firstName;
-  return firstName + lastName;
+  return firstName + " " + lastName;
 }
