@@ -1,24 +1,16 @@
 import 'package:EasyGroceries/style/colors.dart';
+import 'package:EasyGroceries/style/textStyle.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tags/flutter_tags.dart';
 
-class SelectableTags extends StatefulWidget {
+class SelectableTags extends StatelessWidget {
   final List tagTitles;
-  SelectableTags(this.tagTitles);
+  final List<ItemTags> _items = List<ItemTags>();
+  final GlobalKey<TagsState> _tagStateKey = GlobalKey<TagsState>();
 
-  @override
-  _SelectableTagsState createState() => _SelectableTagsState();
-}
-
-class _SelectableTagsState extends State<SelectableTags> {
-  List<ItemTags> _items = List<ItemTags>();
-
-  @override
-  void initState() {
-    super.initState();
-
-    for (var i = 0; i < widget.tagTitles.length; i++)
-      _items.add(new ItemTags(index: i, title: widget.tagTitles[i]));
+  SelectableTags(this.tagTitles) {
+    for (var i = 0; i < tagTitles.length; i++)
+      _items.add(new ItemTags(index: i, title: tagTitles[i]));
   }
 
   @override
@@ -36,10 +28,7 @@ class _SelectableTagsState extends State<SelectableTags> {
           index: index,
           title: item.title,
           active: false,
-          textStyle: TextStyle(
-            fontSize: 14.0,
-            fontWeight: FontWeight.w400,
-          ),
+          textStyle: textStyleTags,
           padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
           textActiveColor: Colors.black,
           activeColor: mainColor,
@@ -50,10 +39,8 @@ class _SelectableTagsState extends State<SelectableTags> {
     );
   }
 
-  final GlobalKey<TagsState> _tagStateKey = GlobalKey<TagsState>();
-  // Allows to get all the active ItemTags
-  _getAllItem() {
-    List<Item> list = _tagStateKey.currentState?.getAllItem;
+  _getSelectedTags() {
+    final List<Item> list = _tagStateKey.currentState?.getAllItem;
     if (list != null)
       list.where((a) => a.active == true).forEach((a) => print(a.title));
   }

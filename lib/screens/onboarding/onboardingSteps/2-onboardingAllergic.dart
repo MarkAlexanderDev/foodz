@@ -12,7 +12,7 @@ class OnboardingAllergic extends StatelessWidget {
       children: [
         Lottie.asset('assets/lotties/vr-sickness.json'),
         AutoSizeText(
-          "Any food allergies?", //Any foods that you are allergic to?
+          "Any food allergies?",
           style: textStyleH1,
         ),
         Expanded(
