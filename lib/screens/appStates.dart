@@ -16,8 +16,7 @@ class AppStates extends GetxController {
       Account account =
           await API.account.getFromUid(FirebaseAuth.instance.currentUser.uid);
       currentAccount.addAll(account.toMap());
-      // onboardingStates.setOnboardingStep(account.onboardingFlag);
-      onboardingStates.setOnboardingStep(1);
+      onboardingStates.setOnboardingStep(account.onboardingFlag);
     }
     return true;
   }
