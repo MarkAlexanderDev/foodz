@@ -68,4 +68,4 @@ const TextStyle textStyleSkip = TextStyle(
 const TextStyle textStyleTags = TextStyle(
   fontSize: 14.0,
   fontWeight: FontWeight.w400,
-)
+);
