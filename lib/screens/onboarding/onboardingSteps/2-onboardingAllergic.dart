@@ -8,27 +8,29 @@ import 'package:lottie/lottie.dart';
 class OnboardingAllergic extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return ListView(
       children: [
         Lottie.asset('assets/lotties/vr-sickness.json'),
-        AutoSizeText(
-          "Any food allergies?",
-          style: textStyleH1,
-        ),
-        Expanded(
-          child: Container(
-            padding: EdgeInsets.only(left: 12.0, right: 12.0),
-            child: SelectableTags([
-              "Milk",
-              "Eggs",
-              "Peanuts",
-              "Tree nuts",
-              "Soy",
-              "Wheat",
-              "Fish",
-              "Shellfish"
-            ]),
+        Container(
+          padding: EdgeInsets.symmetric(horizontal: 24.0),
+          child: AutoSizeText(
+            "Any food allergies?",
+            style: textStyleH1,
+            textAlign: TextAlign.center,
           ),
+        ),
+        Container(
+          padding: EdgeInsets.all(24.0),
+          child: SelectableTags([
+            "Milk",
+            "Eggs",
+            "Peanuts",
+            "Tree nuts",
+            "Soy",
+            "Wheat",
+            "Fish",
+            "Shellfish"
+          ]),
         ),
       ],
     );
