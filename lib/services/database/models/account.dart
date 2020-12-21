@@ -2,6 +2,7 @@ import 'dart:collection';
 import 'dart:convert';
 import 'dart:core';
 
+import 'package:EasyGroceries/screens/consts.dart';
 import 'package:EasyGroceries/screens/onboarding/onboarding.dart';
 
 class Account {
@@ -9,7 +10,7 @@ class Account {
   String firstName;
   String lastName;
   String pictureUrl;
-  int cookingExperience = 0;
+  int cookingExperience = COOKING_EXPERIENCE_ID_BEGINNER;
   int peopleNumber = 2;
   int onboardingFlag = ONBOARDING_STEP_ID_ALLERGIC;
   String createdAt = ".";

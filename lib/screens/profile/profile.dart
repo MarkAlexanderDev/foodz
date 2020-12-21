@@ -1,4 +1,6 @@
+import 'package:EasyGroceries/screens/consts.dart';
 import 'package:EasyGroceries/screens/profile/ProfileStates.dart';
+import 'package:EasyGroceries/style/colors.dart';
 import 'package:EasyGroceries/style/inputs.dart';
 import 'package:EasyGroceries/style/textStyle.dart';
 import 'package:EasyGroceries/urls.dart';
@@ -31,48 +33,89 @@ class _Profile extends State<Profile> {
     return Obx(() => !profileStates.loading.value
         ? Scaffold(
             body: Padding(
-              padding: const EdgeInsets.all(50.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Center(
-                    child: AutoSizeText(
-                      "MY PROFILE",
-                      style: textStyleH1,
+              padding: const EdgeInsets.all(40.0),
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Center(
+                      child: AutoSizeText(
+                        "MY PROFILE",
+                        style: textStyleH1,
+                      ),
                     ),
-                  ),
-                  Container(height: 20),
-                  GestureDetector(
-                      onTap: () async {
-                        profileStates.setPictureUrl(await getImage(context,
-                            !profileStates.pictureUrl.value.isNullOrBlank));
-                      },
-                      child: Obx(() => ProfilePicture(
-                            height: 100,
-                            width: 100,
-                            pictureUrl: profileStates.pictureUrl.value,
-                            editMode: true,
-                            onEdit: () async {
-                              profileStates.setPictureUrl(await getImage(
-                                  context,
-                                  !profileStates
-                                      .pictureUrl.value.isNullOrBlank));
-                            },
-                          ))),
-                  Container(height: 20),
-                  TextFormField(
-                    autocorrect: false,
-                    keyboardType: TextInputType.visiblePassword,
-                    style: textStyleH1,
-                    decoration: getStandardInputDecoration("name", ""),
-                    initialValue: profileStates.name.value,
-                    onChanged: (value) {
-                      profileStates.setName(value);
-                    },
-                  ),
-                  Container(height: 20),
-                ],
+                    Container(height: 20),
+                    GestureDetector(
+                        onTap: () async {
+                          profileStates.setPictureUrl(await getImage(context,
+                              !profileStates.pictureUrl.value.isNullOrBlank));
+                        },
+                        child: Obx(() => ProfilePicture(
+                              height: 100,
+                              width: 100,
+                              pictureUrl: profileStates.pictureUrl.value,
+                              editMode: true,
+                              onEdit: () async {
+                                profileStates.setPictureUrl(await getImage(
+                                    context,
+                                    !profileStates
+                                        .pictureUrl.value.isNullOrBlank));
+                              },
+                            ))),
+                    Container(height: 20),
+                    Container(
+                      width: appWidth / 2,
+                      child: TextFormField(
+                        autocorrect: false,
+                        keyboardType: TextInputType.visiblePassword,
+                        style: textStyleH1,
+                        textAlign: TextAlign.center,
+                        decoration: getStandardInputDecoration("name", ""),
+                        initialValue: profileStates.name.value,
+                        onChanged: (value) {
+                          profileStates.setName(value);
+                        },
+                      ),
+                    ),
+                    Container(height: 20),
+                    Row(
+                      children: [
+                        Icon(Icons.local_fire_department, color: mainColor),
+                        AutoSizeText(
+                          "My cooking experience",
+                          style: textStyleH2GreenUnderline,
+                        ),
+                      ],
+                    ),
+                    Container(height: 10),
+                    Obx(() => DropdownButton<String>(
+                          value: profileStates.getCookingExperienceConverted(
+                              profileStates.cookingExperience.value),
+                          icon: Icon(Icons.keyboard_arrow_down_rounded),
+                          iconSize: 24,
+                          elevation: 16,
+                          style: new TextStyle(
+                            color: Colors.black,
+                          ),
+                          underline: Container(
+                            height: 1,
+                            color: Colors.black,
+                          ),
+                          onChanged: (String value) {
+                            profileStates.setCookingExperience(
+                                COOKING_EXPERIENCE_IDS.indexOf(value));
+                          },
+                          items: COOKING_EXPERIENCE_IDS
+                              .map<DropdownMenuItem<String>>((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: AutoSizeText(value, style: textStyleH2),
+                            );
+                          }).toList(),
+                        )),
+                  ],
+                ),
               ),
             ),
             bottomNavigationBar: ConfirmButton(

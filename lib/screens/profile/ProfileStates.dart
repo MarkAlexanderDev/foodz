@@ -44,11 +44,12 @@ class ProfileStates extends GetxController {
     peopleNumber.value = int.parse(value);
   }
 
-  void setCookingExperience(String value) {
-    cookingExperience.value = COOKING_EXPERIENCE_IDS.indexOf(value);
+  void setCookingExperience(int value) {
+    cookingExperience.value = value;
   }
 
   getCookingExperienceConverted(int value) {
+    print(value);
     return COOKING_EXPERIENCE_IDS[value];
   }
 

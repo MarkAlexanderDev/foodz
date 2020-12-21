@@ -27,6 +27,10 @@ class _OnboardingProfile extends State<OnboardingProfile> {
         appStates.currentAccount["firstName"],
         appStates.currentAccount["lastName"]));
     profileStates.setPictureUrl(appStates.currentAccount["pictureUrl"]);
+    profileStates
+        .setPeopleNumber(appStates.currentAccount["peopleNumber"].toString());
+    profileStates
+        .setCookingExperience(appStates.currentAccount["cookingExperience"]);
     super.initState();
   }
 
@@ -117,9 +121,7 @@ class _OnboardingProfile extends State<OnboardingProfile> {
             Container(height: appHeight * 0.025),
             Obx(() => DropdownButton<String>(
                   value: profileStates.getCookingExperienceConverted(
-                      profileStates.cookingExperience.value == -1
-                          ? appStates.currentAccount["cookingExperience"]
-                          : profileStates.cookingExperience.value),
+                      profileStates.cookingExperience.value),
                   icon: Icon(Icons.keyboard_arrow_down_rounded),
                   iconSize: 24,
                   elevation: 16,
@@ -131,7 +133,8 @@ class _OnboardingProfile extends State<OnboardingProfile> {
                     color: Colors.black,
                   ),
                   onChanged: (String value) {
-                    profileStates.setCookingExperience(value);
+                    profileStates.setCookingExperience(
+                        COOKING_EXPERIENCE_IDS.indexOf(value));
                   },
                   items: COOKING_EXPERIENCE_IDS
                       .map<DropdownMenuItem<String>>((String value) {
