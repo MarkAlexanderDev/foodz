@@ -27,8 +27,7 @@ class _OnboardingProfile extends State<OnboardingProfile> {
         appStates.currentAccount["firstName"],
         appStates.currentAccount["lastName"]));
     profileStates.setPictureUrl(appStates.currentAccount["pictureUrl"]);
-    profileStates
-        .setPeopleNumber(appStates.currentAccount["peopleNumber"].toString());
+    profileStates.setPeopleNumber(appStates.currentAccount["peopleNumber"]);
     profileStates
         .setCookingExperience(appStates.currentAccount["cookingExperience"]);
     super.initState();
@@ -103,7 +102,7 @@ class _OnboardingProfile extends State<OnboardingProfile> {
                       : profileStates.peopleNumber.value)
                   .toString(),
               onChanged: (value) {
-                profileStates.setPeopleNumber(value);
+                profileStates.setPeopleNumber(int.parse(value));
               },
             ),
             Container(

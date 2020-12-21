@@ -8,6 +8,7 @@ import 'package:EasyGroceries/utils/picture.dart';
 import 'package:EasyGroceries/widgets/button.dart';
 import 'package:EasyGroceries/widgets/loading.dart';
 import 'package:EasyGroceries/widgets/profilePicture.dart';
+import 'package:EasyGroceries/widgets/selectable_tags.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -83,7 +84,7 @@ class _Profile extends State<Profile> {
                       children: [
                         Icon(Icons.local_fire_department, color: mainColor),
                         AutoSizeText(
-                          "My cooking experience",
+                          "MY COOKING EXPERIENCE",
                           style: textStyleH2GreenUnderline,
                         ),
                       ],
@@ -114,11 +115,65 @@ class _Profile extends State<Profile> {
                             );
                           }).toList(),
                         )),
+                    Container(height: 20),
+                    Row(
+                      children: [
+                        Icon(Icons.clear, color: mainColor),
+                        AutoSizeText(
+                          "MY FORBIDDEN FOOD",
+                          style: textStyleH2GreenUnderline,
+                        ),
+                      ],
+                    ),
+                    Container(height: 10),
+                    Container(
+                      padding: EdgeInsets.all(24.0),
+                      child: SelectableTags(
+                        tagStates:
+                            profileStates.onboardingAllergicStates.tagsStates,
+                        onClickTag: (tag) {
+                          profileStates.onboardingAllergicStates
+                              .setTag(tag.index, tag.active);
+                        },
+                      ),
+                    ),
+                    Container(height: 20),
+                    Row(
+                      children: [
+                        Icon(Icons.fastfood_rounded, color: mainColor),
+                        AutoSizeText(
+                          "MY FAVORITE CUISINE",
+                          style: textStyleH2GreenUnderline,
+                        ),
+                      ],
+                    ),
+                    Container(height: 10),
+                    Container(
+                      padding: EdgeInsets.all(24.0),
+                      child: SelectableTags(
+                        tagStates: profileStates
+                            .onboardingFavoriteFoodStates.tagsStates,
+                        onClickTag: (tag) {
+                          profileStates.onboardingFavoriteFoodStates
+                              .setTag(tag.index, tag.active);
+                        },
+                      ),
+                    ),
+                    Container(height: 20),
+                    Container(
+                      width: appWidth,
+                      height: 25,
+                      child: AutoSizeText("SUGGEST A FEATURE",
+                          style: textStyleH1Green),
+                    ),
+                    Container(height: 20),
                   ],
                 ),
               ),
             ),
-            bottomNavigationBar: ConfirmButton(
+            floatingActionButtonLocation:
+                FloatingActionButtonLocation.centerFloat,
+            floatingActionButton: ConfirmButton(
               onClick: () async {
                 await profileStates.saveData();
                 Get.toNamed(URL_HOME);
