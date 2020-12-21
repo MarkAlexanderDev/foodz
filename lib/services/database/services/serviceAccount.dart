@@ -47,6 +47,8 @@ Account fromMapToAccount(Map mapAccount) {
   account.uid = mapAccount["uid"];
   account.firstName = mapAccount["firstName"];
   account.lastName = mapAccount["lastName"];
+  account.cookingExperience = mapAccount["cookingExperience"];
+  account.peopleNumber = mapAccount["peopleNumber"];
   account.onboardingFlag = mapAccount["onboardingFlag"];
   account.pictureUrl = mapAccount["pictureUrl"];
   account.createdAt = mapAccount["createdAt"];

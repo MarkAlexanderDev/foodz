@@ -1,54 +1,149 @@
 import 'package:EasyGroceries/screens/appStates.dart';
-import 'package:EasyGroceries/services/database/database.dart';
-import 'package:EasyGroceries/services/database/services/serviceAccount.dart';
+import 'package:EasyGroceries/screens/consts.dart';
+import 'package:EasyGroceries/screens/profile/ProfileStates.dart';
+import 'package:EasyGroceries/style/inputs.dart';
 import 'package:EasyGroceries/style/textStyle.dart';
+import 'package:EasyGroceries/utils/picture.dart';
+import 'package:EasyGroceries/utils/string.dart';
+import 'package:EasyGroceries/widgets/profilePicture.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
-class OnboardingProfile extends StatelessWidget {
+class OnboardingProfile extends StatefulWidget {
+  @override
+  _OnboardingProfile createState() => _OnboardingProfile();
+}
+
+class _OnboardingProfile extends State<OnboardingProfile> {
   final AppStates appStates = Get.put(AppStates());
+  final ProfileStates profileStates = Get.put(ProfileStates());
+
+  @override
+  void initState() {
+    profileStates.setName(firstNameAndLastNameToFullName(
+        appStates.currentAccount["firstName"],
+        appStates.currentAccount["lastName"]));
+    profileStates.setPictureUrl(appStates.currentAccount["pictureUrl"]);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Expanded(
-            child: Center(
-              child: Text("profile"),
-            ),
-            flex: 20),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.all(40.0),
+        child: Column(
           children: [
-            Flexible(flex: 2, child: Container()),
-            Flexible(
-                flex: 1,
-                child: Center(
-                  child: GestureDetector(
-                    onTap: () async {
-                      await _nextOnboardingStep();
+            GestureDetector(
+              onTap: () async {
+                profileStates.setPictureUrl(await getImage(
+                    context, !profileStates.pictureUrl.value.isNullOrBlank));
+              },
+              child: Obx(() => ProfilePicture(
+                    pictureUrl: profileStates.pictureUrl.value,
+                    editMode: true,
+                    height: 100,
+                    width: 100,
+                    onEdit: () async {
+                      profileStates.setPictureUrl(await getImage(context,
+                          !profileStates.pictureUrl.value.isNullOrBlank));
                     },
-                    child: AutoSizeText(
-                      "Finish",
-                      style: textStyleNext,
-                    ),
+                  )),
+            ),
+            Container(
+              width: appWidth,
+              height: appHeight * 0.1,
+              child: Align(
+                alignment: AlignmentDirectional.bottomCenter,
+                child: AutoSizeText(
+                  "How should we call you?",
+                  style: textStyleH2,
+                ),
+              ),
+            ),
+            TextFormField(
+              autocorrect: false,
+              keyboardType: TextInputType.visiblePassword,
+              textAlign: TextAlign.center,
+              style: textStyleH2,
+              decoration: getStandardInputDecoration("", ""),
+              initialValue: profileStates.name.value,
+              onChanged: (value) {
+                profileStates.setName(value);
+              },
+            ),
+            Container(
+              width: appWidth,
+              height: appHeight * 0.1,
+              child: Align(
+                alignment: AlignmentDirectional.bottomCenter,
+                child: AutoSizeText(
+                  "How many people are living with you ?",
+                  style: textStyleH2,
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ),
+            TextFormField(
+              autocorrect: false,
+              keyboardType: TextInputType.visiblePassword,
+              style: textStyleH2,
+              textAlign: TextAlign.center,
+              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+              decoration: getStandardInputDecoration("", ""),
+              initialValue: (profileStates.peopleNumber.value == -1
+                      ? appStates.currentAccount["peopleNumber"]
+                      : profileStates.peopleNumber.value)
+                  .toString(),
+              onChanged: (value) {
+                profileStates.setPeopleNumber(value);
+              },
+            ),
+            Container(
+              width: appWidth,
+              height: appHeight * 0.1,
+              child: Align(
+                alignment: AlignmentDirectional.bottomCenter,
+                child: AutoSizeText(
+                  "What is your cooking experience ?",
+                  style: textStyleH2,
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ),
+            Container(height: appHeight * 0.025),
+            Obx(() => DropdownButton<String>(
+                  value: profileStates.getCookingExperienceConverted(
+                      profileStates.cookingExperience.value == -1
+                          ? appStates.currentAccount["cookingExperience"]
+                          : profileStates.cookingExperience.value),
+                  icon: Icon(Icons.keyboard_arrow_down_rounded),
+                  iconSize: 24,
+                  elevation: 16,
+                  style: new TextStyle(
+                    color: Colors.black,
                   ),
+                  underline: Container(
+                    height: 1,
+                    color: Colors.black,
+                  ),
+                  onChanged: (String value) {
+                    profileStates.setCookingExperience(value);
+                  },
+                  items: COOKING_EXPERIENCE_IDS
+                      .map<DropdownMenuItem<String>>((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: AutoSizeText(value, style: textStyleH2),
+                    );
+                  }).toList(),
                 )),
           ],
         ),
-        Expanded(child: Container()),
-      ],
+      ),
     );
-  }
-
-  _nextOnboardingStep() async {
-    appStates.setLoading(true);
-    appStates.currentAccount["onboardingFlag"] =
-        appStates.currentAccount["onboardingFlag"] + 1;
-    await API.account.update(fromMapToAccount(appStates.currentAccount));
-    appStates.setLoading(false);
   }
 }
