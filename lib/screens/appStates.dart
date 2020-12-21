@@ -1,4 +1,3 @@
-import 'package:EasyGroceries/screens/onboarding/onboardingStates.dart';
 import 'package:EasyGroceries/services/database/database.dart';
 import 'package:EasyGroceries/services/database/models/account.dart';
 import 'package:EasyGroceries/services/localStorage/localStorage.dart';
@@ -8,7 +7,6 @@ import 'package:get/get.dart';
 
 class AppStates extends GetxController {
   static AppStates get to => Get.find();
-  final OnboardingStates onboardingStates = Get.put(OnboardingStates());
 
   Future<bool> getData() async {
     await localStorage.init();
@@ -16,7 +14,6 @@ class AppStates extends GetxController {
       Account account =
           await API.account.getFromUid(FirebaseAuth.instance.currentUser.uid);
       currentAccount.addAll(account.toMap());
-      onboardingStates.setOnboardingStep(account.onboardingFlag);
     }
     return true;
   }

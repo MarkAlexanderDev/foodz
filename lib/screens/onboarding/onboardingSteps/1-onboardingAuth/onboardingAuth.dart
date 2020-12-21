@@ -1,6 +1,5 @@
 import 'package:EasyGroceries/screens/appStates.dart';
 import 'package:EasyGroceries/screens/onboarding/onboarding.dart';
-import 'package:EasyGroceries/screens/onboarding/onboardingStates.dart';
 import 'package:EasyGroceries/services/auth.dart';
 import 'package:EasyGroceries/services/database/database.dart';
 import 'package:EasyGroceries/services/database/models/account.dart';
@@ -12,7 +11,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class OnboardingAuth extends StatelessWidget {
-  final OnboardingStates onboardingStates = Get.put(OnboardingStates());
   final AppStates appStates = Get.put(AppStates());
 
   @override
@@ -35,19 +33,22 @@ class OnboardingAuth extends StatelessWidget {
       if (await API.account.exist(FirebaseAuth.instance.currentUser.uid)) {
         Account account =
             await API.account.getFromUid(FirebaseAuth.instance.currentUser.uid);
+        if (account.onboardingFlag == ONBOARDING_STEP_ID_AUTH) {
+          account.onboardingFlag = ONBOARDING_STEP_ID_ALLERGIC;
+          await API.account.update(account);
+        }
         appStates.setCurrentAccount(account);
-        onboardingStates.setOnboardingStep(account.onboardingFlag);
       } else {
         Account account = new Account();
         account.uid = FirebaseAuth.instance.currentUser.uid;
         account.firstName = fullNameToFirstName(firebaseUser.displayName);
         account.lastName = fullNameToLastName(firebaseUser.displayName);
         account.pictureUrl = firebaseUser.photoURL;
+        account.onboardingFlag = ONBOARDING_STEP_ID_ALLERGIC;
         account.createdAt = DateTime.now().toUtc().toString();
         account.updatedAt = DateTime.now().toUtc().toString();
         await API.account.create(account);
         appStates.setCurrentAccount(account);
-        onboardingStates.setOnboardingStep(ONBOARDING_STEP_ID_ALLERGIC);
       }
       appStates.setLoading(false);
     }
