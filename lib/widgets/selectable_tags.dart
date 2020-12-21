@@ -4,13 +4,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_tags/flutter_tags.dart';
 
 class SelectableTags extends StatelessWidget {
-  final List tagTitles;
   final List<ItemTags> _items = List<ItemTags>();
   final GlobalKey<TagsState> _tagStateKey = GlobalKey<TagsState>();
+  final onClickTag;
+  final tagStates;
 
-  SelectableTags(this.tagTitles) {
-    for (var i = 0; i < tagTitles.length; i++)
-      _items.add(new ItemTags(index: i, title: tagTitles[i]));
+  SelectableTags({@required this.onClickTag, this.tagStates}) {
+    for (var i = 0; i < tagStates.length; i++)
+      _items.add(new ItemTags(
+        index: i,
+        title: tagStates[i]["title"],
+        active: tagStates[i]["active"],
+      ));
   }
 
   @override
@@ -22,26 +27,19 @@ class SelectableTags extends StatelessWidget {
       runSpacing: 16.0,
       itemBuilder: (int index) {
         final item = _items[index];
-
         return ItemTags(
           key: Key(index.toString()),
           index: index,
           title: item.title,
-          active: false,
+          active: _items[index].active,
           textStyle: textStyleTags,
           padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
           textActiveColor: Colors.black,
           activeColor: mainColor,
           splashColor: mainColor,
-          onPressed: (item) => print(item),
+          onPressed: (tag) => onClickTag(tag),
         );
       },
     );
-  }
-
-  _getSelectedTags() {
-    final List<Item> list = _tagStateKey.currentState?.getAllItem;
-    if (list != null)
-      list.where((a) => a.active == true).forEach((a) => print(a.title));
   }
 }
