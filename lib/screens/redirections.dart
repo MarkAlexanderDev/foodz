@@ -41,6 +41,7 @@ class _Redirections extends State<Redirections> {
   _initApp(context) {
     appHeight = MediaQuery.of(context).size.height;
     appWidth = MediaQuery.of(context).size.width;
+    appViewInsetsBottom = MediaQuery.of(context).viewInsets.bottom;
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,

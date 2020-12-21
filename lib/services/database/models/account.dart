@@ -9,6 +9,8 @@ class Account {
   String firstName;
   String lastName;
   String pictureUrl;
+  int cookingExperience = 0;
+  int peopleNumber = 2;
   int onboardingFlag = ONBOARDING_STEP_ID_ALLERGIC;
   String createdAt = ".";
   String updatedAt = ".";
@@ -19,6 +21,8 @@ class Account {
       "firstName": this.firstName,
       "lastName": this.lastName,
       "pictureUrl": this.pictureUrl,
+      "cookingExperience": this.cookingExperience,
+      "peopleNumber": this.peopleNumber,
       "onboardingFlag": this.onboardingFlag,
       "createdAt": this.createdAt,
       "updatedAt": this.updatedAt,
@@ -35,6 +39,8 @@ class Account {
     this.firstName = data["firstName"];
     this.lastName = data["lastName"];
     this.pictureUrl = data["pictureUrl"];
+    this.cookingExperience = data["cookingExperience"];
+    this.peopleNumber = data["peopleNumber"];
     this.onboardingFlag = data["onboardingFlag"];
     this.createdAt = data["createdAt"];
     this.updatedAt = data["updatedAt"];
