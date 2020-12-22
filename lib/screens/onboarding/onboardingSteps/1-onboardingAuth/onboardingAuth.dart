@@ -1,4 +1,5 @@
 import 'package:EasyGroceries/screens/appStates.dart';
+import 'package:EasyGroceries/screens/consts.dart';
 import 'package:EasyGroceries/screens/onboarding/onboarding.dart';
 import 'package:EasyGroceries/services/auth.dart';
 import 'package:EasyGroceries/services/database/database.dart';
@@ -45,6 +46,8 @@ class OnboardingAuth extends StatelessWidget {
         account.lastName = fullNameToLastName(firebaseUser.displayName);
         account.pictureUrl = firebaseUser.photoURL;
         account.onboardingFlag = ONBOARDING_STEP_ID_ALLERGIC;
+        account.peopleNumber = 2;
+        account.cookingExperience = COOKING_EXPERIENCE_ID_BEGINNER;
         account.createdAt = DateTime.now().toUtc().toString();
         account.updatedAt = DateTime.now().toUtc().toString();
         await API.account.create(account);
