@@ -1,5 +1,5 @@
-import 'package:EasyGroceries/screens/consts.dart';
 import 'package:EasyGroceries/screens/home/contextual_area/contextual_area.dart';
+import 'package:EasyGroceries/screens/home/shopping_lists/shopping_lists.dart';
 import 'package:EasyGroceries/screens/states/app_states.dart';
 import 'package:EasyGroceries/style/text_style.dart';
 import 'package:EasyGroceries/urls.dart';
@@ -24,89 +24,45 @@ class _Home extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Flexible(
-          flex: 4,
-          fit: FlexFit.tight,
-          child: _getProfileSection(),
-        ),
-        Flexible(
-          flex: 4,
-          fit: FlexFit.tight,
-          child: ContextualArea(),
-        ),
-        Flexible(
-          flex: 5,
-          fit: FlexFit.tight,
-          child: _getShoppingListSection(),
-        )
-      ],
-    );
-  }
-
-  _getProfileSection() {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Flexible(
-            flex: 10,
-            child: GestureDetector(
-              onTap: () => Get.toNamed(URL_PROFILE),
-              child: ProfilePicture(
-                height: 100,
-                width: 100,
-                pictureUrl: appStates.currentAccount["pictureUrl"],
-                editMode: false,
-              ),
-            ),
-          ),
-          Flexible(flex: 1, child: Container()),
-          Flexible(
-              flex: 1,
-              child: AutoSizeText(
-                  "Hey there " + appStates.currentAccount["firstName"] + "! ✌️",
-                  style: textStyleH1))
-        ],
+    return Padding(
+      padding: const EdgeInsets.all(12.0),
+      child: ListView(
+        shrinkWrap: true,
+        children: [_getProfileSection(), ContextualArea(), ShoppingLists()],
       ),
     );
   }
 
-  _getShoppingListSection() {
-    return ListView(
-      physics: NeverScrollableScrollPhysics(),
-      children: [
-        AutoSizeText("MY SHOPPING LIST", style: textStyleH2BoldUnderLine),
-        Container(height: 25),
-        Container(
-          height: 125,
-          width: appWidth,
-          decoration: BoxDecoration(
-              image: DecorationImage(
-                  fit: BoxFit.fill,
-                  colorFilter: ColorFilter.mode(
-                      Colors.black.withOpacity(0.50), BlendMode.darken),
-                  image: AssetImage("assets/images/grocery.png"))),
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                AutoSizeText(
-                  "MONDAY’S GROCERY LIST",
-                  style: textStyleH1White,
+  _getProfileSection() {
+    return Container(
+      height: 200,
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Flexible(
+              flex: 10,
+              child: GestureDetector(
+                onTap: () => Get.toNamed(URL_PROFILE),
+                child: ProfilePicture(
+                  height: 100,
+                  width: 100,
+                  pictureUrl: appStates.currentAccount["pictureUrl"],
+                  editMode: false,
                 ),
-                AutoSizeText(
-                  "All my needs for the week !",
-                  style: textStyleH2White,
-                )
-              ],
+              ),
             ),
-          ),
-        )
-      ],
+            Flexible(flex: 1, child: Container()),
+            Flexible(
+                flex: 1,
+                child: AutoSizeText(
+                    "Hey there " +
+                        appStates.currentAccount["firstName"] +
+                        "! ✌️",
+                    style: textStyleH1))
+          ],
+        ),
+      ),
     );
   }
 }

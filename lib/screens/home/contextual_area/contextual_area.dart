@@ -29,8 +29,8 @@ class _ContextualArea extends State<ContextualArea> {
         builder: (BuildContext context, snapshot) {
           if (snapshot.hasData) {
             final List slides = snapshot.data;
-            return Padding(
-              padding: const EdgeInsets.all(8.0),
+            return Container(
+              height: 200,
               child: Swiper(
                 autoplay: true,
                 autoplayDelay: 10000,
