@@ -1,5 +1,7 @@
 import 'package:EasyGroceries/screens/consts.dart';
+import 'package:EasyGroceries/screens/onboarding/onboarding.dart';
 import 'package:EasyGroceries/screens/states/profile_states.dart';
+import 'package:EasyGroceries/services/auth.dart';
 import 'package:EasyGroceries/style/colors.dart';
 import 'package:EasyGroceries/style/inputs.dart';
 import 'package:EasyGroceries/style/text_style.dart';
@@ -80,15 +82,9 @@ class _Profile extends State<Profile> {
                       ),
                     ),
                     Container(height: 20),
-                    Row(
-                      children: [
-                        Icon(Icons.local_fire_department, color: mainColor),
-                        AutoSizeText(
-                          "MY COOKING EXPERIENCE",
-                          style: textStyleH2GreenUnderline,
-                        ),
-                      ],
-                    ),
+                    _ProfileTitle(
+                        icon: Icons.local_fire_department,
+                        text: "MY COOKING EXPERIENCE"),
                     Container(height: 10),
                     Obx(() => DropdownButton<String>(
                           value: profileStates.getCookingExperienceConverted(
@@ -116,15 +112,7 @@ class _Profile extends State<Profile> {
                           }).toList(),
                         )),
                     Container(height: 20),
-                    Row(
-                      children: [
-                        Icon(Icons.clear, color: mainColor),
-                        AutoSizeText(
-                          "MY FORBIDDEN FOOD",
-                          style: textStyleH2GreenUnderline,
-                        ),
-                      ],
-                    ),
+                    _ProfileTitle(icon: Icons.clear, text: "MY FORBIDDEN FOOD"),
                     Container(height: 10),
                     Container(
                       padding: EdgeInsets.all(24.0),
@@ -137,15 +125,9 @@ class _Profile extends State<Profile> {
                       ),
                     ),
                     Container(height: 20),
-                    Row(
-                      children: [
-                        Icon(Icons.fastfood_rounded, color: mainColor),
-                        AutoSizeText(
-                          "MY FAVORITE CUISINE",
-                          style: textStyleH2GreenUnderline,
-                        ),
-                      ],
-                    ),
+                    _ProfileTitle(
+                        icon: Icons.fastfood_rounded,
+                        text: "MY FAVORITE CUISINE"),
                     Container(height: 10),
                     Container(
                       padding: EdgeInsets.all(24.0),
@@ -158,44 +140,29 @@ class _Profile extends State<Profile> {
                       ),
                     ),
                     Container(height: 20),
-                    Container(
-                      width: appWidth,
-                      height: 50,
-                      decoration:
-                          BoxDecoration(border: Border.all(color: mainColor)),
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(
-                          children: [
-                            Icon(Icons.account_tree, color: mainColor),
-                            Container(width: 25),
-                            AutoSizeText("SUGGEST A FEATURE",
-                                style: textStyleH1Green),
-                          ],
-                        ),
-                      ),
+                    _ProfileButon(
+                      isFirst: true,
+                      icon: Icons.account_tree,
+                      text: "SUGGEST A FEATURE",
+                      onClick: () {},
                     ),
-                    Container(
-                      width: appWidth,
-                      height: 50,
-                      decoration: BoxDecoration(
-                          border: Border(
-                              left: BorderSide(color: mainColor),
-                              right: BorderSide(color: mainColor),
-                              bottom: BorderSide(color: mainColor))),
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(
-                          children: [
-                            Icon(Icons.bug_report, color: mainColor),
-                            Container(width: 25),
-                            AutoSizeText("REPORT A BUG",
-                                style: textStyleH1Green),
-                          ],
-                        ),
-                      ),
+                    _ProfileButon(
+                      icon: Icons.bug_report,
+                      text: "REPORT A BUG",
+                      onClick: () {},
                     ),
-                    Container(height: 100),
+                    _ProfileButon(
+                      icon: Icons.logout,
+                      text: "LOGOUT",
+                      onClick: () async {
+                        await authService.signOut();
+                        profileStates
+                                .appStates.currentAccount["onboardingFlag"] =
+                            ONBOARDING_STEP_ID_AUTH;
+                        Get.toNamed("/");
+                      },
+                    ),
+                    Container(height: 50),
                   ],
                 ),
               ),
@@ -209,5 +176,66 @@ class _Profile extends State<Profile> {
               },
             ))
         : Loading());
+  }
+}
+
+class _ProfileTitle extends StatelessWidget {
+  final IconData icon;
+  final String text;
+
+  _ProfileTitle({@required this.icon, this.text});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Icon(icon, color: mainColor),
+        AutoSizeText(
+          text,
+          style: textStyleH2GreenUnderline,
+        ),
+      ],
+    );
+  }
+}
+
+class _ProfileButon extends StatelessWidget {
+  final IconData icon;
+  final String text;
+  final Function onClick;
+  final bool isFirst;
+
+  _ProfileButon({this.isFirst, @required this.icon, this.text, this.onClick});
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () async {
+        await onClick();
+      },
+      child: Container(
+        width: appWidth,
+        height: 50,
+        decoration: BoxDecoration(
+            border: Border(
+                top: BorderSide(
+                    color: isFirst.isNull || !isFirst
+                        ? Colors.transparent
+                        : mainColor),
+                left: BorderSide(color: mainColor),
+                right: BorderSide(color: mainColor),
+                bottom: BorderSide(color: mainColor))),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            children: [
+              Icon(icon, color: mainColor),
+              Container(width: 25),
+              AutoSizeText(text, style: textStyleH1Green),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }
