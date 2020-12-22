@@ -3,8 +3,12 @@ import 'package:EasyGroceries/screens/home/home.dart';
 import 'package:EasyGroceries/screens/onboarding/onboarding.dart';
 import 'package:EasyGroceries/screens/recipes/recipes.dart';
 import 'package:EasyGroceries/screens/states/app_states.dart';
+import 'package:EasyGroceries/style/text_style.dart';
+import 'package:EasyGroceries/urls.dart';
 import 'package:EasyGroceries/widgets/bottom_navigation_bar.dart';
 import 'package:EasyGroceries/widgets/loading.dart';
+import 'package:EasyGroceries/widgets/profile_picture.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -65,6 +69,39 @@ class _Redirections extends State<Redirections> {
     else
       return Scaffold(
           body: appScreens[appStates.indexBar.value],
+          appBar: _getFoodzAppBar(),
           bottomNavigationBar: NavBar(sizeIcon: 25.0));
+  }
+
+  _getFoodzAppBar() {
+    return AppBar(
+        leading: Container(),
+        backgroundColor: Colors.transparent,
+        elevation: 0.0,
+        actions: [
+          Expanded(
+            child: Row(
+              children: [
+                Container(width: 20),
+                AutoSizeText(
+                  "Hey there " + appStates.currentAccount["firstName"] + "! ✌️",
+                  style: textStyleH1,
+                  textAlign: TextAlign.center,
+                ),
+                Expanded(child: Container()),
+                GestureDetector(
+                  onTap: () => Get.toNamed(URL_PROFILE),
+                  child: ProfilePicture(
+                    height: 50,
+                    width: 50,
+                    pictureUrl: appStates.currentAccount["pictureUrl"],
+                    editMode: false,
+                  ),
+                ),
+                Container(width: 20),
+              ],
+            ),
+          )
+        ]);
   }
 }

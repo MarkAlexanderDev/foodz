@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 const TextStyle textStyleH1 = TextStyle(
+  color: Colors.black,
   fontWeight: FontWeight.w300,
   fontSize: 22.0,
 );
