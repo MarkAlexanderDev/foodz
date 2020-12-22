@@ -162,11 +162,42 @@ class _Profile extends State<Profile> {
                     Container(height: 20),
                     Container(
                       width: appWidth,
-                      height: 25,
-                      child: AutoSizeText("SUGGEST A FEATURE",
-                          style: textStyleH1Green),
+                      height: 50,
+                      decoration:
+                          BoxDecoration(border: Border.all(color: mainColor)),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          children: [
+                            Icon(Icons.account_tree, color: mainColor),
+                            Container(width: 25),
+                            AutoSizeText("SUGGEST A FEATURE",
+                                style: textStyleH1Green),
+                          ],
+                        ),
+                      ),
                     ),
-                    Container(height: 20),
+                    Container(
+                      width: appWidth,
+                      height: 50,
+                      decoration: BoxDecoration(
+                          border: Border(
+                              left: BorderSide(color: mainColor),
+                              right: BorderSide(color: mainColor),
+                              bottom: BorderSide(color: mainColor))),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          children: [
+                            Icon(Icons.bug_report, color: mainColor),
+                            Container(width: 25),
+                            AutoSizeText("REPORT A BUG",
+                                style: textStyleH1Green),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Container(height: 100),
                   ],
                 ),
               ),
