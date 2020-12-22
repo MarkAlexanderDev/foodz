@@ -29,16 +29,10 @@ class NavBar extends StatelessWidget {
           onTap: (index) => {appStates.setIndexBar(index)},
           items: <BottomNavigationBarItem>[
             BottomNavigationBarItem(
-              icon: Padding(
-                  padding: const EdgeInsets.only(bottom: 5.0),
-                  child: Icon(Icons.home)),
-              label: "Home",
+              icon: Icon(Icons.home),
+              label: "",
             ),
-            BottomNavigationBarItem(
-                icon: Padding(
-                    padding: const EdgeInsets.only(bottom: 5.0),
-                    child: Icon(Icons.kitchen)),
-                label: "Recipe"),
+            BottomNavigationBarItem(icon: Icon(Icons.kitchen), label: ""),
           ],
         ));
   }

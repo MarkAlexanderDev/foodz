@@ -1,6 +1,6 @@
-import 'package:EasyGroceries/screens/states/app_states.dart';
 import 'package:EasyGroceries/screens/onboarding/onboarding.dart';
 import 'package:EasyGroceries/screens/states/allergic_states.dart';
+import 'package:EasyGroceries/screens/states/app_states.dart';
 import 'package:EasyGroceries/services/database/database.dart';
 import 'package:EasyGroceries/services/database/services/service_account.dart';
 import 'package:EasyGroceries/style/text_style.dart';
@@ -40,7 +40,7 @@ class _OnboardingAllergic extends State<OnboardingAllergic> {
                 Container(
                   padding: EdgeInsets.symmetric(horizontal: 24.0),
                   child: AutoSizeText(
-                    "Any food allergies?",
+                    "Do you have specific food that you do not eat or you are allergic of ?",
                     style: textStyleH1,
                     textAlign: TextAlign.center,
                   ),

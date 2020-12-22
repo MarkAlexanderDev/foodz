@@ -1,6 +1,7 @@
 import 'package:EasyGroceries/screens/consts.dart';
 import 'package:EasyGroceries/screens/home/home.dart';
 import 'package:EasyGroceries/screens/onboarding/onboarding.dart';
+import 'package:EasyGroceries/screens/recipes/recipes.dart';
 import 'package:EasyGroceries/screens/states/app_states.dart';
 import 'package:EasyGroceries/widgets/bottom_navigation_bar.dart';
 import 'package:EasyGroceries/widgets/loading.dart';
@@ -55,7 +56,7 @@ class _Redirections extends State<Redirections> {
   }
 
   _getPage(currentUser, loading) {
-    final List appScreens = [Home()];
+    final List appScreens = [Home(), Recipes()];
     if (loading)
       return Loading();
     else if (currentUser.isEmpty ||
