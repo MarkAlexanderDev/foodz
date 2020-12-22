@@ -1,5 +1,5 @@
 import 'package:EasyGroceries/style/colors.dart';
-import 'package:EasyGroceries/style/textStyle.dart';
+import 'package:EasyGroceries/style/text_style.dart';
 import 'package:flutter/material.dart';
 
 InputDecoration getStandardInputDecoration(labelText, hintText) {

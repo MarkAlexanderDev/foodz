@@ -1,7 +1,7 @@
 import 'dart:collection';
 
 import 'package:EasyGroceries/services/database/database.dart';
-import 'package:EasyGroceries/services/database/models/accountTag.dart';
+import 'package:EasyGroceries/services/database/models/account_tag.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 

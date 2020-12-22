@@ -1,8 +1,8 @@
-import 'package:EasyGroceries/screens/appStates.dart';
 import 'package:EasyGroceries/screens/consts.dart';
 import 'package:EasyGroceries/screens/home/home.dart';
 import 'package:EasyGroceries/screens/onboarding/onboarding.dart';
-import 'package:EasyGroceries/widgets/bottomNavigationBar.dart';
+import 'package:EasyGroceries/screens/states/app_states.dart';
+import 'package:EasyGroceries/widgets/bottom_navigation_bar.dart';
 import 'package:EasyGroceries/widgets/loading.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

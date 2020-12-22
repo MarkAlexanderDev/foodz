@@ -1,6 +1,6 @@
-import 'package:EasyGroceries/screens/home/contextualArea/CAcard.dart';
-import 'package:EasyGroceries/screens/home/contextualArea/contextualAreaStates.dart';
-import 'package:EasyGroceries/style/swiperPaginationStyle.dart';
+import 'package:EasyGroceries/screens/home/contextual_area/ca_card.dart';
+import 'package:EasyGroceries/screens/home/contextual_area/contextual_area_states.dart';
+import 'package:EasyGroceries/style/swiper_pagination_style.dart';
 import 'package:EasyGroceries/widgets/loading.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
@@ -46,8 +46,7 @@ class _ContextualArea extends State<ContextualArea> {
                 },
               ),
             );
-          }
-          else
+          } else
             return Loading();
         });
   }

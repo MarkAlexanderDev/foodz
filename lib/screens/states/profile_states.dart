@@ -1,9 +1,9 @@
-import 'package:EasyGroceries/screens/appStates.dart';
 import 'package:EasyGroceries/screens/consts.dart';
-import 'package:EasyGroceries/screens/onboarding/onboardingSteps/2-onboardingAllergic/onboardingAllergicStates.dart';
-import 'package:EasyGroceries/screens/onboarding/onboardingSteps/3-onboardingFavoriteFood/onboardingFavoriteFoodStates.dart';
+import 'package:EasyGroceries/screens/states/allergic_states.dart';
+import 'package:EasyGroceries/screens/states/app_states.dart';
+import 'package:EasyGroceries/screens/states/favorite_food_states.dart';
 import 'package:EasyGroceries/services/database/database.dart';
-import 'package:EasyGroceries/services/database/services/serviceAccount.dart';
+import 'package:EasyGroceries/services/database/services/service_account.dart';
 import 'package:EasyGroceries/utils/string.dart';
 import 'package:get/get.dart';
 
@@ -11,10 +11,8 @@ class ProfileStates extends GetxController {
   static ProfileStates get to => Get.find();
 
   final AppStates appStates = Get.put(AppStates());
-  final OnboardingAllergicStates onboardingAllergicStates =
-      Get.put(OnboardingAllergicStates());
-  final OnboardingFavoriteFoodStates onboardingFavoriteFoodStates =
-      Get.put(OnboardingFavoriteFoodStates());
+  final AllergicStates allergicStates = Get.put(AllergicStates());
+  final FavoriteFoodStates favoriteFoodStates = Get.put(FavoriteFoodStates());
 
   getData() {
     setName(firstNameAndLastNameToFullName(
@@ -23,8 +21,8 @@ class ProfileStates extends GetxController {
     setPictureUrl(appStates.currentAccount["pictureUrl"]);
     setCookingExperience(appStates.currentAccount["cookingExperience"]);
     setPeopleNumber(appStates.currentAccount["peopleNumber"]);
-    onboardingAllergicStates.initTags();
-    onboardingFavoriteFoodStates.initTags();
+    allergicStates.initTags();
+    favoriteFoodStates.initTags();
   }
 
   Future<void> saveData() async {
@@ -34,8 +32,8 @@ class ProfileStates extends GetxController {
     appStates.currentAccount["pictureUrl"] = pictureUrl.value;
     appStates.currentAccount["cookingExperience"] = cookingExperience.value;
     appStates.currentAccount["peopleNumber"] = peopleNumber.value;
-    await onboardingAllergicStates.pushTags();
-    await onboardingFavoriteFoodStates.pushTags();
+    await allergicStates.pushTags();
+    await favoriteFoodStates.pushTags();
     await API.account.update(fromMapToAccount(appStates.currentAccount));
     appStates.setLoading(false);
   }

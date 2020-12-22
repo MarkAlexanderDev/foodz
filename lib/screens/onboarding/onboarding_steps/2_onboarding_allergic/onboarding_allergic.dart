@@ -1,9 +1,9 @@
-import 'package:EasyGroceries/screens/appStates.dart';
+import 'package:EasyGroceries/screens/states/app_states.dart';
 import 'package:EasyGroceries/screens/onboarding/onboarding.dart';
-import 'package:EasyGroceries/screens/onboarding/onboardingSteps/2-onboardingAllergic/onboardingAllergicStates.dart';
+import 'package:EasyGroceries/screens/states/allergic_states.dart';
 import 'package:EasyGroceries/services/database/database.dart';
-import 'package:EasyGroceries/services/database/services/serviceAccount.dart';
-import 'package:EasyGroceries/style/textStyle.dart';
+import 'package:EasyGroceries/services/database/services/service_account.dart';
+import 'package:EasyGroceries/style/text_style.dart';
 import 'package:EasyGroceries/widgets/loading.dart';
 import 'package:EasyGroceries/widgets/selectable_tags.dart';
 import 'package:auto_size_text/auto_size_text.dart';
@@ -18,14 +18,13 @@ class OnboardingAllergic extends StatefulWidget {
 }
 
 class _OnboardingAllergic extends State<OnboardingAllergic> {
-  final OnboardingAllergicStates onboardingAllergicStates =
-      Get.put(OnboardingAllergicStates());
+  final AllergicStates allergicStates = Get.put(AllergicStates());
   final AppStates appStates = Get.put(AppStates());
   Future _future;
 
   @override
   void initState() {
-    _future = onboardingAllergicStates.initTags();
+    _future = allergicStates.initTags();
     super.initState();
   }
 
@@ -49,9 +48,9 @@ class _OnboardingAllergic extends State<OnboardingAllergic> {
                 Container(
                   padding: EdgeInsets.all(24.0),
                   child: SelectableTags(
-                    tagStates: onboardingAllergicStates.tagsStates,
+                    tagStates: allergicStates.tagsStates,
                     onClickTag: (tag) {
-                      onboardingAllergicStates.setTag(tag.index, tag.active);
+                      allergicStates.setTag(tag.index, tag.active);
                     },
                   ),
                 ),
@@ -102,7 +101,7 @@ class _OnboardingAllergic extends State<OnboardingAllergic> {
     appStates.currentAccount["onboardingFlag"] =
         appStates.currentAccount["onboardingFlag"] + 1;
     await API.account.update(fromMapToAccount(appStates.currentAccount));
-    await onboardingAllergicStates.pushTags();
+    await allergicStates.pushTags();
     appStates.setLoading(false);
   }
 
