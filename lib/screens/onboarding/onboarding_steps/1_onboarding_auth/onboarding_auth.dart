@@ -1,4 +1,4 @@
-import 'package:EasyGroceries/screens/appStates.dart';
+import 'package:EasyGroceries/screens/states/app_states.dart';
 import 'package:EasyGroceries/screens/consts.dart';
 import 'package:EasyGroceries/screens/onboarding/onboarding.dart';
 import 'package:EasyGroceries/services/auth.dart';

@@ -1,9 +1,9 @@
-import 'package:EasyGroceries/screens/appStates.dart';
 import 'package:EasyGroceries/screens/consts.dart';
-import 'package:EasyGroceries/screens/home/contextualArea/contextualArea.dart';
-import 'package:EasyGroceries/style/textStyle.dart';
+import 'package:EasyGroceries/screens/home/contextual_area/contextual_area.dart';
+import 'package:EasyGroceries/screens/states/app_states.dart';
+import 'package:EasyGroceries/style/text_style.dart';
 import 'package:EasyGroceries/urls.dart';
-import 'package:EasyGroceries/widgets/profilePicture.dart';
+import 'package:EasyGroceries/widgets/profile_picture.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

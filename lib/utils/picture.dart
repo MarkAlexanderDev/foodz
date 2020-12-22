@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:EasyGroceries/screens/profile/ProfileStates.dart';
+import 'package:EasyGroceries/screens/states/profile_states.dart';
 import 'package:EasyGroceries/services/database/database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';

@@ -1,7 +1,7 @@
 import 'package:EasyGroceries/screens/consts.dart';
-import 'package:EasyGroceries/screens/home/contextualArea/consts.dart';
+import 'package:EasyGroceries/screens/home/contextual_area/consts.dart';
 import 'package:EasyGroceries/style/colors.dart';
-import 'package:EasyGroceries/style/textStyle.dart';
+import 'package:EasyGroceries/style/text_style.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

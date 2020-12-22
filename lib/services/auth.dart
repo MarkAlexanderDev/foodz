@@ -1,5 +1,5 @@
-import 'package:EasyGroceries/services/localStorage/consts.dart';
-import 'package:EasyGroceries/services/localStorage/localStorage.dart';
+import 'package:EasyGroceries/services/local_storage/consts.dart';
+import 'package:EasyGroceries/services/local_storage/local_storage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 

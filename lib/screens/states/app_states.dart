@@ -1,7 +1,7 @@
 import 'package:EasyGroceries/services/database/database.dart';
 import 'package:EasyGroceries/services/database/models/account.dart';
-import 'package:EasyGroceries/services/localStorage/localStorage.dart';
-import 'package:EasyGroceries/widgets/bottomNavigationBar.dart';
+import 'package:EasyGroceries/services/local_storage/local_storage.dart';
+import 'package:EasyGroceries/widgets/bottom_navigation_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 

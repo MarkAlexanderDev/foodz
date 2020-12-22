@@ -1,13 +1,13 @@
 import 'package:EasyGroceries/screens/consts.dart';
-import 'package:EasyGroceries/screens/profile/ProfileStates.dart';
+import 'package:EasyGroceries/screens/states/profile_states.dart';
 import 'package:EasyGroceries/style/colors.dart';
 import 'package:EasyGroceries/style/inputs.dart';
-import 'package:EasyGroceries/style/textStyle.dart';
+import 'package:EasyGroceries/style/text_style.dart';
 import 'package:EasyGroceries/urls.dart';
 import 'package:EasyGroceries/utils/picture.dart';
 import 'package:EasyGroceries/widgets/button.dart';
 import 'package:EasyGroceries/widgets/loading.dart';
-import 'package:EasyGroceries/widgets/profilePicture.dart';
+import 'package:EasyGroceries/widgets/profile_picture.dart';
 import 'package:EasyGroceries/widgets/selectable_tags.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
@@ -129,10 +129,9 @@ class _Profile extends State<Profile> {
                     Container(
                       padding: EdgeInsets.all(24.0),
                       child: SelectableTags(
-                        tagStates:
-                            profileStates.onboardingAllergicStates.tagsStates,
+                        tagStates: profileStates.allergicStates.tagsStates,
                         onClickTag: (tag) {
-                          profileStates.onboardingAllergicStates
+                          profileStates.allergicStates
                               .setTag(tag.index, tag.active);
                         },
                       ),
@@ -151,10 +150,9 @@ class _Profile extends State<Profile> {
                     Container(
                       padding: EdgeInsets.all(24.0),
                       child: SelectableTags(
-                        tagStates: profileStates
-                            .onboardingFavoriteFoodStates.tagsStates,
+                        tagStates: profileStates.favoriteFoodStates.tagsStates,
                         onClickTag: (tag) {
-                          profileStates.onboardingFavoriteFoodStates
+                          profileStates.favoriteFoodStates
                               .setTag(tag.index, tag.active);
                         },
                       ),
