@@ -1,5 +1,6 @@
 import 'package:EasyGroceries/config.dart';
 import 'package:EasyGroceries/screens/home/contextual_area/recipe_of_the_week/recipe_of_the_week.dart';
+import 'package:EasyGroceries/screens/home/grocery_lists/grocery_list/grocery_list.dart';
 import 'package:EasyGroceries/screens/profile/profile.dart';
 import 'package:EasyGroceries/screens/redirections.dart';
 import 'package:EasyGroceries/style/colors.dart';
@@ -45,6 +46,7 @@ class MyApp extends StatelessWidget {
         ),
         GetPage(name: URL_RECIPE_OF_THE_WEEK, page: () => RecipeOfTheWeek()),
         GetPage(name: URL_PROFILE, page: () => Profile()),
+        GetPage(name: URL_GROCERY_LIST, page: () => GroceryList()),
       ],
     );
   }

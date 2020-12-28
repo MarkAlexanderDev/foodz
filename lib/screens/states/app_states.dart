@@ -1,5 +1,5 @@
 import 'package:EasyGroceries/services/database/database.dart';
-import 'package:EasyGroceries/services/database/models/account.dart';
+import 'package:EasyGroceries/services/database/models/account_model.dart';
 import 'package:EasyGroceries/services/local_storage/local_storage.dart';
 import 'package:EasyGroceries/widgets/bottom_navigation_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -11,7 +11,7 @@ class AppStates extends GetxController {
   Future<bool> getData() async {
     await localStorage.init();
     if (!FirebaseAuth.instance.currentUser.isNull) {
-      Account account =
+      AccountModel account =
           await API.account.getFromUid(FirebaseAuth.instance.currentUser.uid);
       currentAccount.addAll(account.toMap());
     }
@@ -26,7 +26,7 @@ class AppStates extends GetxController {
     loading.value = value;
   }
 
-  void setCurrentAccount(Account value) {
+  void setCurrentAccount(AccountModel value) {
     currentAccount.addAll(value.toMap());
   }
 

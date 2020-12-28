@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:EasyGroceries/services/database/config.dart';
 import 'package:EasyGroceries/services/database/database.dart';
-import 'package:EasyGroceries/services/database/models/account.dart';
+import 'package:EasyGroceries/services/database/models/account_model.dart';
 import 'package:firebase_database/firebase_database.dart';
 
 class ServiceAccount {
@@ -10,27 +10,27 @@ class ServiceAccount {
     return databaseReference.child(endpointAccount);
   }
 
-  create(Account account) async {
+  create(AccountModel account) async {
     var id = get().child(account.uid);
     await id.set(account.toMap());
     return id;
   }
 
-  update(Account account) async {
+  update(AccountModel account) async {
     var id = get().child(account.uid);
     await id.update(account.toMap());
     return id;
   }
 
   getFromUid(uid) async {
-    Account account = new Account();
+    AccountModel account = new AccountModel();
     final DataSnapshot snap = await get().child(uid).once();
     if (snap.value != null) account.fromJson(snap.value);
     return account;
   }
 
   getInMap(uid) async {
-    Account entity = await getFromUid(uid);
+    AccountModel entity = await getFromUid(uid);
     Map<String, dynamic> map = json.decode(entity.toJson());
     return map;
   }
@@ -42,8 +42,8 @@ class ServiceAccount {
   }
 }
 
-Account fromMapToAccount(Map mapAccount) {
-  Account account = new Account();
+AccountModel fromMapToAccount(Map mapAccount) {
+  AccountModel account = new AccountModel();
   account.uid = mapAccount["uid"];
   account.firstName = mapAccount["firstName"];
   account.lastName = mapAccount["lastName"];

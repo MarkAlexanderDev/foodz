@@ -1,5 +1,5 @@
 import 'package:EasyGroceries/screens/home/contextual_area/contextual_area.dart';
-import 'package:EasyGroceries/screens/home/shopping_lists/shopping_lists.dart';
+import 'package:EasyGroceries/screens/home/grocery_lists/grocery_lists.dart';
 import 'package:EasyGroceries/screens/states/app_states.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +24,7 @@ class _Home extends State<Home> {
       padding: const EdgeInsets.all(12.0),
       child: ListView(
         shrinkWrap: true,
-        children: [ContextualArea(), ShoppingLists()],
+        children: [ContextualArea(), GroceryLists()],
       ),
     );
   }
