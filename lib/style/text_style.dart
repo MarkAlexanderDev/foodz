@@ -69,6 +69,13 @@ const TextStyle textStyleH3Bold = TextStyle(
   fontSize: 14.0,
 );
 
+// H4
+
+const TextStyle textStyleH4 = TextStyle(
+  fontWeight: FontWeight.w300,
+  fontSize: 11.0,
+);
+
 // special case
 
 const TextStyle textStyleNext =

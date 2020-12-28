@@ -1,9 +1,9 @@
-import 'package:EasyGroceries/screens/states/app_states.dart';
 import 'package:EasyGroceries/screens/consts.dart';
 import 'package:EasyGroceries/screens/onboarding/onboarding.dart';
+import 'package:EasyGroceries/screens/states/app_states.dart';
 import 'package:EasyGroceries/services/auth.dart';
 import 'package:EasyGroceries/services/database/database.dart';
-import 'package:EasyGroceries/services/database/models/account.dart';
+import 'package:EasyGroceries/services/database/models/account_model.dart';
 import 'package:EasyGroceries/utils/string.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -32,7 +32,7 @@ class OnboardingAuth extends StatelessWidget {
     else {
       appStates.setLoading(true);
       if (await API.account.exist(FirebaseAuth.instance.currentUser.uid)) {
-        Account account =
+        AccountModel account =
             await API.account.getFromUid(FirebaseAuth.instance.currentUser.uid);
         if (account.onboardingFlag == ONBOARDING_STEP_ID_AUTH) {
           account.onboardingFlag = ONBOARDING_STEP_ID_ALLERGIC;
@@ -40,7 +40,7 @@ class OnboardingAuth extends StatelessWidget {
         }
         appStates.setCurrentAccount(account);
       } else {
-        Account account = new Account();
+        AccountModel account = new AccountModel();
         account.uid = FirebaseAuth.instance.currentUser.uid;
         account.firstName = fullNameToFirstName(firebaseUser.displayName);
         account.lastName = fullNameToLastName(firebaseUser.displayName);

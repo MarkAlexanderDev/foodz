@@ -5,7 +5,7 @@ import 'dart:core';
 import 'package:EasyGroceries/screens/consts.dart';
 import 'package:EasyGroceries/screens/onboarding/onboarding.dart';
 
-class Account {
+class AccountModel {
   String uid = "";
   String firstName;
   String lastName;

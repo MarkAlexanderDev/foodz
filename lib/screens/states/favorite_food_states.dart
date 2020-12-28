@@ -1,6 +1,6 @@
 import 'package:EasyGroceries/services/database/config.dart';
 import 'package:EasyGroceries/services/database/database.dart';
-import 'package:EasyGroceries/services/database/models/account_tag.dart';
+import 'package:EasyGroceries/services/database/models/account_tag_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 
@@ -29,7 +29,7 @@ class FavoriteFoodStates extends GetxController {
   pushTags() async {
     for (int i = 0; i < tagsStates.length; i++) {
       if (tagsStates[i]["active"] && tagsStates[i]["uid"] == "") {
-        AccountTag accountTag = new AccountTag();
+        AccountTagModel accountTag = new AccountTagModel();
         accountTag.tagId = i;
         accountTag.createdAt = DateTime.now().toUtc().toString();
         accountTag.updatedAt = DateTime.now().toUtc().toString();

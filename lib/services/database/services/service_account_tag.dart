@@ -1,7 +1,7 @@
 import 'dart:collection';
 
 import 'package:EasyGroceries/services/database/database.dart';
-import 'package:EasyGroceries/services/database/models/account_tag.dart';
+import 'package:EasyGroceries/services/database/models/account_tag_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 
@@ -10,7 +10,7 @@ class ServiceAccountTag {
     return databaseReference.child(path);
   }
 
-  create(AccountTag accountTag, String path) async {
+  create(AccountTagModel accountTag, String path) async {
     var id = get(path)
         .child(FirebaseAuth.instance.currentUser.uid)
         .push()
