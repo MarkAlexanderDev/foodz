@@ -11,7 +11,6 @@ class ServiceGroceryList {
   }
 
   create(GroceryListModel groceryList) async {
-    print(groceryList.uid);
     DatabaseReference id = get().push();
     groceryList.uid = id.key;
     await id.set(groceryList.toMap());

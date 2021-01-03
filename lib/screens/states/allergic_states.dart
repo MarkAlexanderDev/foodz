@@ -8,7 +8,7 @@ class AllergicStates extends GetxController {
   static AllergicStates get to => Get.find();
 
   initTags() async {
-    final List tags = await API.tag.getTags(tagAllergyEndpoint);
+    final List tags = await API.tag.getTags(endpointTagAllergy);
     final accountTags = await API.accountTag.getFromUid(
         FirebaseAuth.instance.currentUser.uid, endpointAccountTagAllergy);
     tagsStates.clear();

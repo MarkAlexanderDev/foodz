@@ -57,7 +57,7 @@ class _GroceryListsItem extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: GestureDetector(
-        onTap: () => Get.toNamed(URL_GROCERY_LIST),
+        onTap: () => Get.toNamed(URL_GROCERY_LIST, arguments: groceryList),
         child: Container(
           decoration: BoxDecoration(
               color: mainColor,

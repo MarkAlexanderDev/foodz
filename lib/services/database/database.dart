@@ -2,6 +2,8 @@ import 'package:EasyGroceries/services/database/services/service_account.dart';
 import 'package:EasyGroceries/services/database/services/service_account_grocery_list.dart';
 import 'package:EasyGroceries/services/database/services/service_account_tag.dart';
 import 'package:EasyGroceries/services/database/services/service_grocery_list.dart';
+import 'package:EasyGroceries/services/database/services/service_grocery_list_ingredient.dart';
+import 'package:EasyGroceries/services/database/services/service_ingredient.dart';
 import 'package:EasyGroceries/services/database/services/service_tag.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -16,4 +18,6 @@ class API {
   static final accountTag = new ServiceAccountTag();
   static final groceryList = new ServiceGroceryList();
   static final accountGroceryList = new ServiceAccountGroceryList();
+  static final groceryListIngredient = new ServiceGroceryListIngredient();
+  static final ingredient = new ServiceIngredient();
 }
