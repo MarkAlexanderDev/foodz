@@ -55,7 +55,6 @@ class ProfileStates extends GetxController {
   }
 
   void setCookingExperience(int value) {
-    print(value);
     cookingExperience.value = value;
   }
 

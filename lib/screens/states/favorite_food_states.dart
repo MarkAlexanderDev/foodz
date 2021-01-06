@@ -8,7 +8,7 @@ class FavoriteFoodStates extends GetxController {
   static FavoriteFoodStates get to => Get.find();
 
   initTags() async {
-    final List tags = await API.tag.getTags(tagCuisineEndpoint);
+    final List tags = await API.tag.getTags(endpointTagCuisine);
     final accountTags = await API.accountTag.getFromUid(
         FirebaseAuth.instance.currentUser.uid, endpointAccountTagCuisine);
     tagsStates.clear();
