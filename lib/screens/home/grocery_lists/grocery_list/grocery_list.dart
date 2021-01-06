@@ -3,6 +3,7 @@ import 'package:EasyGroceries/services/database/database.dart';
 import 'package:EasyGroceries/services/database/models/grocery_list_ingredient_model.dart';
 import 'package:EasyGroceries/services/database/models/grocery_list_model.dart';
 import 'package:EasyGroceries/style/text_style.dart';
+import 'package:EasyGroceries/urls.dart';
 import 'package:EasyGroceries/utils/color.dart';
 import 'package:EasyGroceries/widgets/loading.dart';
 import 'package:auto_size_text/auto_size_text.dart';
@@ -46,7 +47,9 @@ class _GroceryListStreamer extends State<GroceryList> {
                     style: textStyleH3Bold,
                   ),
                   actions: [
-                    Icon(Icons.create),
+                    GestureDetector(
+                        onTap: () => {Get.toNamed(URL_GROCERY_LIST_OPTION)},
+                        child: Icon(Icons.create)),
                     Container(width: 20),
                   ],
                   centerTitle: true,
@@ -82,6 +85,7 @@ class _GroceryListStreamer extends State<GroceryList> {
                                   title: Text(ingredient["title"]),
                                   onTap: () async {
                                     _addIngredient(ingredient);
+                                    _searchBarController.clear();
                                   },
                                 ),
                               );
@@ -96,18 +100,28 @@ class _GroceryListStreamer extends State<GroceryList> {
   }
 
   _getGroceryListItem(index) {
-    return Row(
-      children: [
-        AutoSizeText(groceryListStates.groceryListIngredients[index]
-            [groceryListItemIngredientId]["title"]),
-        Expanded(child: Container()),
-        Obx(() => Checkbox(
-              value: groceryListStates.groceryListIngredients[index]
-                  [groceryListItemCheckId],
-              onChanged: (bool value) =>
-                  {groceryListStates.setIngredientCheckValue(value, index)},
-            )),
-      ],
+    return GestureDetector(
+      child: Row(
+        children: [
+          GestureDetector(
+              onTap: () async {
+                await groceryListStates.deleteIngredient(index);
+              },
+              child: Transform.rotate(
+                  angle: 27.5,
+                  child: Icon(Icons.add_circle_rounded, color: Colors.red))),
+          Expanded(child: Container()),
+          AutoSizeText(groceryListStates.groceryListIngredients[index]
+              [groceryListItemIngredientId]["title"]),
+          Expanded(child: Container()),
+          Obx(() => Checkbox(
+                value: groceryListStates.groceryListIngredients[index]
+                    [groceryListItemCheckId],
+                onChanged: (bool value) =>
+                    {groceryListStates.setIngredientCheckValue(value, index)},
+              )),
+        ],
+      ),
     );
   }
 

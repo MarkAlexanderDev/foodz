@@ -26,7 +26,12 @@ class GroceryListStates extends GetxController {
     yield true;
   }
 
-  void setIngredientCheckValue(bool value, int index) async {
+  Future<void> deleteIngredient(int index) async {
+    await API.groceryListIngredient
+        .delete(groceryListIngredients[index][2], currentGroceryList["uid"]);
+  }
+
+  Future<void> setIngredientCheckValue(bool value, int index) async {
     GroceryListIngredientModel groceryListIngredient =
         new GroceryListIngredientModel();
     groceryListIngredient.checked = value;

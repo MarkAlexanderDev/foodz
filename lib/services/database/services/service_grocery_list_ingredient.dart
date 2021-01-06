@@ -21,6 +21,10 @@ class ServiceGroceryListIngredient {
         .update(groceryListIngredient.toMap());
   }
 
+  Future<void> delete(String ingredientUid, String listUid) async {
+    await get().child(listUid).child(ingredientUid).remove();
+  }
+
   Future<dynamic> getFromUid(String uid) async {
     final DataSnapshot snap = await get().child(uid).once();
     if (snap.value == null) return null;
