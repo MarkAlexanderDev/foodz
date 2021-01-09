@@ -12,12 +12,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
-class OnboardingProfile extends StatefulWidget {
+class GroceryListCreation extends StatefulWidget {
   @override
-  _OnboardingProfile createState() => _OnboardingProfile();
+  _GroceryListCreation createState() => _GroceryListCreation();
 }
 
-class _OnboardingProfile extends State<OnboardingProfile> {
+class _GroceryListCreation extends State<GroceryListCreation> {
   final AppStates appStates = Get.put(AppStates());
   final ProfileStates profileStates = Get.put(ProfileStates());
 

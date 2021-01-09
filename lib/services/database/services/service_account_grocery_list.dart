@@ -28,4 +28,13 @@ class ServiceAccountGroceryList {
     if (snap.value == null) return null;
     return snap;
   }
+
+  Future<dynamic> getFromGroceryListUid(String groceryListuid) async {
+    final DataSnapshot snap = await get()
+        .orderByChild('groceryListUid')
+        .endAt("-MPeGpvIMVH553DppKNm")
+        .once();
+    if (snap.value == null) return null;
+    return snap;
+  }
 }

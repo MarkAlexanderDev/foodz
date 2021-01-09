@@ -43,7 +43,9 @@ class ProfileStates extends GetxController {
   }
 
   void setPictureUrl(String value) {
-    pictureUrl.value = value;
+    if (value != null) {
+      pictureUrl.value = value;
+    }
   }
 
   void setLoading(bool value) {

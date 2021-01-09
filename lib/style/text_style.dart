@@ -4,6 +4,9 @@ import 'package:EasyGroceries/style/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+const TextStyle textStyleLetter =
+    TextStyle(fontWeight: FontWeight.w500, fontSize: 34.0, color: Colors.white);
+
 const TextStyle textStyleH1 = TextStyle(
   color: Colors.black,
   fontWeight: FontWeight.w300,

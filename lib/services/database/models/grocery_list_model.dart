@@ -11,6 +11,8 @@ class GroceryListModel {
   String createdAt = ".";
   String updatedAt = ".";
 
+  GroceryListModel();
+
   toMap() {
     return {
       "uid": this.uid,
