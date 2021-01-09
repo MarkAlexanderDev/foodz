@@ -32,14 +32,16 @@ class _GroceryLists extends State<GroceryLists> {
           if (snapshot.hasData) {
             return GridView.builder(
                 shrinkWrap: true,
-                itemCount: snapshot.data.length,
+                itemCount: snapshot.data.length + 1,
                 physics: NeverScrollableScrollPhysics(),
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
                   childAspectRatio: 1,
                 ),
                 itemBuilder: (BuildContext context, int i) {
-                  return _GroceryListsItem(groceryList: snapshot.data[i]);
+                  if (i < snapshot.data.length)
+                    return _GroceryListsItem(groceryList: snapshot.data[i]);
+                  return _AddGroceryListButton(onClick: () => print("lol"));
                 });
           } else
             return Loading();
@@ -91,6 +93,34 @@ class _GroceryListsItem extends StatelessWidget {
                 ),
               )
             ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _AddGroceryListButton extends StatelessWidget {
+  final onClick;
+
+  _AddGroceryListButton({@required this.onClick});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(30.0),
+      child: GestureDetector(
+        onTap: () async {
+          await onClick();
+        },
+        child: Container(
+          decoration: BoxDecoration(
+              border: Border.all(color: mainColor),
+              borderRadius: BorderRadius.all(Radius.circular(20))),
+          child: Icon(
+            Icons.add,
+            color: mainColor,
+            size: 50,
           ),
         ),
       ),

@@ -92,6 +92,7 @@ class _Redirections extends State<Redirections> {
                 GestureDetector(
                   onTap: () => Get.toNamed(URL_PROFILE),
                   child: ProfilePicture(
+                    name: null,
                     height: 50,
                     width: 50,
                     pictureUrl: appStates.currentAccount["pictureUrl"],

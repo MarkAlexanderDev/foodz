@@ -10,6 +10,7 @@ import 'package:EasyGroceries/utils/picture.dart';
 import 'package:EasyGroceries/widgets/button.dart';
 import 'package:EasyGroceries/widgets/loading.dart';
 import 'package:EasyGroceries/widgets/profile_picture.dart';
+import 'package:EasyGroceries/widgets/section_title.dart';
 import 'package:EasyGroceries/widgets/selectable_tags.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
@@ -58,6 +59,7 @@ class _Profile extends State<Profile> {
                               height: 100,
                               width: 100,
                               pictureUrl: profileStates.pictureUrl.value,
+                              name: null,
                               editMode: true,
                               onEdit: () async {
                                 profileStates.setPictureUrl(await getImage(
@@ -82,7 +84,7 @@ class _Profile extends State<Profile> {
                       ),
                     ),
                     Container(height: 20),
-                    _ProfileTitle(
+                    SectionTitle(
                         icon: Icons.local_fire_department,
                         text: "MY COOKING EXPERIENCE"),
                     Container(height: 10),
@@ -112,7 +114,7 @@ class _Profile extends State<Profile> {
                           }).toList(),
                         )),
                     Container(height: 20),
-                    _ProfileTitle(icon: Icons.clear, text: "MY FORBIDDEN FOOD"),
+                    SectionTitle(icon: Icons.clear, text: "MY FORBIDDEN FOOD"),
                     Container(height: 10),
                     Container(
                       padding: EdgeInsets.all(24.0),
@@ -125,7 +127,7 @@ class _Profile extends State<Profile> {
                       ),
                     ),
                     Container(height: 20),
-                    _ProfileTitle(
+                    SectionTitle(
                         icon: Icons.fastfood_rounded,
                         text: "MY FAVORITE CUISINE"),
                     Container(height: 10),
@@ -176,26 +178,6 @@ class _Profile extends State<Profile> {
               },
             ))
         : Loading());
-  }
-}
-
-class _ProfileTitle extends StatelessWidget {
-  final IconData icon;
-  final String text;
-
-  _ProfileTitle({@required this.icon, this.text});
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Icon(icon, color: mainColor),
-        AutoSizeText(
-          text,
-          style: textStyleH2GreenUnderline,
-        ),
-      ],
-    );
   }
 }
 

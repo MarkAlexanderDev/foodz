@@ -1,4 +1,6 @@
 import 'package:EasyGroceries/style/colors.dart';
+import 'package:EasyGroceries/style/text_style.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -6,6 +8,7 @@ class ProfilePicture extends StatelessWidget {
   final double height;
   final double width;
   final String pictureUrl;
+  final String name;
   final bool editMode;
   final onEdit;
 
@@ -13,6 +16,7 @@ class ProfilePicture extends StatelessWidget {
       {@required this.height,
       @required this.width,
       @required this.pictureUrl,
+      @required this.name,
       @required this.editMode,
       this.onEdit});
 
@@ -29,11 +33,14 @@ class ProfilePicture extends StatelessWidget {
               decoration:
                   BoxDecoration(color: mainColor, shape: BoxShape.circle),
               child: pictureUrl == "" || pictureUrl == null
-                  ? Icon(
-                      Icons.person,
-                      size: height * 0.70,
-                      color: Colors.white,
-                    )
+                  ? name == "" || name == null
+                      ? Icon(
+                          Icons.person,
+                          size: height * 0.70,
+                          color: Colors.white,
+                        )
+                      : Center(
+                          child: AutoSizeText(name[0], style: textStyleLetter))
                   : new Container(
                       decoration: new BoxDecoration(
                         border: Border.all(color: mainColor, width: 2),

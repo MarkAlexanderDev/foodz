@@ -49,7 +49,9 @@ Future<String> getImage(context, bool hasUserProfilePicture) async {
           ),
         );
       });
-  if (imagePath.isEmpty) return imagePath;
+  if (imagePath == null)
+    return null;
+  else if (imagePath.isEmpty) return imagePath;
   return uploadPictureFromLocalStorage(imagePath, "/images");
 }
 

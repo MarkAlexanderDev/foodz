@@ -27,7 +27,7 @@ class _GroceryListStreamer extends State<GroceryList> {
 
   @override
   void initState() {
-    groceryListStates.currentGroceryList.addAll(groceryList.toMap());
+    groceryListStates.setCurrentGroceryList(groceryList);
     _stream = groceryListStates.getData();
     super.initState();
   }
@@ -40,10 +40,10 @@ class _GroceryListStreamer extends State<GroceryList> {
           if (snapshot.hasData) {
             return Scaffold(
                 appBar: AppBar(
-                  backgroundColor:
-                      hexToColor(groceryListStates.currentGroceryList["color"]),
+                  backgroundColor: hexToColor(
+                      groceryListStates.currentGroceryList.value.color),
                   title: AutoSizeText(
-                    groceryListStates.currentGroceryList["title"],
+                    groceryListStates.currentGroceryList.value.title,
                     style: textStyleH3Bold,
                   ),
                   actions: [
@@ -61,10 +61,19 @@ class _GroceryListStreamer extends State<GroceryList> {
                       children: [
                         Obx(() => ListView.builder(
                             shrinkWrap: true,
-                            itemCount:
-                                groceryListStates.groceryListIngredients.length,
+                            itemCount: groceryListStates.isFillingList.value
+                                ? groceryListStates
+                                    .groceryListIngredientsTmp.length
+                                : groceryListStates
+                                    .groceryListIngredients.length,
                             itemBuilder: (BuildContext context, int i) {
-                              return _getGroceryListItem(i);
+                              return Obx(() => _getGroceryListItem(
+                                  i,
+                                  groceryListStates.isFillingList.value
+                                      ? groceryListStates
+                                          .groceryListIngredientsTmp
+                                      : groceryListStates
+                                          .groceryListIngredients));
                             })),
                         Container(
                           height: 150,
@@ -99,7 +108,7 @@ class _GroceryListStreamer extends State<GroceryList> {
         });
   }
 
-  _getGroceryListItem(index) {
+  _getGroceryListItem(index, groceryList) {
     return GestureDetector(
       child: Row(
         children: [
@@ -111,12 +120,11 @@ class _GroceryListStreamer extends State<GroceryList> {
                   angle: 27.5,
                   child: Icon(Icons.add_circle_rounded, color: Colors.red))),
           Expanded(child: Container()),
-          AutoSizeText(groceryListStates.groceryListIngredients[index]
-              [groceryListItemIngredientId]["title"]),
+          Obx(() => AutoSizeText(
+              groceryList[index][groceryListItemIngredientId]["title"])),
           Expanded(child: Container()),
           Obx(() => Checkbox(
-                value: groceryListStates.groceryListIngredients[index]
-                    [groceryListItemCheckId],
+                value: groceryList[index][groceryListItemCheckId],
                 onChanged: (bool value) =>
                     {groceryListStates.setIngredientCheckValue(value, index)},
               )),
