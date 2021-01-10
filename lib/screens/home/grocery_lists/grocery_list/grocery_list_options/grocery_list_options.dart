@@ -1,7 +1,11 @@
+import 'package:EasyGroceries/extensions/color.dart';
 import 'package:EasyGroceries/screens/consts.dart';
 import 'package:EasyGroceries/screens/home/grocery_lists/grocery_list/grocery_list_states.dart';
+import 'package:EasyGroceries/style/colors.dart';
 import 'package:EasyGroceries/style/inputs.dart';
 import 'package:EasyGroceries/style/text_style.dart';
+import 'package:EasyGroceries/urls.dart';
+import 'package:EasyGroceries/utils/color.dart';
 import 'package:EasyGroceries/utils/picture.dart';
 import 'package:EasyGroceries/widgets/button.dart';
 import 'package:EasyGroceries/widgets/loading.dart';
@@ -10,6 +14,7 @@ import 'package:EasyGroceries/widgets/section_title.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:get/get.dart';
 
 class GroceryListOption extends StatefulWidget {
@@ -93,6 +98,32 @@ class _GroceryListOption extends State<GroceryListOption> {
                         ),
                       ),
                       Container(height: 20),
+                      TextFormField(
+                        autocorrect: false,
+                        keyboardType: TextInputType.visiblePassword,
+                        textAlign: TextAlign.center,
+                        style: textStyleH2,
+                        decoration:
+                            getStandardInputDecoration("description", ""),
+                        initialValue: groceryListStates
+                            .currentGroceryList.value.description,
+                        onChanged: (value) {
+                          groceryListStates
+                              .currentGroceryList.value.description = value;
+                        },
+                      ),
+                      Container(height: 20),
+                      BlockPicker(
+                        pickerColor: hexToColor(
+                            groceryListStates.currentGroceryList.value.color),
+                        onColorChanged: (value) => groceryListStates
+                            .currentGroceryList.value.color = value.toHex(),
+                        availableColors: [
+                          mainColor,
+                          secondaryColor,
+                          accentColor
+                        ],
+                      ),
                       SectionTitle(
                           icon: Icons.accessibility_outlined,
                           text: "WHO CAN ACCESS THIS LIST"),
@@ -115,7 +146,8 @@ class _GroceryListOption extends State<GroceryListOption> {
               floatingActionButton: ConfirmButton(
                 onClick: () async {
                   await groceryListStates.setOptionData();
-                  Get.back();
+                  Get.toNamed(URL_GROCERY_LIST,
+                      arguments: groceryListStates.currentGroceryList.value);
                 },
               ),
             );

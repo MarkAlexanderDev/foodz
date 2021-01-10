@@ -3,6 +3,7 @@ import 'package:EasyGroceries/services/database/models/grocery_list_model.dart';
 import 'package:EasyGroceries/style/colors.dart';
 import 'package:EasyGroceries/style/text_style.dart';
 import 'package:EasyGroceries/urls.dart';
+import 'package:EasyGroceries/utils/color.dart';
 import 'package:EasyGroceries/widgets/loading.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
@@ -41,7 +42,8 @@ class _GroceryLists extends State<GroceryLists> {
                 itemBuilder: (BuildContext context, int i) {
                   if (i < snapshot.data.length)
                     return _GroceryListsItem(groceryList: snapshot.data[i]);
-                  return _AddGroceryListButton(onClick: () => print("lol"));
+                  return _AddGroceryListButton(
+                      onClick: () => Get.toNamed(URL_GROCERY_LIST_CREATION));
                 });
           } else
             return Loading();
@@ -62,24 +64,29 @@ class _GroceryListsItem extends StatelessWidget {
         onTap: () => Get.toNamed(URL_GROCERY_LIST, arguments: groceryList),
         child: Container(
           decoration: BoxDecoration(
-              color: mainColor,
+              color: hexToColor(groceryList.color),
               borderRadius: BorderRadius.all(Radius.circular(20))),
           child: Column(
             children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(children: [
-                  AutoSizeText(
-                    groceryList.title,
-                    style: textStyleH3Bold,
-                    textAlign: TextAlign.center,
-                  ),
-                  AutoSizeText(groceryList.description,
-                      textAlign: TextAlign.center, style: textStyleH4),
-                ]),
+              Flexible(
+                flex: 4,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        AutoSizeText(
+                          groceryList.title,
+                          style: textStyleH3Bold,
+                          textAlign: TextAlign.center,
+                        ),
+                        AutoSizeText(groceryList.description,
+                            textAlign: TextAlign.center, style: textStyleH4),
+                      ]),
+                ),
               ),
               Flexible(
-                flex: 2,
+                flex: 5,
                 child: Container(
                   decoration: new BoxDecoration(
                     borderRadius: BorderRadius.only(

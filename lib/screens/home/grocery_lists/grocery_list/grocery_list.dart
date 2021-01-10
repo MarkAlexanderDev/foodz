@@ -46,6 +46,9 @@ class _GroceryListStreamer extends State<GroceryList> {
                     groceryListStates.currentGroceryList.value.title,
                     style: textStyleH3Bold,
                   ),
+                  leading: new IconButton(
+                      icon: new Icon(Icons.arrow_back),
+                      onPressed: () => {Get.offNamed(URL_HOME)}),
                   actions: [
                     GestureDetector(
                         onTap: () => {Get.toNamed(URL_GROCERY_LIST_OPTION)},
