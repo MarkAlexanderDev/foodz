@@ -7,6 +7,7 @@ import 'package:EasyGroceries/style/inputs.dart';
 import 'package:EasyGroceries/style/text_style.dart';
 import 'package:EasyGroceries/urls.dart';
 import 'package:EasyGroceries/utils/picture.dart';
+import 'package:EasyGroceries/utils/urlLauncher.dart';
 import 'package:EasyGroceries/widgets/button.dart';
 import 'package:EasyGroceries/widgets/loading.dart';
 import 'package:EasyGroceries/widgets/profile_picture.dart';
@@ -146,12 +147,18 @@ class _Profile extends State<Profile> {
                       isFirst: true,
                       icon: Icons.account_tree,
                       text: "SUGGEST A FEATURE",
-                      onClick: () {},
+                      onClick: () async {
+                        await launchUrl(
+                            "https://c0l0dpj04sd.typeform.com/to/GaQDfqZh");
+                      },
                     ),
                     _ProfileButon(
                       icon: Icons.bug_report,
                       text: "REPORT A BUG",
-                      onClick: () {},
+                      onClick: () async {
+                        await launchUrl(
+                            "https://c0l0dpj04sd.typeform.com/to/ITUBtkL3");
+                      },
                     ),
                     _ProfileButon(
                       icon: Icons.logout,

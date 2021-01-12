@@ -1,6 +1,5 @@
-import 'package:flutter/material.dart';
+import 'package:EasyGroceries/utils/urlLauncher.dart';
 import 'package:get/get.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 const CA_SLIDE_ID_RECIEPE = 1;
 const CA_SLIDE_ID_MAP = 2;
@@ -19,12 +18,7 @@ class ContextualAreaStates extends GetxController {
         "onClick": () async {
           String googleUrl =
               'https://www.google.com/maps/search/grocery+store/';
-          if (await canLaunch(googleUrl)) {
-            await launch(googleUrl);
-          } else {
-            Get.snackbar("Error", "Something went wrong!",
-                icon: Icon(Icons.warning));
-          }
+          await launchUrl(googleUrl);
         }
       },
     ];
