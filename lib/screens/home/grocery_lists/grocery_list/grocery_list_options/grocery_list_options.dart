@@ -12,10 +12,12 @@ import 'package:EasyGroceries/widgets/loading.dart';
 import 'package:EasyGroceries/widgets/profile_picture.dart';
 import 'package:EasyGroceries/widgets/section_title.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:get/get.dart';
+import 'package:share/share.dart';
 
 class GroceryListOption extends StatefulWidget {
   @override
@@ -113,6 +115,17 @@ class _GroceryListOption extends State<GroceryListOption> {
                         },
                       ),
                       Container(height: 20),
+                      SectionTitle(
+                          icon: Icons.accessibility_outlined,
+                          text: "WHO CAN ACCESS THIS LIST"),
+                      Container(height: 10),
+                      OutlineButton(
+                          onPressed: () async {
+                            await Share.share(
+                                'Hello! I would like to share with you my grocery list from Foodz : ' +
+                                    await _createGroceryListInvitationLink());
+                          },
+                          child: AutoSizeText("SHARE")),
                       BlockPicker(
                         pickerColor: hexToColor(
                             groceryListStates.currentGroceryList.value.color),
@@ -123,21 +136,6 @@ class _GroceryListOption extends State<GroceryListOption> {
                           secondaryColor,
                           accentColor
                         ],
-                      ),
-                      SectionTitle(
-                          icon: Icons.accessibility_outlined,
-                          text: "WHO CAN ACCESS THIS LIST"),
-                      Container(height: 10),
-                      Container(
-                        padding: EdgeInsets.all(24.0),
-                        /*child: SelectableTags(
-                            tagStates:
-                                profileStates.favoriteFoodStates.tagsStates,
-                            onClickTag: (tag) {
-                              profileStates.favoriteFoodStates
-                                  .setTag(tag.index, tag.active);
-                            },
-                          ),*/
                       ),
                     ],
                   ))),
@@ -154,5 +152,19 @@ class _GroceryListOption extends State<GroceryListOption> {
           else
             return Loading();
         });
+  }
+
+  Future<String> _createGroceryListInvitationLink() async {
+    final DynamicLinkParameters parameters = DynamicLinkParameters(
+      uriPrefix: URL_GROCERY_LIST_INVITATION,
+      link: Uri.parse("https://www.foodz-app.com/post?groceryListUid=" +
+          groceryListStates.currentGroceryList.value.uid),
+      androidParameters: AndroidParameters(
+        packageName: 'com.foodz.foodz',
+        minimumVersion: 0,
+      ),
+    );
+    final Uri dynamicUrl = await parameters.buildUrl();
+    return dynamicUrl.toString();
   }
 }
