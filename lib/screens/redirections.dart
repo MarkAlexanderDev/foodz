@@ -25,7 +25,7 @@ class _Redirections extends State<Redirections> {
 
   @override
   void initState() {
-    _future = appStates.getData();
+    _future = appStates.initApp();
     super.initState();
   }
 

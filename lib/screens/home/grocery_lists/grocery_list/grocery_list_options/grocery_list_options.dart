@@ -1,6 +1,7 @@
 import 'package:EasyGroceries/extensions/color.dart';
 import 'package:EasyGroceries/screens/consts.dart';
 import 'package:EasyGroceries/screens/home/grocery_lists/grocery_list/grocery_list_states.dart';
+import 'package:EasyGroceries/services/dynamic_link.dart';
 import 'package:EasyGroceries/style/colors.dart';
 import 'package:EasyGroceries/style/inputs.dart';
 import 'package:EasyGroceries/style/text_style.dart';
@@ -12,7 +13,6 @@ import 'package:EasyGroceries/widgets/loading.dart';
 import 'package:EasyGroceries/widgets/profile_picture.dart';
 import 'package:EasyGroceries/widgets/section_title.dart';
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
@@ -123,7 +123,10 @@ class _GroceryListOption extends State<GroceryListOption> {
                           onPressed: () async {
                             await Share.share(
                                 'Hello! I would like to share with you my grocery list from Foodz : ' +
-                                    await _createGroceryListInvitationLink());
+                                    await dynamicLink
+                                        .createGroceryListInvitationLink(
+                                            groceryListStates
+                                                .currentGroceryList.value.uid));
                           },
                           child: AutoSizeText("SHARE")),
                       BlockPicker(
@@ -152,19 +155,5 @@ class _GroceryListOption extends State<GroceryListOption> {
           else
             return Loading();
         });
-  }
-
-  Future<String> _createGroceryListInvitationLink() async {
-    final DynamicLinkParameters parameters = DynamicLinkParameters(
-      uriPrefix: URL_GROCERY_LIST_INVITATION,
-      link: Uri.parse("https://www.foodz-app.com/post?groceryListUid=" +
-          groceryListStates.currentGroceryList.value.uid),
-      androidParameters: AndroidParameters(
-        packageName: 'com.foodz.foodz',
-        minimumVersion: 0,
-      ),
-    );
-    final Uri dynamicUrl = await parameters.buildUrl();
-    return dynamicUrl.toString();
   }
 }

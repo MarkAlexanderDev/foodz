@@ -47,9 +47,4 @@ class GroceryListsStates extends GetxController {
         .create(groceryListIngredient, groceryList.uid);
     return groceryList;
   }
-
-  Future<bool> createGroceryList() async {
-    print("lol");
-    return true;
-  }
 }

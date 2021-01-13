@@ -31,10 +31,21 @@ class ServiceAccountGroceryList {
 
   Future<dynamic> getFromGroceryListUid(String groceryListuid) async {
     final DataSnapshot snap = await get()
+        .child(FirebaseAuth.instance.currentUser.uid)
         .orderByChild('groceryListUid')
-        .endAt("-MPeGpvIMVH553DppKNm")
+        .equalTo(groceryListuid)
         .once();
     if (snap.value == null) return null;
     return snap;
+  }
+
+  Future<bool> isLinkedToAccount(String groceryListuid) async {
+    final DataSnapshot snap = await get()
+        .child(FirebaseAuth.instance.currentUser.uid)
+        .orderByChild('groceryListUid')
+        .equalTo(groceryListuid)
+        .once();
+    if (snap.value == null) return false;
+    return true;
   }
 }
