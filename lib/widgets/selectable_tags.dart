@@ -1,6 +1,5 @@
 import 'package:EasyGroceries/style/colors.dart';
 import 'package:EasyGroceries/style/text_style.dart';
-import 'package:audioplayers/audio_cache.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tags/flutter_tags.dart';
 
@@ -9,10 +8,8 @@ class SelectableTags extends StatelessWidget {
   final GlobalKey<TagsState> _tagStateKey = GlobalKey<TagsState>();
   final onClickTag;
   final tagStates;
-  final player = AudioCache(prefix: 'sounds/');
 
   SelectableTags({@required this.onClickTag, this.tagStates}) {
-    player.loadAll(['tag_select.mp3', 'tag_unselect.mp3']);
     for (var i = 0; i < tagStates.length; i++)
       _items.add(new ItemTags(
         index: i,
@@ -41,9 +38,6 @@ class SelectableTags extends StatelessWidget {
           activeColor: mainColor,
           splashColor: mainColor,
           onPressed: (tag) {
-            tag.active
-                ? player.play('tag_select.mp3')
-                : player.play('tag_unselect.mp3');
             onClickTag(tag);
           },
         );

@@ -1,4 +1,3 @@
-import 'package:EasyGroceries/screens/consts.dart';
 import 'package:EasyGroceries/style/colors.dart';
 import 'package:EasyGroceries/style/text_style.dart';
 import 'package:auto_size_text/auto_size_text.dart';
@@ -7,20 +6,22 @@ import 'package:flutter/material.dart';
 
 class ConfirmButton extends StatelessWidget {
   final onClick;
+  final bool enabled;
 
-  ConfirmButton({@required this.onClick});
+  ConfirmButton({@required this.onClick, @required this.enabled});
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: 50,
-      width: appWidth,
+      width: MediaQuery.of(context).size.width,
       child: FloatingActionButton(
         elevation: 0.0,
-        onPressed: onClick,
+        onPressed: enabled ? onClick : null,
         child: Container(
           decoration: BoxDecoration(
-              color: mainColor, borderRadius: BorderRadius.circular(10.0)),
+              color: enabled ? mainColor : grey,
+              borderRadius: BorderRadius.circular(10.0)),
           child: Center(
             child: AutoSizeText(
               "CONFIRM",

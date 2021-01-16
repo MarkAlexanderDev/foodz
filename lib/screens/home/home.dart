@@ -1,6 +1,6 @@
 import 'package:EasyGroceries/screens/home/contextual_area/contextual_area.dart';
 import 'package:EasyGroceries/screens/home/grocery_lists/grocery_lists.dart';
-import 'package:EasyGroceries/screens/states/app_states.dart';
+import 'package:EasyGroceries/states/app_states.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

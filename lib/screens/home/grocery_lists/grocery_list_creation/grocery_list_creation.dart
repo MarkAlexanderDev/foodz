@@ -1,11 +1,10 @@
 import 'package:EasyGroceries/extensions/color.dart';
-import 'package:EasyGroceries/screens/consts.dart';
 import 'package:EasyGroceries/screens/home/grocery_lists/grocery_list/grocery_list_states.dart';
-import 'package:EasyGroceries/screens/states/app_states.dart';
 import 'package:EasyGroceries/services/database/database.dart';
 import 'package:EasyGroceries/services/database/models/account_grocery_list_model.dart';
 import 'package:EasyGroceries/services/database/models/grocery_list_ingredient_model.dart';
 import 'package:EasyGroceries/services/database/models/grocery_list_model.dart';
+import 'package:EasyGroceries/states/app_states.dart';
 import 'package:EasyGroceries/style/colors.dart';
 import 'package:EasyGroceries/style/inputs.dart';
 import 'package:EasyGroceries/style/text_style.dart';
@@ -47,21 +46,23 @@ class _GroceryListCreation extends State<GroceryListCreation> {
       appBar: PreferredSize(
           preferredSize: Size(0, 60),
           child: Obx(() => AppBar(
-            backgroundColor:
-                hexToColor(groceryListStates.currentGroceryList.value.color),
-            title: AutoSizeText(
-              "Grocery list creation",
-              style: textStyleH3Bold,
-            ),
-            centerTitle: true,
-          ))),
-      bottomNavigationBar: ConfirmButton(onClick: () async {
-        appStates.setLoading(true);
-        await _createGroceryList();
-        Get.toNamed(URL_GROCERY_LIST,
-            arguments: groceryListStates.currentGroceryList.value);
-        appStates.setLoading(false);
-      }),
+                backgroundColor: hexToColor(
+                    groceryListStates.currentGroceryList.value.color),
+                title: AutoSizeText(
+                  "Grocery list creation",
+                  style: textStyleH3Bold,
+                ),
+                centerTitle: true,
+              ))),
+      bottomNavigationBar: ConfirmButton(
+          enabled: true,
+          onClick: () async {
+            appStates.setLoading(true);
+            await _createGroceryList();
+            Get.toNamed(URL_GROCERY_LIST,
+                arguments: groceryListStates.currentGroceryList.value);
+            appStates.setLoading(false);
+          }),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(40.0),
@@ -91,8 +92,8 @@ class _GroceryListCreation extends State<GroceryListCreation> {
                   )),
             ),
             Container(
-              width: appWidth,
-              height: appHeight * 0.1,
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height * 0.1,
               child: Align(
                 alignment: AlignmentDirectional.bottomCenter,
                 child: AutoSizeText(
@@ -113,8 +114,8 @@ class _GroceryListCreation extends State<GroceryListCreation> {
               },
             ),
             Container(
-              width: appWidth,
-              height: appHeight * 0.1,
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height * 0.1,
               child: Align(
                 alignment: AlignmentDirectional.bottomCenter,
                 child: AutoSizeText(

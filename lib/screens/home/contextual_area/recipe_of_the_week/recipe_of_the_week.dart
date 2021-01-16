@@ -1,4 +1,3 @@
-import 'package:EasyGroceries/screens/consts.dart';
 import 'package:EasyGroceries/screens/home/contextual_area/consts.dart';
 import 'package:EasyGroceries/style/colors.dart';
 import 'package:EasyGroceries/style/text_style.dart';
@@ -20,17 +19,17 @@ class RecipeOfTheWeek extends StatelessWidget {
         body: ListView(
           shrinkWrap: true,
           children: [
-            _getImage(),
+            _getImage(context),
             _getTitle(),
-            _getIngredientsList(),
+            _getIngredientsList(context),
           ],
         ));
   }
 
-  _getImage() {
+  _getImage(BuildContext context) {
     return Container(
       height: 200,
-      width: appWidth,
+      width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
         image: DecorationImage(
             image: NetworkImage(slide[KEY_RECIPE_OF_THE_WEEK_IMG]),
@@ -91,9 +90,9 @@ class RecipeOfTheWeek extends StatelessWidget {
     );
   }
 
-  _getIngredientsList() {
+  _getIngredientsList(BuildContext context) {
     return Container(
-      width: appWidth,
+      width: MediaQuery.of(context).size.width,
       color: lightGrey,
       child: Padding(
         padding: const EdgeInsets.all(12.0),

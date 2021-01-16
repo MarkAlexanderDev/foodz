@@ -1,5 +1,4 @@
 import 'package:EasyGroceries/extensions/color.dart';
-import 'package:EasyGroceries/screens/consts.dart';
 import 'package:EasyGroceries/screens/home/grocery_lists/grocery_list/grocery_list_states.dart';
 import 'package:EasyGroceries/services/dynamic_link.dart';
 import 'package:EasyGroceries/style/colors.dart';
@@ -84,7 +83,7 @@ class _GroceryListOption extends State<GroceryListOption> {
                               ))),
                       Container(height: 20),
                       Container(
-                        width: appWidth,
+                        width: MediaQuery.of(context).size.width,
                         child: TextFormField(
                           autocorrect: false,
                           keyboardType: TextInputType.visiblePassword,
@@ -145,6 +144,7 @@ class _GroceryListOption extends State<GroceryListOption> {
               floatingActionButtonLocation:
                   FloatingActionButtonLocation.centerFloat,
               floatingActionButton: ConfirmButton(
+                enabled: true,
                 onClick: () async {
                   await groceryListStates.setOptionData();
                   Get.toNamed(URL_GROCERY_LIST,

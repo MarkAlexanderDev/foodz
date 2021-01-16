@@ -30,7 +30,6 @@ dependencies:
   firebase_database: ^5.0.0
   flutter_tags: '^0.4.9+1'
   flappy_search_bar: ^1.7.2
-  audioplayers: ^0.12.0
   flutter_colorpicker: ^0.3.5
   share: ^0.6.5+4
   firebase_core: ^0.6.0
