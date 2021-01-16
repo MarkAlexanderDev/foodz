@@ -14,21 +14,21 @@ import 'package:get/get.dart';
 
 class GroceryList extends StatefulWidget {
   @override
-  _GroceryListStreamer createState() => _GroceryListStreamer();
+  _GroceryList createState() => _GroceryList();
 }
 
-class _GroceryListStreamer extends State<GroceryList> {
+class _GroceryList extends State<GroceryList> {
+  static const int GROCERY_LIST_ITEM_CHECK_ID = 0;
+  static const int GROCERY_LIST_ITEM_INGREDIENT_ID = 1;
+
   final GroceryListModel groceryList = Get.arguments;
-  final GroceryListStates groceryListStates = Get.put(GroceryListStates());
-  final int groceryListItemCheckId = 0;
-  final int groceryListItemIngredientId = 1;
   final SearchBarController _searchBarController = SearchBarController();
   Stream _stream;
 
   @override
   void initState() {
-    groceryListStates.setCurrentGroceryList(groceryList);
-    _stream = groceryListStates.getData();
+    groceryListStates.groceryList.value = groceryList;
+    _stream = groceryListStates.streamGroceryList();
     super.initState();
   }
 
@@ -39,24 +39,7 @@ class _GroceryListStreamer extends State<GroceryList> {
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.hasData) {
             return Scaffold(
-                appBar: AppBar(
-                  backgroundColor: hexToColor(
-                      groceryListStates.currentGroceryList.value.color),
-                  title: AutoSizeText(
-                    groceryListStates.currentGroceryList.value.title,
-                    style: textStyleH3Bold,
-                  ),
-                  leading: new IconButton(
-                      icon: new Icon(Icons.arrow_back),
-                      onPressed: () => {Get.offNamed(URL_HOME)}),
-                  actions: [
-                    GestureDetector(
-                        onTap: () => {Get.toNamed(URL_GROCERY_LIST_OPTION)},
-                        child: Icon(Icons.create)),
-                    Container(width: 20),
-                  ],
-                  centerTitle: true,
-                ),
+                appBar: _getAppBar(),
                 body: Padding(
                     padding: const EdgeInsets.all(20.0),
                     child: SingleChildScrollView(
@@ -124,10 +107,10 @@ class _GroceryListStreamer extends State<GroceryList> {
                   child: Icon(Icons.add_circle_rounded, color: Colors.red))),
           Expanded(child: Container()),
           Obx(() => AutoSizeText(
-              groceryList[index][groceryListItemIngredientId]["title"])),
+              groceryList[index][GROCERY_LIST_ITEM_INGREDIENT_ID]["title"])),
           Expanded(child: Container()),
           Obx(() => Checkbox(
-                value: groceryList[index][groceryListItemCheckId],
+                value: groceryList[index][GROCERY_LIST_ITEM_CHECK_ID],
                 onChanged: (bool value) =>
                     {groceryListStates.setIngredientCheckValue(value, index)},
               )),
@@ -143,5 +126,25 @@ class _GroceryListStreamer extends State<GroceryList> {
     groceryListIngredient.checked = false;
     await API.groceryListIngredient
         .create(groceryListIngredient, groceryList.uid);
+  }
+
+  AppBar _getAppBar() {
+    return AppBar(
+      backgroundColor: hexToColor(groceryListStates.groceryList.value.color),
+      title: AutoSizeText(
+        groceryListStates.groceryList.value.title,
+        style: textStyleH3Bold,
+      ),
+      leading: new IconButton(
+          icon: new Icon(Icons.arrow_back),
+          onPressed: () => {Get.offNamed(URL_HOME)}),
+      actions: [
+        GestureDetector(
+            onTap: () => {Get.toNamed(URL_GROCERY_LIST_OPTION)},
+            child: Icon(Icons.create)),
+        Container(width: 20),
+      ],
+      centerTitle: true,
+    );
   }
 }

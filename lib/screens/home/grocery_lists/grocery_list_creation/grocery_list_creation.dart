@@ -31,11 +31,11 @@ class _GroceryListCreation extends State<GroceryListCreation> {
 
   @override
   void initState() {
-    groceryListStates.currentGroceryList.value = GroceryListModel();
-    groceryListStates.currentGroceryList.value.title = "New grocery list";
-    groceryListStates.currentGroceryList.value.description = "New description";
-    groceryListStates.currentGroceryList.value.color = mainColor.toHex();
-    groceryListStates.currentGroceryList.value.pictureUrl =
+    groceryListStates.groceryList.value = GroceryListModel();
+    groceryListStates.groceryList.value.title = "New grocery list";
+    groceryListStates.groceryList.value.description = "New description";
+    groceryListStates.groceryList.value.color = mainColor.toHex();
+    groceryListStates.groceryList.value.pictureUrl =
         "https://firebasestorage.googleapis.com/v0/b/foodz-2aec5.appspot.com/o/assets%2Fgrocery.png?alt=media&token=d808b0ab-eccf-4bcf-a5ae-36d4dca1b53f";
     super.initState();
   }
@@ -46,8 +46,8 @@ class _GroceryListCreation extends State<GroceryListCreation> {
       appBar: PreferredSize(
           preferredSize: Size(0, 60),
           child: Obx(() => AppBar(
-                backgroundColor: hexToColor(
-                    groceryListStates.currentGroceryList.value.color),
+                backgroundColor:
+                    hexToColor(groceryListStates.groceryList.value.color),
                 title: AutoSizeText(
                   "Grocery list creation",
                   style: textStyleH3Bold,
@@ -60,7 +60,7 @@ class _GroceryListCreation extends State<GroceryListCreation> {
             appStates.setLoading(true);
             await _createGroceryList();
             Get.toNamed(URL_GROCERY_LIST,
-                arguments: groceryListStates.currentGroceryList.value);
+                arguments: groceryListStates.groceryList.value);
             appStates.setLoading(false);
           }),
       body: SingleChildScrollView(
@@ -69,25 +69,23 @@ class _GroceryListCreation extends State<GroceryListCreation> {
           child: Column(children: [
             GestureDetector(
               onTap: () async {
-                groceryListStates.currentGroceryList.value.pictureUrl =
-                    await getImage(
-                        context,
-                        !groceryListStates
-                            .currentGroceryList.value.pictureUrl.isNullOrBlank);
+                groceryListStates.groceryList.value.pictureUrl = await getImage(
+                    context,
+                    !groceryListStates
+                        .groceryList.value.pictureUrl.isNullOrBlank);
               },
               child: Obx(() => ProfilePicture(
-                    name: groceryListStates.currentGroceryList.value.title,
-                    pictureUrl:
-                        groceryListStates.currentGroceryList.value.pictureUrl,
+                    name: groceryListStates.groceryList.value.title,
+                    pictureUrl: groceryListStates.groceryList.value.pictureUrl,
                     editMode: true,
                     height: 100,
                     width: 100,
                     onEdit: () async {
-                      groceryListStates.currentGroceryList.value.pictureUrl =
+                      groceryListStates.groceryList.value.pictureUrl =
                           await getImage(
                               context,
-                              !groceryListStates.currentGroceryList.value
-                                  .pictureUrl.isNullOrBlank);
+                              !groceryListStates
+                                  .groceryList.value.pictureUrl.isNullOrBlank);
                     },
                   )),
             ),
@@ -108,9 +106,9 @@ class _GroceryListCreation extends State<GroceryListCreation> {
               textAlign: TextAlign.center,
               style: textStyleH2,
               decoration: getStandardInputDecoration("", ""),
-              initialValue: groceryListStates.currentGroceryList.value.title,
+              initialValue: groceryListStates.groceryList.value.title,
               onChanged: (value) {
-                groceryListStates.currentGroceryList.value.title = value;
+                groceryListStates.groceryList.value.title = value;
               },
             ),
             Container(
@@ -130,18 +128,17 @@ class _GroceryListCreation extends State<GroceryListCreation> {
               textAlign: TextAlign.center,
               style: textStyleH2,
               decoration: getStandardInputDecoration("", ""),
-              initialValue:
-                  groceryListStates.currentGroceryList.value.description,
+              initialValue: groceryListStates.groceryList.value.description,
               onChanged: (value) {
-                groceryListStates.currentGroceryList.value.description = value;
+                groceryListStates.groceryList.value.description = value;
               },
             ),
             Container(height: 20),
             BlockPicker(
               pickerColor:
-                  hexToColor(groceryListStates.currentGroceryList.value.color),
-              onColorChanged: (value) => groceryListStates
-                  .currentGroceryList.value.color = value.toHex(),
+                  hexToColor(groceryListStates.groceryList.value.color),
+              onColorChanged: (value) =>
+                  groceryListStates.groceryList.value.color = value.toHex(),
               availableColors: [mainColor, secondaryColor, accentColor],
             ),
           ]),
@@ -151,16 +148,15 @@ class _GroceryListCreation extends State<GroceryListCreation> {
   }
 
   Future<void> _createGroceryList() async {
-    await API.groceryList.create(groceryListStates.currentGroceryList.value);
+    await API.groceryList.create(groceryListStates.groceryList.value);
     AccountGroceryListModel accountGroceryList = new AccountGroceryListModel();
-    accountGroceryList.groceryListUid =
-        groceryListStates.currentGroceryList.value.uid;
+    accountGroceryList.groceryListUid = groceryListStates.groceryList.value.uid;
     await API.accountGroceryList.create(accountGroceryList);
     GroceryListIngredientModel groceryListIngredient =
         new GroceryListIngredientModel();
     groceryListIngredient.checked = false;
     groceryListIngredient.ingredientId = 0;
-    await API.groceryListIngredient.create(
-        groceryListIngredient, groceryListStates.currentGroceryList.value.uid);
+    await API.groceryListIngredient
+        .create(groceryListIngredient, groceryListStates.groceryList.value.uid);
   }
 }

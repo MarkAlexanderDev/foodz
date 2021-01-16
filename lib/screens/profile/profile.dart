@@ -49,10 +49,7 @@ class _Profile extends State<Profile> {
                 Container(height: 20),
                 GestureDetector(
                     onTap: () async {
-                      accountStates.account.value.pictureUrl = await getImage(
-                          context,
-                          !accountStates
-                              .account.value.pictureUrl.isNullOrBlank);
+                      await _onEditPicture();
                     },
                     child: Obx(() => ProfilePicture(
                           height: 100,
@@ -61,11 +58,7 @@ class _Profile extends State<Profile> {
                           name: null,
                           editMode: true,
                           onEdit: () async {
-                            accountStates.account.value.pictureUrl =
-                                await getImage(
-                                    context,
-                                    !accountStates.account.value.pictureUrl
-                                        .isNullOrBlank);
+                            await _onEditPicture();
                           },
                         ))),
                 Container(height: 20),
@@ -172,13 +165,21 @@ class _Profile extends State<Profile> {
           ),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-        floatingActionButton: ConfirmButton(
+        floatingActionButton: Obx(() => ConfirmButton(
           enabled: !accountStates.uploadingProfilePicture.value,
           onClick: () async {
             await accountStates.updateAccount();
             Get.toNamed(URL_HOME);
           },
-        ));
+        )));
+  }
+
+  Future<void> _onEditPicture() async {
+    final String imgPath = await getImage(
+        context, !accountStates.account.value.pictureUrl.isNullOrBlank);
+    accountStates.account.update((account) {
+      if (!imgPath.isNull) account.pictureUrl = imgPath;
+    });
   }
 }
 

@@ -65,8 +65,7 @@ class _GroceryListOption extends State<GroceryListOption> {
                           child: Obx(() => ProfilePicture(
                                 height: 100,
                                 width: 100,
-                                name: groceryListStates
-                                    .currentGroceryList.value.title,
+                                name: groceryListStates.groceryList.value.title,
                                 pictureUrl: groceryListStates
                                     .groceryListPictureUrl.value,
                                 editMode: true,
@@ -75,7 +74,7 @@ class _GroceryListOption extends State<GroceryListOption> {
                                       .setGroceryListPictureUrl(await getImage(
                                     context,
                                     groceryListStates
-                                        .currentGroceryList.value.pictureUrl
+                                        .groceryList.value.pictureUrl
                                         .toString()
                                         .isNotEmpty,
                                   ));
@@ -91,10 +90,9 @@ class _GroceryListOption extends State<GroceryListOption> {
                           textAlign: TextAlign.center,
                           decoration: getStandardInputDecoration("name", ""),
                           initialValue:
-                              groceryListStates.currentGroceryList.value.title,
+                              groceryListStates.groceryList.value.title,
                           onChanged: (value) {
-                            groceryListStates.currentGroceryList.value.title =
-                                value;
+                            groceryListStates.groceryList.value.title = value;
                           },
                         ),
                       ),
@@ -106,11 +104,11 @@ class _GroceryListOption extends State<GroceryListOption> {
                         style: textStyleH2,
                         decoration:
                             getStandardInputDecoration("description", ""),
-                        initialValue: groceryListStates
-                            .currentGroceryList.value.description,
+                        initialValue:
+                            groceryListStates.groceryList.value.description,
                         onChanged: (value) {
-                          groceryListStates
-                              .currentGroceryList.value.description = value;
+                          groceryListStates.groceryList.value.description =
+                              value;
                         },
                       ),
                       Container(height: 20),
@@ -125,14 +123,14 @@ class _GroceryListOption extends State<GroceryListOption> {
                                     await dynamicLink
                                         .createGroceryListInvitationLink(
                                             groceryListStates
-                                                .currentGroceryList.value.uid));
+                                                .groceryList.value.uid));
                           },
                           child: AutoSizeText("SHARE")),
                       BlockPicker(
                         pickerColor: hexToColor(
-                            groceryListStates.currentGroceryList.value.color),
+                            groceryListStates.groceryList.value.color),
                         onColorChanged: (value) => groceryListStates
-                            .currentGroceryList.value.color = value.toHex(),
+                            .groceryList.value.color = value.toHex(),
                         availableColors: [
                           mainColor,
                           secondaryColor,
@@ -148,7 +146,7 @@ class _GroceryListOption extends State<GroceryListOption> {
                 onClick: () async {
                   await groceryListStates.setOptionData();
                   Get.toNamed(URL_GROCERY_LIST,
-                      arguments: groceryListStates.currentGroceryList.value);
+                      arguments: groceryListStates.groceryList.value);
                 },
               ),
             );

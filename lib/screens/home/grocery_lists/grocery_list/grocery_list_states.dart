@@ -8,10 +8,10 @@ import 'package:get/get.dart';
 class GroceryListStates extends GetxController {
   static GroceryListStates get to => Get.find();
 
-  Stream getData() async* {
+  Stream streamGroceryList() async* {
     databaseReference
         .child(endpointGroceryListIngredient)
-        .child(currentGroceryList.value.uid)
+        .child(groceryList.value.uid)
         .onValue
         .listen((event) async {
       groceryListIngredientsTmp.assignAll(groceryListIngredients);
@@ -33,7 +33,7 @@ class GroceryListStates extends GetxController {
 
   Future<void> deleteIngredient(int index) async {
     await API.groceryListIngredient
-        .delete(groceryListIngredients[index][2], currentGroceryList.value.uid);
+        .delete(groceryListIngredients[index][2], groceryList.value.uid);
   }
 
   Future<void> setIngredientCheckValue(bool value, int index) async {
@@ -42,41 +42,41 @@ class GroceryListStates extends GetxController {
     groceryListIngredient.checked = value;
     groceryListIngredient.ingredientId = groceryListIngredients[index][1]["id"];
     await API.groceryListIngredient.update(groceryListIngredient,
-        groceryListIngredients[index][2], currentGroceryList.value.uid);
+        groceryListIngredients[index][2], groceryList.value.uid);
   }
 
   Future<bool> getOptionData() async {
     final accountGroceryLists = await API.accountGroceryList
-        .getFromGroceryListUid(currentGroceryList.value.uid);
+        .getFromGroceryListUid(groceryList.value.uid);
     await Future.forEach(accountGroceryLists.value.entries, (element) async {
       if (element.key != FirebaseAuth.instance.currentUser.uid)
         owners.add(await API.account.getFromUid(element.key));
     });
-    groceryListPictureUrl.value = currentGroceryList.value.pictureUrl;
+    groceryListPictureUrl.value = groceryList.value.pictureUrl;
     return true;
   }
 
   Future<bool> setOptionData() async {
-    await API.groceryList.update(currentGroceryList.value);
+    await API.groceryList.update(groceryList.value);
     return true;
-  }
-
-  setCurrentGroceryList(GroceryListModel groceryListModel) {
-    currentGroceryList.value = groceryListModel;
   }
 
   void setGroceryListPictureUrl(String value) {
     if (value != null) {
       groceryListPictureUrl.value = value;
-      currentGroceryList.value.pictureUrl = value;
+      groceryList.value.pictureUrl = value;
     }
   }
 
-  Rx<GroceryListModel> currentGroceryList = GroceryListModel().obs;
+  Rx<GroceryListModel> groceryList = GroceryListModel().obs;
+
   RxList groceryListIngredients = [].obs;
   RxList groceryListIngredientsTmp = [].obs;
   RxBool isFillingList = false.obs;
+
   RxList owners = [].obs;
   RxString groceryListPictureUrl = "".obs;
   RxBool isLoading = false.obs;
 }
+
+final GroceryListStates groceryListStates = Get.put(GroceryListStates());

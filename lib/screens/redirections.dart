@@ -43,7 +43,7 @@ class _Redirections extends State<Redirections> {
             return Obx(() =>
                 _getPage(accountStates.account.value, appStates.loading.value));
           else
-            return Loading();
+            return Container(color: Colors.white, child: Loading());
         });
   }
 
