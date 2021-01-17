@@ -55,7 +55,7 @@ class Onboarding extends StatelessWidget {
                   ONBOARDING_STEP_ID_PROFILE,
               child: Obx(
                 () => ConfirmButton(
-                    enabled: !accountStates.uploadingProfilePicture.value,
+                    enabled: !appStates.uploadingProfilePicture.value,
                     onClick: () async {
                       appStates.setLoading(true);
                       accountStates.account.value.onboardingFlag =

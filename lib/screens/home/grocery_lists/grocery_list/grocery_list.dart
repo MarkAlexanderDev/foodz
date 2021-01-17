@@ -1,7 +1,7 @@
-import 'package:EasyGroceries/screens/home/grocery_lists/grocery_list/grocery_list_states.dart';
 import 'package:EasyGroceries/services/database/database.dart';
 import 'package:EasyGroceries/services/database/models/grocery_list_ingredient_model.dart';
 import 'package:EasyGroceries/services/database/models/grocery_list_model.dart';
+import 'package:EasyGroceries/states/grocery_list_states.dart';
 import 'package:EasyGroceries/style/text_style.dart';
 import 'package:EasyGroceries/urls.dart';
 import 'package:EasyGroceries/utils/color.dart';
@@ -18,9 +18,6 @@ class GroceryList extends StatefulWidget {
 }
 
 class _GroceryList extends State<GroceryList> {
-  static const int GROCERY_LIST_ITEM_CHECK_ID = 0;
-  static const int GROCERY_LIST_ITEM_INGREDIENT_ID = 1;
-
   final GroceryListModel groceryList = Get.arguments;
   final SearchBarController _searchBarController = SearchBarController();
   Stream _stream;
@@ -47,19 +44,11 @@ class _GroceryList extends State<GroceryList> {
                       children: [
                         Obx(() => ListView.builder(
                             shrinkWrap: true,
-                            itemCount: groceryListStates.isFillingList.value
-                                ? groceryListStates
-                                    .groceryListIngredientsTmp.length
-                                : groceryListStates
-                                    .groceryListIngredients.length,
+                            itemCount:
+                                groceryListStates.groceryListIngredients.length,
                             itemBuilder: (BuildContext context, int i) {
-                              return Obx(() => _getGroceryListItem(
-                                  i,
-                                  groceryListStates.isFillingList.value
-                                      ? groceryListStates
-                                          .groceryListIngredientsTmp
-                                      : groceryListStates
-                                          .groceryListIngredients));
+                              return _getGroceryListItem(
+                                  i, groceryListStates.groceryListIngredients);
                             })),
                         Container(
                           height: 150,
@@ -68,8 +57,10 @@ class _GroceryList extends State<GroceryList> {
                             searchBarController: _searchBarController,
                             mainAxisSpacing: 1,
                             crossAxisSpacing: 2,
+                            onError: (error) {
+                              return Container();
+                            },
                             onItemFound: (ingredient, int index) {
-                              if (ingredient == null) return null;
                               return Container(
                                 decoration: BoxDecoration(
                                     border: Border.all(
@@ -77,9 +68,9 @@ class _GroceryList extends State<GroceryList> {
                                   width: 1,
                                 )),
                                 child: ListTile(
-                                  title: Text(ingredient["title"]),
+                                  title: Text(ingredient),
                                   onTap: () async {
-                                    _addIngredient(ingredient);
+                                    groceryListStates.addIngredient(ingredient);
                                     _searchBarController.clear();
                                   },
                                 ),
@@ -94,38 +85,30 @@ class _GroceryList extends State<GroceryList> {
         });
   }
 
-  _getGroceryListItem(index, groceryList) {
+  _getGroceryListItem(
+      int i, List<GroceryListIngredientModel> groceryListIngredients) {
     return GestureDetector(
       child: Row(
         children: [
           GestureDetector(
               onTap: () async {
-                await groceryListStates.deleteIngredient(index);
+                await groceryListStates.deleteIngredient(i);
               },
               child: Transform.rotate(
                   angle: 27.5,
                   child: Icon(Icons.add_circle_rounded, color: Colors.red))),
           Expanded(child: Container()),
-          Obx(() => AutoSizeText(
-              groceryList[index][GROCERY_LIST_ITEM_INGREDIENT_ID]["title"])),
+          AutoSizeText(groceryListStates.groceryListIngredientsKeys[i]),
           Expanded(child: Container()),
-          Obx(() => Checkbox(
-                value: groceryList[index][GROCERY_LIST_ITEM_CHECK_ID],
-                onChanged: (bool value) =>
-                    {groceryListStates.setIngredientCheckValue(value, index)},
-              )),
+          Checkbox(
+            value: groceryListIngredients[i].checked,
+            onChanged: (bool value) {
+              groceryListStates.setIngredientCheckValue(value, i);
+            },
+          ),
         ],
       ),
     );
-  }
-
-  _addIngredient(ingredient) async {
-    GroceryListIngredientModel groceryListIngredient =
-        new GroceryListIngredientModel();
-    groceryListIngredient.ingredientId = ingredient["id"];
-    groceryListIngredient.checked = false;
-    await API.groceryListIngredient
-        .create(groceryListIngredient, groceryList.uid);
   }
 
   AppBar _getAppBar() {

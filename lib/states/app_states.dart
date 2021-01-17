@@ -33,6 +33,7 @@ class AppStates extends GetxController {
 
   RxInt indexBar = HOME_SCREEN_ID.obs;
   RxBool loading = false.obs;
+  RxBool uploadingProfilePicture = false.obs;
 }
 
 final AppStates appStates = Get.put(AppStates());

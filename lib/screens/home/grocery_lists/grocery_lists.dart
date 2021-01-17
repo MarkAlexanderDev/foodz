@@ -1,3 +1,4 @@
+import 'package:EasyGroceries/extensions/color.dart';
 import 'package:EasyGroceries/services/database/database.dart';
 import 'package:EasyGroceries/services/database/models/account_grocery_list_model.dart';
 import 'package:EasyGroceries/services/database/models/grocery_list_ingredient_model.dart';
@@ -13,7 +14,6 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:EasyGroceries/extensions/color.dart';
 
 class GroceryLists extends StatefulWidget {
   @override
@@ -85,9 +85,8 @@ class _GroceryLists extends State<GroceryLists> {
     GroceryListIngredientModel groceryListIngredient =
         new GroceryListIngredientModel();
     groceryListIngredient.checked = false;
-    groceryListIngredient.ingredientId = 0;
     await API.groceryListIngredient
-        .create(groceryListIngredient, groceryList.uid);
+        .create("baguette", groceryListIngredient, groceryList.uid);
     return groceryList;
   }
 }

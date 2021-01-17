@@ -1,10 +1,7 @@
 import 'package:EasyGroceries/extensions/color.dart';
-import 'package:EasyGroceries/screens/home/grocery_lists/grocery_list/grocery_list_states.dart';
-import 'package:EasyGroceries/services/database/database.dart';
-import 'package:EasyGroceries/services/database/models/account_grocery_list_model.dart';
-import 'package:EasyGroceries/services/database/models/grocery_list_ingredient_model.dart';
 import 'package:EasyGroceries/services/database/models/grocery_list_model.dart';
 import 'package:EasyGroceries/states/app_states.dart';
+import 'package:EasyGroceries/states/grocery_list_states.dart';
 import 'package:EasyGroceries/style/colors.dart';
 import 'package:EasyGroceries/style/inputs.dart';
 import 'package:EasyGroceries/style/text_style.dart';
@@ -26,9 +23,6 @@ class GroceryListCreation extends StatefulWidget {
 }
 
 class _GroceryListCreation extends State<GroceryListCreation> {
-  final AppStates appStates = Get.put(AppStates());
-  final GroceryListStates groceryListStates = Get.put(GroceryListStates());
-
   @override
   void initState() {
     groceryListStates.groceryList.value = GroceryListModel();
@@ -58,7 +52,7 @@ class _GroceryListCreation extends State<GroceryListCreation> {
           enabled: true,
           onClick: () async {
             appStates.setLoading(true);
-            await _createGroceryList();
+            await groceryListStates.createGroceryList();
             Get.toNamed(URL_GROCERY_LIST,
                 arguments: groceryListStates.groceryList.value);
             appStates.setLoading(false);
@@ -137,26 +131,16 @@ class _GroceryListCreation extends State<GroceryListCreation> {
             BlockPicker(
               pickerColor:
                   hexToColor(groceryListStates.groceryList.value.color),
-              onColorChanged: (value) =>
-                  groceryListStates.groceryList.value.color = value.toHex(),
+              onColorChanged: (value) {
+                groceryListStates.groceryList.update((groceryList) {
+                  groceryList.color = value.toHex();
+                });
+              },
               availableColors: [mainColor, secondaryColor, accentColor],
             ),
           ]),
         ),
       ),
     );
-  }
-
-  Future<void> _createGroceryList() async {
-    await API.groceryList.create(groceryListStates.groceryList.value);
-    AccountGroceryListModel accountGroceryList = new AccountGroceryListModel();
-    accountGroceryList.groceryListUid = groceryListStates.groceryList.value.uid;
-    await API.accountGroceryList.create(accountGroceryList);
-    GroceryListIngredientModel groceryListIngredient =
-        new GroceryListIngredientModel();
-    groceryListIngredient.checked = false;
-    groceryListIngredient.ingredientId = 0;
-    await API.groceryListIngredient
-        .create(groceryListIngredient, groceryListStates.groceryList.value.uid);
   }
 }

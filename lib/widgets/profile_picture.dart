@@ -1,4 +1,4 @@
-import 'package:EasyGroceries/states/account_states.dart';
+import 'package:EasyGroceries/states/app_states.dart';
 import 'package:EasyGroceries/style/colors.dart';
 import 'package:EasyGroceries/style/text_style.dart';
 import 'package:EasyGroceries/widgets/loading.dart';
@@ -35,7 +35,7 @@ class ProfilePicture extends StatelessWidget {
               width: width,
               decoration:
                   BoxDecoration(color: mainColor, shape: BoxShape.circle),
-              child: accountStates.uploadingProfilePicture.value == true
+              child: appStates.uploadingProfilePicture.value == true
                   ? new Container(
                       child: Loading(),
                       decoration: new BoxDecoration(

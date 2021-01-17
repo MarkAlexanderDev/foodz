@@ -3,6 +3,7 @@ import 'package:EasyGroceries/screens/onboarding/onboarding.dart';
 import 'package:EasyGroceries/services/auth.dart';
 import 'package:EasyGroceries/states/account_states.dart';
 import 'package:EasyGroceries/states/allergy_tags_states.dart';
+import 'package:EasyGroceries/states/app_states.dart';
 import 'package:EasyGroceries/states/favorite_food_tags_states.dart';
 import 'package:EasyGroceries/style/colors.dart';
 import 'package:EasyGroceries/style/inputs.dart';
@@ -19,17 +20,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class Profile extends StatefulWidget {
-  @override
-  _Profile createState() => _Profile();
-}
-
-class _Profile extends State<Profile> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
+class Profile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,7 +40,7 @@ class _Profile extends State<Profile> {
                 Container(height: 20),
                 GestureDetector(
                     onTap: () async {
-                      await _onEditPicture();
+                      await _onEditPicture(context);
                     },
                     child: Obx(() => ProfilePicture(
                           height: 100,
@@ -58,7 +49,7 @@ class _Profile extends State<Profile> {
                           name: null,
                           editMode: true,
                           onEdit: () async {
-                            await _onEditPicture();
+                            await _onEditPicture(context);
                           },
                         ))),
                 Container(height: 20),
@@ -166,15 +157,15 @@ class _Profile extends State<Profile> {
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         floatingActionButton: Obx(() => ConfirmButton(
-          enabled: !accountStates.uploadingProfilePicture.value,
-          onClick: () async {
-            await accountStates.updateAccount();
-            Get.toNamed(URL_HOME);
-          },
-        )));
+              enabled: !appStates.uploadingProfilePicture.value,
+              onClick: () async {
+                await accountStates.updateAccount();
+                Get.toNamed(URL_HOME);
+              },
+            )));
   }
 
-  Future<void> _onEditPicture() async {
+  Future<void> _onEditPicture(context) async {
     final String imgPath = await getImage(
         context, !accountStates.account.value.pictureUrl.isNullOrBlank);
     accountStates.account.update((account) {

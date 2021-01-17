@@ -30,7 +30,6 @@ class AccountStates extends GetxController {
   }
 
   Rx<AccountModel> account = AccountModel().obs;
-  RxBool uploadingProfilePicture = false.obs;
 }
 
 final AccountStates accountStates = Get.put(AccountStates());
