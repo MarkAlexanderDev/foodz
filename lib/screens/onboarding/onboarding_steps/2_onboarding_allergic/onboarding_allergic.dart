@@ -8,6 +8,7 @@ import 'package:EasyGroceries/widgets/selectable_tags.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 
 class OnboardingAllergic extends StatefulWidget {
@@ -16,6 +17,8 @@ class OnboardingAllergic extends StatefulWidget {
 }
 
 class _OnboardingAllergic extends State<OnboardingAllergic> {
+  final AccountStates accountStates = Get.put(AccountStates());
+  final AllergyTagsStates allergyTagsStates = Get.put(AllergyTagsStates());
   Future _future;
 
   @override

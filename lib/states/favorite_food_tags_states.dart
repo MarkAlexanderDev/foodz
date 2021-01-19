@@ -42,6 +42,3 @@ class FavoriteFoodTagsStates extends GetxController {
 
   RxList<dynamic> tagsStates = List<dynamic>().obs;
 }
-
-final FavoriteFoodTagsStates favoriteFoodTagsStates =
-    Get.put(FavoriteFoodTagsStates());

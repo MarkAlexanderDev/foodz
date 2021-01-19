@@ -20,6 +20,7 @@ class Redirections extends StatefulWidget {
 }
 
 class _Redirections extends State<Redirections> {
+  final AccountStates accountStates = Get.put(AccountStates());
   Future<bool> _future;
 
   Future<bool> loader() async {
@@ -72,7 +73,7 @@ class _Redirections extends State<Redirections> {
               children: [
                 Container(width: 20),
                 AutoSizeText(
-                  "Hey there " + accountStates.account.value.name + "! ✌️",
+                  "Hey " + accountStates.account.value.name + "! ✌️",
                   style: textStyleH1,
                   textAlign: TextAlign.center,
                 ),

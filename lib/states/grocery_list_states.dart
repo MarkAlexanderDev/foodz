@@ -30,15 +30,15 @@ class GroceryListStates extends GetxController {
   }
 
   Future<void> createGroceryList() async {
-    await API.groceryList.create(groceryListStates.groceryList.value);
+    await API.groceryList.create(groceryList.value);
     AccountGroceryListModel accountGroceryList = new AccountGroceryListModel();
-    accountGroceryList.groceryListUid = groceryListStates.groceryList.value.uid;
+    accountGroceryList.groceryListUid = groceryList.value.uid;
     await API.accountGroceryList.create(accountGroceryList);
     GroceryListIngredientModel groceryListIngredient =
         new GroceryListIngredientModel();
     groceryListIngredient.checked = false;
-    await API.groceryListIngredient.create("baguette", groceryListIngredient,
-        groceryListStates.groceryList.value.uid);
+    await API.groceryListIngredient
+        .create("baguette", groceryListIngredient, groceryList.value.uid);
   }
 
   Future<void> updateGroceryList() async {
@@ -83,5 +83,3 @@ class GroceryListStates extends GetxController {
       List<GroceryListIngredientModel>().obs;
   RxBool uploadingProfilePicture = false.obs;
 }
-
-final GroceryListStates groceryListStates = Get.put(GroceryListStates());

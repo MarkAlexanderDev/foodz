@@ -17,6 +17,7 @@ const ONBOARDING_STEP_ID_FAVORITE_CUISINE = 2;
 const ONBOARDING_STEP_ID_PROFILE = 3;
 
 class Onboarding extends StatelessWidget {
+  final AccountStates accountStates = Get.put(AccountStates());
   final onboardingSteps = [
     OnboardingAuth(),
     OnboardingAllergic(),

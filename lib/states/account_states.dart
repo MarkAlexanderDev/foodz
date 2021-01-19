@@ -31,5 +31,3 @@ class AccountStates extends GetxController {
 
   Rx<AccountModel> account = AccountModel().obs;
 }
-
-final AccountStates accountStates = Get.put(AccountStates());

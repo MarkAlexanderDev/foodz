@@ -16,6 +16,8 @@ class OnboardingProfile extends StatefulWidget {
 }
 
 class _OnboardingProfile extends State<OnboardingProfile> {
+  final AccountStates accountStates = Get.put(AccountStates());
+
   @override
   void initState() {
     super.initState();

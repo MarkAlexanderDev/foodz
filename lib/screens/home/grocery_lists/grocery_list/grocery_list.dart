@@ -18,6 +18,7 @@ class GroceryList extends StatefulWidget {
 }
 
 class _GroceryList extends State<GroceryList> {
+  final GroceryListStates groceryListStates = Get.put(GroceryListStates());
   final GroceryListModel groceryList = Get.arguments;
   final SearchBarController _searchBarController = SearchBarController();
   Stream _stream;
@@ -31,58 +32,64 @@ class _GroceryList extends State<GroceryList> {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder(
-        stream: _stream,
-        builder: (BuildContext context, AsyncSnapshot snapshot) {
-          if (snapshot.hasData) {
-            return Scaffold(
-                appBar: _getAppBar(),
-                body: Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: SingleChildScrollView(
-                        child: Column(
-                      children: [
-                        Obx(() => ListView.builder(
-                            shrinkWrap: true,
-                            itemCount:
-                                groceryListStates.groceryListIngredients.length,
-                            itemBuilder: (BuildContext context, int i) {
-                              return _getGroceryListItem(
-                                  i, groceryListStates.groceryListIngredients);
-                            })),
-                        Container(
-                          height: 150,
-                          child: SearchBar(
-                            onSearch: API.ingredient.searchIngredient,
-                            searchBarController: _searchBarController,
-                            mainAxisSpacing: 1,
-                            crossAxisSpacing: 2,
-                            onError: (error) {
-                              return Container();
-                            },
-                            onItemFound: (ingredient, int index) {
-                              return Container(
-                                decoration: BoxDecoration(
-                                    border: Border.all(
-                                  color: Colors.black,
-                                  width: 1,
-                                )),
-                                child: ListTile(
-                                  title: Text(ingredient),
-                                  onTap: () async {
-                                    groceryListStates.addIngredient(ingredient);
-                                    _searchBarController.clear();
-                                  },
-                                ),
-                              );
-                            },
+    return WillPopScope(
+      onWillPop: () async {
+        return true;
+      },
+      child: StreamBuilder(
+          stream: _stream,
+          builder: (BuildContext context, AsyncSnapshot snapshot) {
+            if (snapshot.hasData) {
+              return Scaffold(
+                  appBar: _getAppBar(),
+                  body: Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: SingleChildScrollView(
+                          child: Column(
+                        children: [
+                          Obx(() => ListView.builder(
+                              shrinkWrap: true,
+                              itemCount: groceryListStates
+                                  .groceryListIngredients.length,
+                              itemBuilder: (BuildContext context, int i) {
+                                return _getGroceryListItem(i,
+                                    groceryListStates.groceryListIngredients);
+                              })),
+                          Container(
+                            height: 150,
+                            child: SearchBar(
+                              onSearch: API.ingredient.searchIngredient,
+                              searchBarController: _searchBarController,
+                              mainAxisSpacing: 1,
+                              crossAxisSpacing: 2,
+                              onError: (error) {
+                                return Container();
+                              },
+                              onItemFound: (ingredient, int index) {
+                                return Container(
+                                  decoration: BoxDecoration(
+                                      border: Border.all(
+                                    color: Colors.black,
+                                    width: 1,
+                                  )),
+                                  child: ListTile(
+                                    title: Text(ingredient["title"]),
+                                    onTap: () async {
+                                      groceryListStates
+                                          .addIngredient(ingredient["title"]);
+                                      _searchBarController.clear();
+                                    },
+                                  ),
+                                );
+                              },
+                            ),
                           ),
-                        ),
-                      ],
-                    ))));
-          } else
-            return Loading();
-        });
+                        ],
+                      ))));
+            } else
+              return Loading();
+          }),
+    );
   }
 
   _getGroceryListItem(

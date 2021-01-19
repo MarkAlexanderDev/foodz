@@ -9,6 +9,7 @@ import 'package:EasyGroceries/widgets/selectable_tags.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 
 class OnboardingFavoriteFood extends StatefulWidget {
@@ -17,6 +18,9 @@ class OnboardingFavoriteFood extends StatefulWidget {
 }
 
 class _OnboardingFavoriteFood extends State<OnboardingFavoriteFood> {
+  final AccountStates accountStates = Get.put(AccountStates());
+  final FavoriteFoodTagsStates favoriteFoodTagsStates =
+      Get.put(FavoriteFoodTagsStates());
   Future _future;
 
   @override

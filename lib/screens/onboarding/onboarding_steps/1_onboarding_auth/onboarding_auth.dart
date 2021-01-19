@@ -11,6 +11,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class OnboardingAuth extends StatelessWidget {
+  final AccountStates accountStates = Get.put(AccountStates());
+
   @override
   Widget build(BuildContext context) {
     return Center(

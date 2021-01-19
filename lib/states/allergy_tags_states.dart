@@ -42,5 +42,3 @@ class AllergyTagsStates extends GetxController {
 
   RxList<dynamic> tagsStates = List<dynamic>().obs;
 }
-
-final AllergyTagsStates allergyTagsStates = Get.put(AllergyTagsStates());

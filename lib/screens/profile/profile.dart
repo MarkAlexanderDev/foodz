@@ -21,6 +21,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class Profile extends StatelessWidget {
+  final AccountStates accountStates = Get.put(AccountStates());
+  final AllergyTagsStates allergyTagsStates = Get.put(AllergyTagsStates());
+  final FavoriteFoodTagsStates favoriteFoodTagsStates =
+      Get.put(FavoriteFoodTagsStates());
   @override
   Widget build(BuildContext context) {
     return Scaffold(

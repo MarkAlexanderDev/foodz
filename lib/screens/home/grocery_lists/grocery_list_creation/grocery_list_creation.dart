@@ -23,6 +23,8 @@ class GroceryListCreation extends StatefulWidget {
 }
 
 class _GroceryListCreation extends State<GroceryListCreation> {
+  final GroceryListStates groceryListStates = Get.put(GroceryListStates());
+
   @override
   void initState() {
     groceryListStates.groceryList.value = GroceryListModel();
@@ -53,7 +55,7 @@ class _GroceryListCreation extends State<GroceryListCreation> {
           onClick: () async {
             appStates.setLoading(true);
             await groceryListStates.createGroceryList();
-            Get.toNamed(URL_GROCERY_LIST,
+            Get.offNamed(URL_GROCERY_LIST,
                 arguments: groceryListStates.groceryList.value);
             appStates.setLoading(false);
           }),

@@ -19,6 +19,8 @@ import 'package:get/get.dart';
 import 'package:share/share.dart';
 
 class GroceryListOption extends StatelessWidget {
+  final GroceryListStates groceryListStates = Get.put(GroceryListStates());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
