@@ -12,7 +12,7 @@ class ServiceAccountGroceryList {
   Future<void> create(AccountGroceryListModel accountGroceryList) async {
     await get()
         .child(FirebaseAuth.instance.currentUser.uid)
-        .push()
+        .child(accountGroceryList.groceryListUid)
         .set(accountGroceryList.toMap());
   }
 
@@ -30,11 +30,7 @@ class ServiceAccountGroceryList {
   }
 
   Future<dynamic> getFromGroceryListUid(String groceryListuid) async {
-    final DataSnapshot snap = await get()
-        .child(FirebaseAuth.instance.currentUser.uid)
-        .orderByChild('groceryListUid')
-        .equalTo(groceryListuid)
-        .once();
+    final DataSnapshot snap = await get().orderByChild(groceryListuid).once();
     if (snap.value == null) return null;
     return snap;
   }

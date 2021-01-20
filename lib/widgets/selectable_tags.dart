@@ -7,14 +7,14 @@ class SelectableTags extends StatelessWidget {
   final List<ItemTags> _items = List<ItemTags>();
   final GlobalKey<TagsState> _tagStateKey = GlobalKey<TagsState>();
   final onClickTag;
-  final tagStates;
+  final List<TagModel> tags;
 
-  SelectableTags({@required this.onClickTag, this.tagStates}) {
-    for (var i = 0; i < tagStates.length; i++)
+  SelectableTags({@required this.onClickTag, @required this.tags}) {
+    for (var i = 0; i < tags.length; i++)
       _items.add(new ItemTags(
         index: i,
-        title: tagStates[i]["title"],
-        active: tagStates[i]["active"],
+        title: tags[i].title,
+        active: tags[i].active,
       ));
   }
 
@@ -44,4 +44,12 @@ class SelectableTags extends StatelessWidget {
       },
     );
   }
+}
+
+class TagModel {
+  String uid = "";
+  String title = "";
+  bool active = false;
+
+  TagModel({this.uid, @required this.title, @required this.active});
 }

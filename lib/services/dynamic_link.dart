@@ -28,6 +28,7 @@ class DynamicLink {
           new AccountGroceryListModel();
       accountGroceryList.groceryListUid =
           deepLink.queryParameters["groceryListUid"];
+      accountGroceryList.owner = false;
       await API.accountGroceryList.create(accountGroceryList);
       Get.to(Redirections());
     }

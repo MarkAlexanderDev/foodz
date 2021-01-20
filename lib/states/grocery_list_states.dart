@@ -33,6 +33,7 @@ class GroceryListStates extends GetxController {
     await API.groceryList.create(groceryList.value);
     AccountGroceryListModel accountGroceryList = new AccountGroceryListModel();
     accountGroceryList.groceryListUid = groceryList.value.uid;
+    accountGroceryList.owner = true;
     await API.accountGroceryList.create(accountGroceryList);
     GroceryListIngredientModel groceryListIngredient =
         new GroceryListIngredientModel();
@@ -81,5 +82,4 @@ class GroceryListStates extends GetxController {
   RxList<String> groceryListIngredientsKeys = List<String>().obs;
   RxList<GroceryListIngredientModel> groceryListIngredients =
       List<GroceryListIngredientModel>().obs;
-  RxBool uploadingProfilePicture = false.obs;
 }

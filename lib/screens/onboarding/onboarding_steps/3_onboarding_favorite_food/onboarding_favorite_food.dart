@@ -49,7 +49,7 @@ class _OnboardingFavoriteFood extends State<OnboardingFavoriteFood> {
                 Container(
                   padding: EdgeInsets.all(24.0),
                   child: SelectableTags(
-                    tagStates: favoriteFoodTagsStates.tagsStates,
+                    tags: favoriteFoodTagsStates.tags,
                     onClickTag: (tag) {
                       favoriteFoodTagsStates.setTag(tag.index, tag.active);
                     },

@@ -25,7 +25,7 @@ class _GroceryLists extends State<GroceryLists> {
 
   @override
   void initState() {
-    _future = _loadGroceryLists();
+    _future = _getGroceryLists();
     super.initState();
   }
 
@@ -54,7 +54,7 @@ class _GroceryLists extends State<GroceryLists> {
         });
   }
 
-  Future<List<GroceryListModel>> _loadGroceryLists() async {
+  Future<List<GroceryListModel>> _getGroceryLists() async {
     final List<GroceryListModel> grocerylists = List<GroceryListModel>();
     final DataSnapshot snap = await API.accountGroceryList
         .getFromUid(FirebaseAuth.instance.currentUser.uid);
@@ -63,9 +63,8 @@ class _GroceryLists extends State<GroceryLists> {
       grocerylists.add(await _createFirstGroceryList());
     else {
       groceryListUids.addAll(snap.value);
-      await Future.forEach(groceryListUids.values, (element) async {
-        grocerylists
-            .add(await API.groceryList.getFromUid(element["groceryListUid"]));
+      await Future.forEach(groceryListUids.keys, (groceryListUid) async {
+        grocerylists.add(await API.groceryList.getFromUid(groceryListUid));
       });
     }
     return grocerylists;
@@ -81,6 +80,7 @@ class _GroceryLists extends State<GroceryLists> {
     await API.groceryList.create(groceryList);
     AccountGroceryListModel accountGroceryList = new AccountGroceryListModel();
     accountGroceryList.groceryListUid = groceryList.uid;
+    accountGroceryList.owner = true;
     await API.accountGroceryList.create(accountGroceryList);
     GroceryListIngredientModel groceryListIngredient =
         new GroceryListIngredientModel();

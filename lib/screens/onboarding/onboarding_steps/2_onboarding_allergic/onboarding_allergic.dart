@@ -47,7 +47,7 @@ class _OnboardingAllergic extends State<OnboardingAllergic> {
                 Container(
                   padding: EdgeInsets.all(24.0),
                   child: SelectableTags(
-                    tagStates: allergyTagsStates.tagsStates,
+                    tags: allergyTagsStates.tags,
                     onClickTag: (tag) {
                       allergyTagsStates.setTag(tag.index, tag.active);
                     },
