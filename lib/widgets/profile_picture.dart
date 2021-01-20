@@ -1,8 +1,11 @@
+import 'package:EasyGroceries/states/app_states.dart';
 import 'package:EasyGroceries/style/colors.dart';
 import 'package:EasyGroceries/style/text_style.dart';
+import 'package:EasyGroceries/widgets/loading.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class ProfilePicture extends StatelessWidget {
   final double height;
@@ -27,30 +30,39 @@ class ProfilePicture extends StatelessWidget {
       width: width,
       child: Stack(
         children: <Widget>[
-          Container(
+          Obx(() => Container(
               height: height,
               width: width,
               decoration:
                   BoxDecoration(color: mainColor, shape: BoxShape.circle),
-              child: pictureUrl == "" || pictureUrl == null
-                  ? name == "" || name == null
-                      ? Icon(
-                          Icons.person,
-                          size: height * 0.70,
-                          color: Colors.white,
-                        )
-                      : Center(
-                          child: AutoSizeText(name[0], style: textStyleLetter))
-                  : new Container(
+              child: appStates.uploadingProfilePicture.value == true
+                  ? new Container(
+                      child: Loading(),
                       decoration: new BoxDecoration(
-                        border: Border.all(color: mainColor, width: 2),
-                        shape: BoxShape.circle,
-                        image: new DecorationImage(
-                          image: NetworkImage(pictureUrl),
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    )),
+                          border: Border.all(color: mainColor, width: 2),
+                          shape: BoxShape.circle,
+                          color: Colors.white),
+                    )
+                  : pictureUrl == "" || pictureUrl == null
+                      ? name == "" || name == null
+                          ? Icon(
+                              Icons.person,
+                              size: height * 0.70,
+                              color: Colors.white,
+                            )
+                          : Center(
+                              child:
+                                  AutoSizeText(name[0], style: textStyleLetter))
+                      : new Container(
+                          decoration: new BoxDecoration(
+                            border: Border.all(color: mainColor, width: 2),
+                            shape: BoxShape.circle,
+                            image: new DecorationImage(
+                              image: NetworkImage(pictureUrl),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ))),
           Visibility(
             visible: editMode,
             child: Align(

@@ -8,21 +8,21 @@ class ServiceGroceryListIngredient {
     return databaseReference.child(endpointGroceryListIngredient);
   }
 
-  Future<void> create(
+  Future<void> create(String name,
       GroceryListIngredientModel groceryListIngredient, String uid) async {
-    await get().child(uid).push().set(groceryListIngredient.toMap());
+    await get().child(uid).child(name).set(groceryListIngredient.toMap());
   }
 
   Future<void> update(GroceryListIngredientModel groceryListIngredient,
-      ingredientUid, listUid) async {
+      String ingredientUid, String listUid) async {
     await get()
         .child(listUid)
         .child(ingredientUid)
         .update(groceryListIngredient.toMap());
   }
 
-  Future<void> delete(String ingredientUid, String listUid) async {
-    await get().child(listUid).child(ingredientUid).remove();
+  Future<void> delete(String ingredient, String listUid) async {
+    await get().child(listUid).child(ingredient).remove();
   }
 
   Future<dynamic> getFromUid(String uid) async {

@@ -1,10 +1,9 @@
 import 'dart:io';
 
-import 'package:EasyGroceries/screens/states/profile_states.dart';
 import 'package:EasyGroceries/services/database/database.dart';
+import 'package:EasyGroceries/states/app_states.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
 Future<String> getImage(context, bool hasUserProfilePicture) async {
@@ -52,13 +51,12 @@ Future<String> getImage(context, bool hasUserProfilePicture) async {
   if (imagePath == null)
     return null;
   else if (imagePath.isEmpty) return imagePath;
-  return uploadPictureFromLocalStorage(imagePath, "/images");
+  return await uploadPictureFromLocalStorage(imagePath, "/images");
 }
 
 Future<String> uploadPictureFromLocalStorage(
     String pictureLocalStorageUrl, String storageRef) async {
-  final ProfileStates profileStates = Get.put(ProfileStates());
-  profileStates.setLoading(true);
+  appStates.uploadingProfilePicture.value = true;
   if (pictureLocalStorageUrl == "") return "";
   final reference = firebaseStorage
       .ref()
@@ -67,7 +65,7 @@ Future<String> uploadPictureFromLocalStorage(
       reference.putFile(new File(pictureLocalStorageUrl));
   final snapshot = await uploadTask;
   final String url = await snapshot.ref.getDownloadURL();
-  profileStates.setLoading(false);
+  appStates.uploadingProfilePicture.value = false;
   return url;
 }
 

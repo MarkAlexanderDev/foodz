@@ -1,7 +1,10 @@
 import 'package:EasyGroceries/screens/consts.dart';
 import 'package:EasyGroceries/screens/onboarding/onboarding.dart';
-import 'package:EasyGroceries/screens/states/profile_states.dart';
 import 'package:EasyGroceries/services/auth.dart';
+import 'package:EasyGroceries/states/account_states.dart';
+import 'package:EasyGroceries/states/allergy_tags_states.dart';
+import 'package:EasyGroceries/states/app_states.dart';
+import 'package:EasyGroceries/states/favorite_food_tags_states.dart';
 import 'package:EasyGroceries/style/colors.dart';
 import 'package:EasyGroceries/style/inputs.dart';
 import 'package:EasyGroceries/style/text_style.dart';
@@ -24,167 +27,189 @@ class Profile extends StatefulWidget {
 }
 
 class _Profile extends State<Profile> {
-  final ProfileStates profileStates = Get.put(ProfileStates());
+  final AccountStates accountStates = Get.put(AccountStates());
+  final AllergyTagsStates allergyTagsStates = Get.put(AllergyTagsStates());
+  final FavoriteFoodTagsStates favoriteFoodTagsStates =
+      Get.put(FavoriteFoodTagsStates());
+  Future _future;
 
   @override
   void initState() {
-    profileStates.getData();
-    profileStates.setLoading(false);
+    _future = _getTages();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Obx(() => !profileStates.loading.value
-        ? Scaffold(
-            body: Padding(
-              padding: const EdgeInsets.all(40.0),
-              child: SingleChildScrollView(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Center(
-                      child: AutoSizeText(
-                        "MY PROFILE",
-                        style: textStyleH1,
-                      ),
-                    ),
-                    Container(height: 20),
-                    GestureDetector(
-                        onTap: () async {
-                          profileStates.setPictureUrl(await getImage(context,
-                              !profileStates.pictureUrl.value.isNullOrBlank));
-                        },
-                        child: Obx(() => ProfilePicture(
-                              height: 100,
-                              width: 100,
-                              pictureUrl: profileStates.pictureUrl.value,
-                              name: null,
-                              editMode: true,
-                              onEdit: () async {
-                                profileStates.setPictureUrl(await getImage(
-                                    context,
-                                    !profileStates
-                                        .pictureUrl.value.isNullOrBlank));
+    return FutureBuilder(
+        future: _future,
+        builder: (BuildContext context, snapshot) {
+          if (snapshot.hasData)
+            return Scaffold(
+                body: Padding(
+                  padding: const EdgeInsets.all(40.0),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Center(
+                          child: AutoSizeText(
+                            "MY PROFILE",
+                            style: textStyleH1,
+                          ),
+                        ),
+                        Container(height: 20),
+                        GestureDetector(
+                            onTap: () async {
+                              await _onEditPicture(context);
+                            },
+                            child: Obx(() => ProfilePicture(
+                                  height: 100,
+                                  width: 100,
+                                  pictureUrl:
+                                      accountStates.account.value.pictureUrl,
+                                  name: null,
+                                  editMode: true,
+                                  onEdit: () async {
+                                    await _onEditPicture(context);
+                                  },
+                                ))),
+                        Container(height: 20),
+                        Container(
+                          width: MediaQuery.of(context).size.width / 2,
+                          child: TextFormField(
+                            autocorrect: false,
+                            keyboardType: TextInputType.visiblePassword,
+                            style: textStyleH1,
+                            textAlign: TextAlign.center,
+                            decoration: getStandardInputDecoration("name", ""),
+                            initialValue: accountStates.account.value.name,
+                            onChanged: (value) {
+                              accountStates.account.value.name = value;
+                            },
+                          ),
+                        ),
+                        Container(height: 20),
+                        SectionTitle(
+                            icon: Icons.local_fire_department,
+                            text: "MY COOKING EXPERIENCE"),
+                        Container(height: 10),
+                        Obx(() => DropdownButton<String>(
+                              value: accountStates
+                                  .getCookingExperienceConverted(accountStates
+                                      .account.value.cookingExperience),
+                              icon: Icon(Icons.keyboard_arrow_down_rounded),
+                              iconSize: 24,
+                              elevation: 16,
+                              style: new TextStyle(
+                                color: Colors.black,
+                              ),
+                              underline: Container(
+                                height: 1,
+                                color: Colors.black,
+                              ),
+                              onChanged: (String value) {
+                                accountStates.account.value.cookingExperience =
+                                    COOKING_EXPERIENCE_IDS.indexOf(value);
                               },
-                            ))),
-                    Container(height: 20),
-                    Container(
-                      width: appWidth / 2,
-                      child: TextFormField(
-                        autocorrect: false,
-                        keyboardType: TextInputType.visiblePassword,
-                        style: textStyleH1,
-                        textAlign: TextAlign.center,
-                        decoration: getStandardInputDecoration("name", ""),
-                        initialValue: profileStates.name.value,
-                        onChanged: (value) {
-                          profileStates.setName(value);
-                        },
-                      ),
-                    ),
-                    Container(height: 20),
-                    SectionTitle(
-                        icon: Icons.local_fire_department,
-                        text: "MY COOKING EXPERIENCE"),
-                    Container(height: 10),
-                    Obx(() => DropdownButton<String>(
-                          value: profileStates.getCookingExperienceConverted(
-                              profileStates.cookingExperience.value),
-                          icon: Icon(Icons.keyboard_arrow_down_rounded),
-                          iconSize: 24,
-                          elevation: 16,
-                          style: new TextStyle(
-                            color: Colors.black,
+                              items: COOKING_EXPERIENCE_IDS
+                                  .map<DropdownMenuItem<String>>(
+                                      (String value) {
+                                return DropdownMenuItem<String>(
+                                  value: value,
+                                  child:
+                                      AutoSizeText(value, style: textStyleH2),
+                                );
+                              }).toList(),
+                            )),
+                        Container(height: 20),
+                        SectionTitle(
+                            icon: Icons.clear, text: "MY FORBIDDEN FOOD"),
+                        Container(height: 10),
+                        Container(
+                          padding: EdgeInsets.all(24.0),
+                          child: SelectableTags(
+                            tags: allergyTagsStates.tags,
+                            onClickTag: (tag) {
+                              allergyTagsStates.setTag(tag.index, tag.active);
+                            },
                           ),
-                          underline: Container(
-                            height: 1,
-                            color: Colors.black,
+                        ),
+                        Container(height: 20),
+                        SectionTitle(
+                            icon: Icons.fastfood_rounded,
+                            text: "MY FAVORITE CUISINE"),
+                        Container(height: 10),
+                        Container(
+                          padding: EdgeInsets.all(24.0),
+                          child: SelectableTags(
+                            tags: favoriteFoodTagsStates.tags,
+                            onClickTag: (tag) {
+                              favoriteFoodTagsStates.setTag(
+                                  tag.index, tag.active);
+                            },
                           ),
-                          onChanged: (String value) {
-                            profileStates.setCookingExperience(
-                                COOKING_EXPERIENCE_IDS.indexOf(value));
+                        ),
+                        Container(height: 20),
+                        _ProfileButon(
+                          isFirst: true,
+                          icon: Icons.account_tree,
+                          text: "SUGGEST A FEATURE",
+                          onClick: () async {
+                            await launchUrl(
+                                "https://c0l0dpj04sd.typeform.com/to/GaQDfqZh");
                           },
-                          items: COOKING_EXPERIENCE_IDS
-                              .map<DropdownMenuItem<String>>((String value) {
-                            return DropdownMenuItem<String>(
-                              value: value,
-                              child: AutoSizeText(value, style: textStyleH2),
-                            );
-                          }).toList(),
-                        )),
-                    Container(height: 20),
-                    SectionTitle(icon: Icons.clear, text: "MY FORBIDDEN FOOD"),
-                    Container(height: 10),
-                    Container(
-                      padding: EdgeInsets.all(24.0),
-                      child: SelectableTags(
-                        tagStates: profileStates.allergicStates.tagsStates,
-                        onClickTag: (tag) {
-                          profileStates.allergicStates
-                              .setTag(tag.index, tag.active);
-                        },
-                      ),
+                        ),
+                        _ProfileButon(
+                          icon: Icons.bug_report,
+                          text: "REPORT A BUG",
+                          onClick: () async {
+                            await launchUrl(
+                                "https://c0l0dpj04sd.typeform.com/to/ITUBtkL3");
+                          },
+                        ),
+                        _ProfileButon(
+                          icon: Icons.logout,
+                          text: "LOGOUT",
+                          onClick: () async {
+                            await authService.signOut();
+                            accountStates.account.value.onboardingFlag =
+                                ONBOARDING_STEP_ID_AUTH;
+                            Get.toNamed("/");
+                          },
+                        ),
+                        Container(height: 50),
+                      ],
                     ),
-                    Container(height: 20),
-                    SectionTitle(
-                        icon: Icons.fastfood_rounded,
-                        text: "MY FAVORITE CUISINE"),
-                    Container(height: 10),
-                    Container(
-                      padding: EdgeInsets.all(24.0),
-                      child: SelectableTags(
-                        tagStates: profileStates.favoriteFoodStates.tagsStates,
-                        onClickTag: (tag) {
-                          profileStates.favoriteFoodStates
-                              .setTag(tag.index, tag.active);
-                        },
-                      ),
-                    ),
-                    Container(height: 20),
-                    _ProfileButon(
-                      isFirst: true,
-                      icon: Icons.account_tree,
-                      text: "SUGGEST A FEATURE",
-                      onClick: () async {
-                        await launchUrl(
-                            "https://c0l0dpj04sd.typeform.com/to/GaQDfqZh");
-                      },
-                    ),
-                    _ProfileButon(
-                      icon: Icons.bug_report,
-                      text: "REPORT A BUG",
-                      onClick: () async {
-                        await launchUrl(
-                            "https://c0l0dpj04sd.typeform.com/to/ITUBtkL3");
-                      },
-                    ),
-                    _ProfileButon(
-                      icon: Icons.logout,
-                      text: "LOGOUT",
-                      onClick: () async {
-                        await authService.signOut();
-                        profileStates
-                                .appStates.currentAccount["onboardingFlag"] =
-                            ONBOARDING_STEP_ID_AUTH;
-                        Get.toNamed("/");
-                      },
-                    ),
-                    Container(height: 50),
-                  ],
+                  ),
                 ),
-              ),
-            ),
-            floatingActionButtonLocation:
-                FloatingActionButtonLocation.centerFloat,
-            floatingActionButton: ConfirmButton(
-              onClick: () async {
-                await profileStates.saveData();
-                Get.toNamed(URL_HOME);
-              },
-            ))
-        : Loading());
+                floatingActionButtonLocation:
+                    FloatingActionButtonLocation.centerFloat,
+                floatingActionButton: Obx(() => ConfirmButton(
+                      enabled: !appStates.uploadingProfilePicture.value,
+                      onClick: () async {
+                        await accountStates.updateAccount();
+                        Get.toNamed(URL_HOME);
+                      },
+                    )));
+          else
+            return Loading();
+        });
+  }
+
+  Future<void> _onEditPicture(context) async {
+    final String imgPath = await getImage(
+        context, !accountStates.account.value.pictureUrl.isNullOrBlank);
+    accountStates.account.update((account) {
+      if (!imgPath.isNull) account.pictureUrl = imgPath;
+    });
+  }
+
+  Future<bool> _getTages() async {
+    await allergyTagsStates.getTags();
+    await favoriteFoodTagsStates.getTags();
+    return true;
   }
 }
 
@@ -203,7 +228,7 @@ class _ProfileButon extends StatelessWidget {
         await onClick();
       },
       child: Container(
-        width: appWidth,
+        width: MediaQuery.of(context).size.width,
         height: 50,
         decoration: BoxDecoration(
             border: Border(

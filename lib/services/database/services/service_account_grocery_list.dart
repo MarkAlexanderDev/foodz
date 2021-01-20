@@ -12,7 +12,7 @@ class ServiceAccountGroceryList {
   Future<void> create(AccountGroceryListModel accountGroceryList) async {
     await get()
         .child(FirebaseAuth.instance.currentUser.uid)
-        .push()
+        .child(accountGroceryList.groceryListUid)
         .set(accountGroceryList.toMap());
   }
 
@@ -30,11 +30,18 @@ class ServiceAccountGroceryList {
   }
 
   Future<dynamic> getFromGroceryListUid(String groceryListuid) async {
-    final DataSnapshot snap = await get()
-        .orderByChild('groceryListUid')
-        .endAt("-MPeGpvIMVH553DppKNm")
-        .once();
+    final DataSnapshot snap = await get().orderByChild(groceryListuid).once();
     if (snap.value == null) return null;
     return snap;
+  }
+
+  Future<bool> isLinkedToAccount(String groceryListuid) async {
+    final DataSnapshot snap = await get()
+        .child(FirebaseAuth.instance.currentUser.uid)
+        .orderByChild('groceryListUid')
+        .equalTo(groceryListuid)
+        .once();
+    if (snap.value == null) return false;
+    return true;
   }
 }

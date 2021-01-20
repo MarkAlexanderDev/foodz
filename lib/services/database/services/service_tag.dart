@@ -7,7 +7,7 @@ class ServiceTag {
     return databaseReference.child(endpointTag);
   }
 
-  Future getTags(String path) async {
+  Future<List> getTags(String path) async {
     final DataSnapshot snap = await get().child(path).once();
     return snap.value;
   }

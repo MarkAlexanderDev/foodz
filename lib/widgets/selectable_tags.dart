@@ -1,6 +1,5 @@
 import 'package:EasyGroceries/style/colors.dart';
 import 'package:EasyGroceries/style/text_style.dart';
-import 'package:audioplayers/audio_cache.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tags/flutter_tags.dart';
 
@@ -8,16 +7,14 @@ class SelectableTags extends StatelessWidget {
   final List<ItemTags> _items = List<ItemTags>();
   final GlobalKey<TagsState> _tagStateKey = GlobalKey<TagsState>();
   final onClickTag;
-  final tagStates;
-  final player = AudioCache(prefix: 'sounds/');
+  final List<TagModel> tags;
 
-  SelectableTags({@required this.onClickTag, this.tagStates}) {
-    player.loadAll(['tag_select.mp3', 'tag_unselect.mp3']);
-    for (var i = 0; i < tagStates.length; i++)
+  SelectableTags({@required this.onClickTag, @required this.tags}) {
+    for (var i = 0; i < tags.length; i++)
       _items.add(new ItemTags(
         index: i,
-        title: tagStates[i]["title"],
-        active: tagStates[i]["active"],
+        title: tags[i].title,
+        active: tags[i].active,
       ));
   }
 
@@ -41,13 +38,18 @@ class SelectableTags extends StatelessWidget {
           activeColor: mainColor,
           splashColor: mainColor,
           onPressed: (tag) {
-            tag.active
-                ? player.play('tag_select.mp3')
-                : player.play('tag_unselect.mp3');
             onClickTag(tag);
           },
         );
       },
     );
   }
+}
+
+class TagModel {
+  String uid = "";
+  String title = "";
+  bool active = false;
+
+  TagModel({this.uid, @required this.title, @required this.active});
 }

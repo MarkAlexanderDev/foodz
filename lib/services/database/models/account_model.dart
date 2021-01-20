@@ -7,20 +7,18 @@ import 'package:EasyGroceries/screens/onboarding/onboarding.dart';
 
 class AccountModel {
   String uid = "";
-  String firstName;
-  String lastName;
+  String name;
   String pictureUrl;
   int cookingExperience = COOKING_EXPERIENCE_ID_BEGINNER;
   int peopleNumber = 2;
-  int onboardingFlag = ONBOARDING_STEP_ID_ALLERGIC;
+  int onboardingFlag = ONBOARDING_STEP_ID_AUTH;
   String createdAt = ".";
   String updatedAt = ".";
 
   toMap() {
     return {
       "uid": this.uid,
-      "firstName": this.firstName,
-      "lastName": this.lastName,
+      "name": this.name,
       "pictureUrl": this.pictureUrl,
       "cookingExperience": this.cookingExperience,
       "peopleNumber": this.peopleNumber,
@@ -37,8 +35,7 @@ class AccountModel {
   bool fromJson(LinkedHashMap<dynamic, dynamic> data) {
     if (data == null) return false;
     this.uid = data["uid"];
-    this.firstName = data["firstName"];
-    this.lastName = data["lastName"];
+    this.name = data["name"];
     this.pictureUrl = data["pictureUrl"];
     this.cookingExperience = data["cookingExperience"];
     this.peopleNumber = data["peopleNumber"];

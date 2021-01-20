@@ -1,13 +1,10 @@
-import 'package:EasyGroceries/screens/consts.dart';
 import 'package:EasyGroceries/screens/onboarding/onboarding_steps/1_onboarding_auth/onboarding_auth.dart';
 import 'package:EasyGroceries/screens/onboarding/onboarding_steps/2_onboarding_allergic/onboarding_allergic.dart';
 import 'package:EasyGroceries/screens/onboarding/onboarding_steps/3_onboarding_favorite_food/onboarding_favorite_food.dart';
 import 'package:EasyGroceries/screens/onboarding/onboarding_steps/4_onboarding_profile/onboarding_profile.dart';
-import 'package:EasyGroceries/screens/states/app_states.dart';
-import 'package:EasyGroceries/screens/states/profile_states.dart';
 import 'package:EasyGroceries/services/auth.dart';
-import 'package:EasyGroceries/services/database/database.dart';
-import 'package:EasyGroceries/services/database/services/service_account.dart';
+import 'package:EasyGroceries/states/account_states.dart';
+import 'package:EasyGroceries/states/app_states.dart';
 import 'package:EasyGroceries/style/colors.dart';
 import 'package:EasyGroceries/widgets/button.dart';
 import 'package:flutter/cupertino.dart';
@@ -20,8 +17,7 @@ const ONBOARDING_STEP_ID_FAVORITE_CUISINE = 2;
 const ONBOARDING_STEP_ID_PROFILE = 3;
 
 class Onboarding extends StatelessWidget {
-  final AppStates appStates = Get.put(AppStates());
-  final ProfileStates profileStates = Get.put(ProfileStates());
+  final AccountStates accountStates = Get.put(AccountStates());
   final onboardingSteps = [
     OnboardingAuth(),
     OnboardingAllergic(),
@@ -44,50 +40,51 @@ class Onboarding extends StatelessWidget {
               Flexible(
                   fit: FlexFit.tight,
                   flex: 1,
-                  child: Obx(() =>
-                      _getStepper(appStates.currentAccount["onboardingFlag"]))),
+                  child: Obx(() => _getStepper(
+                      accountStates.account.value.onboardingFlag, context))),
               Flexible(
                   fit: FlexFit.tight,
                   flex: 20,
                   child: Obx(() => onboardingSteps[
-                      appStates.currentAccount["onboardingFlag"] == null
+                      accountStates.account.value.onboardingFlag == null
                           ? 0
-                          : appStates.currentAccount["onboardingFlag"]])),
+                          : accountStates.account.value.onboardingFlag])),
             ],
           ),
           bottomNavigationBar: Visibility(
-            visible: appStates.currentAccount["onboardingFlag"] ==
-                ONBOARDING_STEP_ID_PROFILE,
-            child: ConfirmButton(onClick: () async {
-              appStates.setLoading(true);
-              await profileStates.saveData();
-              appStates.currentAccount["onboardingFlag"] =
-                  appStates.currentAccount["onboardingFlag"] + 1;
-              await API.account
-                  .update(fromMapToAccount(appStates.currentAccount));
-              appStates.setLoading(false);
-            }),
-          )),
+              visible: accountStates.account.value.onboardingFlag ==
+                  ONBOARDING_STEP_ID_PROFILE,
+              child: Obx(
+                () => ConfirmButton(
+                    enabled: !appStates.uploadingProfilePicture.value,
+                    onClick: () async {
+                      appStates.setLoading(true);
+                      accountStates.account.value.onboardingFlag =
+                          accountStates.account.value.onboardingFlag + 1;
+                      await accountStates.updateAccount();
+                      appStates.setLoading(false);
+                    }),
+              ))),
     );
   }
 
-  _getStepper(onboardingStep) {
+  _getStepper(int onboardingStep, BuildContext context) {
     return AnimatedContainer(
       duration: Duration(milliseconds: 200),
       color: mainColor,
-      width: appWidth /
+      width: MediaQuery.of(context).size.width /
           onboardingSteps.length *
           (onboardingStep == null ? 0 : onboardingStep),
     );
   }
 
   Future<bool> _previousOnboardingStep() async {
-    if (appStates.currentAccount["onboardingFlag"] > 0) {
+    if (accountStates.account.value.onboardingFlag > 0) {
       appStates.setLoading(true);
-      appStates.currentAccount["onboardingFlag"] =
-          appStates.currentAccount["onboardingFlag"] - 1;
-      await API.account.update(fromMapToAccount(appStates.currentAccount));
-      if (appStates.currentAccount["onboardingFlag"] == ONBOARDING_STEP_ID_AUTH)
+      accountStates.account.value.onboardingFlag =
+          accountStates.account.value.onboardingFlag - 1;
+      await accountStates.updateAccount();
+      if (accountStates.account.value.onboardingFlag == ONBOARDING_STEP_ID_AUTH)
         await authService.signOut();
       appStates.setLoading(false);
       return false;

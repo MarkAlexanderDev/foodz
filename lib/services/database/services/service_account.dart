@@ -10,23 +10,25 @@ class ServiceAccount {
     return databaseReference.child(endpointAccount);
   }
 
-  create(AccountModel account) async {
+  Future<AccountModel> create(AccountModel account) async {
     var id = get().child(account.uid);
     await id.set(account.toMap());
-    return id;
+    return account;
   }
 
-  update(AccountModel account) async {
+  Future<void> update(AccountModel account) async {
     var id = get().child(account.uid);
     await id.update(account.toMap());
-    return id;
   }
 
-  getFromUid(uid) async {
+  Future<AccountModel> getFromUid(uid) async {
     AccountModel account = new AccountModel();
     final DataSnapshot snap = await get().child(uid).once();
-    if (snap.value != null) account.fromJson(snap.value);
-    return account;
+    if (snap.value != null) {
+      account.fromJson(snap.value);
+      return account;
+    }
+    return null;
   }
 
   getInMap(uid) async {
@@ -45,8 +47,7 @@ class ServiceAccount {
 AccountModel fromMapToAccount(Map mapAccount) {
   AccountModel account = new AccountModel();
   account.uid = mapAccount["uid"];
-  account.firstName = mapAccount["firstName"];
-  account.lastName = mapAccount["lastName"];
+  account.name = mapAccount["name"];
   account.cookingExperience = mapAccount["cookingExperience"];
   account.peopleNumber = mapAccount["peopleNumber"];
   account.onboardingFlag = mapAccount["onboardingFlag"];
