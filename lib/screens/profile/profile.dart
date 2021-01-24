@@ -102,7 +102,7 @@ class _Profile extends State<Profile> {
                               icon: Icon(Icons.keyboard_arrow_down_rounded),
                               iconSize: 24,
                               elevation: 16,
-                              style: new TextStyle(
+                              style: TextStyle(
                                 color: Colors.black,
                               ),
                               underline: Container(

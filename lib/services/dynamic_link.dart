@@ -24,8 +24,7 @@ class DynamicLink {
     if (deepLink != null &&
         !await API.accountGroceryList
             .isLinkedToAccount(deepLink.queryParameters["groceryListUid"])) {
-      AccountGroceryListModel accountGroceryList =
-          new AccountGroceryListModel();
+      AccountGroceryListModel accountGroceryList = AccountGroceryListModel();
       accountGroceryList.groceryListUid =
           deepLink.queryParameters["groceryListUid"];
       accountGroceryList.owner = false;
@@ -48,4 +47,4 @@ class DynamicLink {
   }
 }
 
-final DynamicLink dynamicLink = new DynamicLink();
+final DynamicLink dynamicLink = DynamicLink();

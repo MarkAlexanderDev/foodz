@@ -13,11 +13,11 @@ final DatabaseReference databaseReference =
 FirebaseStorage firebaseStorage = FirebaseStorage.instance;
 
 class API {
-  static final account = new ServiceAccount();
-  static final tag = new ServiceTag();
-  static final accountTag = new ServiceAccountTag();
-  static final groceryList = new ServiceGroceryList();
-  static final accountGroceryList = new ServiceAccountGroceryList();
-  static final groceryListIngredient = new ServiceGroceryListIngredient();
-  static final ingredient = new ServiceIngredient();
+  static final account = ServiceAccount();
+  static final tag = ServiceTag();
+  static final accountTag = ServiceAccountTag();
+  static final groceryList = ServiceGroceryList();
+  static final accountGroceryList = ServiceAccountGroceryList();
+  static final groceryListIngredient = ServiceGroceryListIngredient();
+  static final ingredient = ServiceIngredient();
 }

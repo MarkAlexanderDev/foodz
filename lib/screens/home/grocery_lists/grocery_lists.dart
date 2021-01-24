@@ -71,19 +71,19 @@ class _GroceryLists extends State<GroceryLists> {
   }
 
   Future<GroceryListModel> _createFirstGroceryList() async {
-    GroceryListModel groceryList = new GroceryListModel();
+    GroceryListModel groceryList = GroceryListModel();
     groceryList.title = "Monday's grocery list";
     groceryList.description = "All my needs for the week !";
     groceryList.color = mainColor.toHex();
     groceryList.pictureUrl =
         "https://firebasestorage.googleapis.com/v0/b/foodz-2aec5.appspot.com/o/assets%2Fgrocery.png?alt=media&token=d808b0ab-eccf-4bcf-a5ae-36d4dca1b53f";
     await API.groceryList.create(groceryList);
-    AccountGroceryListModel accountGroceryList = new AccountGroceryListModel();
+    AccountGroceryListModel accountGroceryList = AccountGroceryListModel();
     accountGroceryList.groceryListUid = groceryList.uid;
     accountGroceryList.owner = true;
     await API.accountGroceryList.create(accountGroceryList);
     GroceryListIngredientModel groceryListIngredient =
-        new GroceryListIngredientModel();
+        GroceryListIngredientModel();
     groceryListIngredient.checked = false;
     await API.groceryListIngredient
         .create("baguette", groceryListIngredient, groceryList.uid);
@@ -128,11 +128,11 @@ class _GroceryListsItem extends StatelessWidget {
               Flexible(
                 flex: 5,
                 child: Container(
-                  decoration: new BoxDecoration(
+                  decoration: BoxDecoration(
                     borderRadius: BorderRadius.only(
                         bottomLeft: Radius.circular(20),
                         bottomRight: Radius.circular(20)),
-                    image: new DecorationImage(
+                    image: DecorationImage(
                       image: NetworkImage(groceryList.pictureUrl),
                       fit: BoxFit.cover,
                     ),

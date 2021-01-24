@@ -22,7 +22,7 @@ class ServiceAccount {
   }
 
   Future<AccountModel> getFromUid(uid) async {
-    AccountModel account = new AccountModel();
+    AccountModel account = AccountModel();
     final DataSnapshot snap = await get().child(uid).once();
     if (snap.value != null) {
       account.fromJson(snap.value);
@@ -45,7 +45,7 @@ class ServiceAccount {
 }
 
 AccountModel fromMapToAccount(Map mapAccount) {
-  AccountModel account = new AccountModel();
+  AccountModel account = AccountModel();
   account.uid = mapAccount["uid"];
   account.name = mapAccount["name"];
   account.cookingExperience = mapAccount["cookingExperience"];

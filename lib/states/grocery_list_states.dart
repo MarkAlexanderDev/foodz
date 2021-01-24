@@ -14,10 +14,10 @@ class GroceryListStates extends GetxController {
         .child(groceryList.value.uid)
         .onValue
         .listen((event) async {
-      final Map snapshot = new Map<String, dynamic>.from(event.snapshot.value);
+      final Map snapshot = Map<String, dynamic>.from(event.snapshot.value);
       for (int i = 0; i < snapshot.length; i++) {
         final GroceryListIngredientModel groceryListModel =
-            new GroceryListIngredientModel();
+            GroceryListIngredientModel();
         groceryListModel.fromJson(snapshot.entries.elementAt(i).value);
         if (groceryListIngredients.length <= i) {
           groceryListIngredientsKeys.add(snapshot.entries.elementAt(i).key);
@@ -31,12 +31,12 @@ class GroceryListStates extends GetxController {
 
   Future<void> createGroceryList() async {
     await API.groceryList.create(groceryList.value);
-    AccountGroceryListModel accountGroceryList = new AccountGroceryListModel();
+    AccountGroceryListModel accountGroceryList = AccountGroceryListModel();
     accountGroceryList.groceryListUid = groceryList.value.uid;
     accountGroceryList.owner = true;
     await API.accountGroceryList.create(accountGroceryList);
     GroceryListIngredientModel groceryListIngredient =
-        new GroceryListIngredientModel();
+        GroceryListIngredientModel();
     groceryListIngredient.checked = false;
     await API.groceryListIngredient
         .create("baguette", groceryListIngredient, groceryList.value.uid);
@@ -49,7 +49,7 @@ class GroceryListStates extends GetxController {
   Future<void> addIngredient(String ingredient) async {
     if (!groceryListIngredientsKeys.contains(ingredient)) {
       GroceryListIngredientModel groceryListIngredient =
-          new GroceryListIngredientModel();
+          GroceryListIngredientModel();
       groceryListIngredient.checked = false;
       groceryListIngredients.add(groceryListIngredient);
       groceryListIngredients.refresh();

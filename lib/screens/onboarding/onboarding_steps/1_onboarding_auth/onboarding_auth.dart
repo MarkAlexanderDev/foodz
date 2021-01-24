@@ -39,7 +39,7 @@ class OnboardingAuth extends StatelessWidget {
         }
         await accountStates.updateAccount();
       } else {
-        AccountModel account = new AccountModel();
+        AccountModel account = AccountModel();
         account.uid = FirebaseAuth.instance.currentUser.uid;
         account.name = firebaseUser.displayName;
         account.pictureUrl = firebaseUser.photoURL;

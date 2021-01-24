@@ -14,29 +14,29 @@ Future<String> getImage(context, bool hasUserProfilePicture) async {
       context: context,
       builder: (BuildContext bc) {
         return Container(
-          child: new Wrap(
+          child: Wrap(
             children: <Widget>[
               hasUserProfilePicture
-                  ? new ListTile(
-                      leading: new Icon(Icons.delete),
-                      title: new Text('Remove profile picture'),
+                  ? ListTile(
+                      leading: Icon(Icons.delete),
+                      title: Text('Remove profile picture'),
                       onTap: () async {
                         imagePath = "";
                         Navigator.pop(context);
                       })
                   : Container(),
-              new ListTile(
-                  leading: new Icon(Icons.add_photo_alternate),
-                  title: new Text('Galery'),
+              ListTile(
+                  leading: Icon(Icons.add_photo_alternate),
+                  title: Text('Galery'),
                   onTap: () async {
                     PickedFile pickedFile =
                         await picker.getImage(source: ImageSource.gallery);
                     imagePath = pickedFile.path;
                     Navigator.pop(context);
                   }),
-              new ListTile(
-                leading: new Icon(Icons.add_a_photo),
-                title: new Text('Camera'),
+              ListTile(
+                leading: Icon(Icons.add_a_photo),
+                title: Text('Camera'),
                 onTap: () async {
                   PickedFile pickedFile =
                       await picker.getImage(source: ImageSource.camera);
@@ -61,8 +61,7 @@ Future<String> uploadPictureFromLocalStorage(
   final reference = firebaseStorage
       .ref()
       .child(storageRef + getImgNameFromPath(pictureLocalStorageUrl));
-  final UploadTask uploadTask =
-      reference.putFile(new File(pictureLocalStorageUrl));
+  final UploadTask uploadTask = reference.putFile(File(pictureLocalStorageUrl));
   final snapshot = await uploadTask;
   final String url = await snapshot.ref.getDownloadURL();
   appStates.uploadingProfilePicture.value = false;

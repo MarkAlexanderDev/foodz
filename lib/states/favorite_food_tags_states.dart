@@ -32,7 +32,7 @@ class FavoriteFoodTagsStates extends GetxController {
   Future<void> updateTags() async {
     for (int i = 0; i < tags.length; i++) {
       if (tags[i].active && tags[i].uid == "") {
-        AccountTagModel accountTag = new AccountTagModel();
+        AccountTagModel accountTag = AccountTagModel();
         accountTag.tagId = i;
         accountTag.createdAt = DateTime.now().toUtc().toString();
         accountTag.updatedAt = DateTime.now().toUtc().toString();

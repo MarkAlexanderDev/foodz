@@ -36,9 +36,9 @@ class ProfilePicture extends StatelessWidget {
               decoration:
                   BoxDecoration(color: mainColor, shape: BoxShape.circle),
               child: appStates.uploadingProfilePicture.value == true
-                  ? new Container(
+                  ? Container(
                       child: Loading(),
-                      decoration: new BoxDecoration(
+                      decoration: BoxDecoration(
                           border: Border.all(color: mainColor, width: 2),
                           shape: BoxShape.circle,
                           color: Colors.white),
@@ -53,11 +53,11 @@ class ProfilePicture extends StatelessWidget {
                           : Center(
                               child:
                                   AutoSizeText(name[0], style: textStyleLetter))
-                      : new Container(
-                          decoration: new BoxDecoration(
+                      : Container(
+                          decoration: BoxDecoration(
                             border: Border.all(color: mainColor, width: 2),
                             shape: BoxShape.circle,
-                            image: new DecorationImage(
+                            image: DecorationImage(
                               image: NetworkImage(pictureUrl),
                               fit: BoxFit.cover,
                             ),

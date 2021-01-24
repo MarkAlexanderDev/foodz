@@ -11,7 +11,7 @@ class SelectableTags extends StatelessWidget {
 
   SelectableTags({@required this.onClickTag, @required this.tags}) {
     for (var i = 0; i < tags.length; i++)
-      _items.add(new ItemTags(
+      _items.add(ItemTags(
         index: i,
         title: tags[i].title,
         active: tags[i].active,
