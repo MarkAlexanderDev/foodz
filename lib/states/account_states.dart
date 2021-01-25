@@ -8,21 +8,21 @@ class AccountStates extends GetxController {
   static AccountStates get to => Get.find();
 
   Future<void> createAccount(AccountModel newAccount) async {
-    account.value = await API.account.create(newAccount);
+    account.value = await Database.account.create(newAccount);
   }
 
   Future<void> getAccount() async {
     if (!FirebaseAuth.instance.currentUser.isNullOrBlank)
-      account.value =
-          await API.account.getFromUid(FirebaseAuth.instance.currentUser.uid);
+      account.value = await Database.account
+          .getFromUid(FirebaseAuth.instance.currentUser.uid);
   }
 
   Future<void> updateAccount() async {
-    await API.account.update(account.value);
+    await Database.account.update(account.value);
   }
 
   Future<bool> doesAccountExist() async {
-    return await API.account.exist(FirebaseAuth.instance.currentUser.uid);
+    return await Database.account.exist(FirebaseAuth.instance.currentUser.uid);
   }
 
   String getCookingExperienceConverted(int value) {

@@ -1,6 +1,6 @@
 import 'package:EasyGroceries/screens/onboarding/onboarding_steps/1_onboarding_auth/onboarding_auth.dart';
 import 'package:EasyGroceries/screens/onboarding/onboarding_steps/2_onboarding_allergic/onboarding_allergic.dart';
-import 'package:EasyGroceries/screens/onboarding/onboarding_steps/3_onboarding_favorite_food/onboarding_favorite_food.dart';
+import 'package:EasyGroceries/screens/onboarding/onboarding_steps/3_onboarding_cuisine/onboarding_cuisine.dart';
 import 'package:EasyGroceries/screens/onboarding/onboarding_steps/4_onboarding_profile/onboarding_profile.dart';
 import 'package:EasyGroceries/services/auth.dart';
 import 'package:EasyGroceries/states/account_states.dart';
@@ -21,7 +21,7 @@ class Onboarding extends StatelessWidget {
   final onboardingSteps = [
     OnboardingAuth(),
     OnboardingAllergic(),
-    OnboardingFavoriteFood(),
+    OnboardingCuisine(),
     OnboardingProfile()
   ];
 

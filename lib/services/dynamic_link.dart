@@ -22,13 +22,13 @@ class DynamicLink {
   Future _handleDeepLink(PendingDynamicLinkData data) async {
     final Uri deepLink = data?.link;
     if (deepLink != null &&
-        !await API.accountGroceryList
+        !await Database.accountGroceryList
             .isLinkedToAccount(deepLink.queryParameters["groceryListUid"])) {
       AccountGroceryListModel accountGroceryList = AccountGroceryListModel();
       accountGroceryList.groceryListUid =
           deepLink.queryParameters["groceryListUid"];
       accountGroceryList.owner = false;
-      await API.accountGroceryList.create(accountGroceryList);
+      await Database.accountGroceryList.create(accountGroceryList);
       Get.to(Redirections());
     }
   }

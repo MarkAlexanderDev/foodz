@@ -31,7 +31,6 @@ class AccountModel {
 
   bool fromJson(LinkedHashMap<dynamic, dynamic> data) {
     if (data == null) return false;
-    this.uid = data["uid"];
     this.name = data["name"];
     this.pictureUrl = data["pictureUrl"];
     this.cookingExperience = data["cookingExperience"];

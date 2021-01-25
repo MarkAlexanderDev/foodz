@@ -30,20 +30,20 @@ class GroceryListStates extends GetxController {
   }
 
   Future<void> createGroceryList() async {
-    await API.groceryList.create(groceryList.value);
+    await Database.groceryList.create(groceryList.value);
     AccountGroceryListModel accountGroceryList = AccountGroceryListModel();
     accountGroceryList.groceryListUid = groceryList.value.uid;
     accountGroceryList.owner = true;
-    await API.accountGroceryList.create(accountGroceryList);
+    await Database.accountGroceryList.create(accountGroceryList);
     GroceryListIngredientModel groceryListIngredient =
         GroceryListIngredientModel();
     groceryListIngredient.checked = false;
-    await API.groceryListIngredient
+    await Database.groceryListIngredient
         .create("baguette", groceryListIngredient, groceryList.value.uid);
   }
 
   Future<void> updateGroceryList() async {
-    await API.groceryList.update(groceryList.value);
+    await Database.groceryList.update(groceryList.value);
   }
 
   Future<void> addIngredient(String ingredient) async {
@@ -55,7 +55,7 @@ class GroceryListStates extends GetxController {
       groceryListIngredients.refresh();
       groceryListIngredientsKeys.add(ingredient);
       groceryListIngredientsKeys.refresh();
-      await API.groceryListIngredient
+      await Database.groceryListIngredient
           .create(ingredient, groceryListIngredient, groceryList.value.uid);
     } else
       Get.snackbar("error", ingredient + " is already present in your list");
@@ -67,14 +67,14 @@ class GroceryListStates extends GetxController {
     groceryListIngredients.refresh();
     groceryListIngredientsKeys.removeAt(index);
     groceryListIngredientsKeys.refresh();
-    await API.groceryListIngredient
+    await Database.groceryListIngredient
         .delete(ingredientToRm, groceryList.value.uid);
   }
 
   Future<void> setIngredientCheckValue(bool value, int index) async {
     groceryListIngredients[index].checked = value;
     groceryListIngredients.refresh();
-    await API.groceryListIngredient.update(groceryListIngredients[index],
+    await Database.groceryListIngredient.update(groceryListIngredients[index],
         groceryListIngredientsKeys[index], groceryList.value.uid);
   }
 

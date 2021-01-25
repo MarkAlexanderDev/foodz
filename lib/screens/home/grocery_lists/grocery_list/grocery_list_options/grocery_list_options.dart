@@ -140,12 +140,12 @@ class _GroceryListOption extends State<GroceryListOption> {
 
   Future<List<AccountModel>> _getMembers() async {
     final List<AccountModel> accounts = List<AccountModel>();
-    final DataSnapshot snap = await API.accountGroceryList
+    final DataSnapshot snap = await Database.accountGroceryList
         .getFromGroceryListUid(groceryListStates.groceryList.value.uid);
     final Map<dynamic, dynamic> accountGroceryLists = Map();
     accountGroceryLists.addAll(snap.value);
     await Future.forEach(accountGroceryLists.keys, (element) async {
-      accounts.add(await API.account.getFromUid(element));
+      accounts.add(await Database.account.getFromUid(element));
     });
     return accounts;
   }

@@ -2,9 +2,9 @@ import 'package:EasyGroceries/screens/consts.dart';
 import 'package:EasyGroceries/screens/onboarding/onboarding.dart';
 import 'package:EasyGroceries/services/auth.dart';
 import 'package:EasyGroceries/states/account_states.dart';
-import 'package:EasyGroceries/states/allergy_tags_states.dart';
+import 'package:EasyGroceries/states/allergy_states.dart';
 import 'package:EasyGroceries/states/app_states.dart';
-import 'package:EasyGroceries/states/favorite_food_tags_states.dart';
+import 'package:EasyGroceries/states/cuisine_states.dart';
 import 'package:EasyGroceries/style/colors.dart';
 import 'package:EasyGroceries/style/inputs.dart';
 import 'package:EasyGroceries/style/text_style.dart';
@@ -29,8 +29,7 @@ class Profile extends StatefulWidget {
 class _Profile extends State<Profile> {
   final AccountStates accountStates = Get.put(AccountStates());
   final AllergyTagsStates allergyTagsStates = Get.put(AllergyTagsStates());
-  final FavoriteFoodTagsStates favoriteFoodTagsStates =
-      Get.put(FavoriteFoodTagsStates());
+  final CuisineStates cuisineStates = Get.put(CuisineStates());
   Future _future;
 
   @override
@@ -130,7 +129,7 @@ class _Profile extends State<Profile> {
                         Container(
                           padding: EdgeInsets.all(24.0),
                           child: SelectableTags(
-                            tags: allergyTagsStates.tags,
+                            tags: allergyTagsStates.allergies,
                             onClickTag: (tag) {
                               allergyTagsStates.setTag(tag.index, tag.active);
                             },
@@ -144,10 +143,9 @@ class _Profile extends State<Profile> {
                         Container(
                           padding: EdgeInsets.all(24.0),
                           child: SelectableTags(
-                            tags: favoriteFoodTagsStates.tags,
+                            tags: cuisineStates.cuisines,
                             onClickTag: (tag) {
-                              favoriteFoodTagsStates.setTag(
-                                  tag.index, tag.active);
+                              cuisineStates.setTag(tag.index, tag.active);
                             },
                           ),
                         ),
@@ -190,6 +188,8 @@ class _Profile extends State<Profile> {
                       enabled: !appStates.uploadingProfilePicture.value,
                       onClick: () async {
                         await accountStates.updateAccount();
+                        await allergyTagsStates.updateAllergies();
+                        await cuisineStates.updateCuisines();
                         Get.toNamed(URL_HOME);
                       },
                     )));
@@ -207,8 +207,8 @@ class _Profile extends State<Profile> {
   }
 
   Future<bool> _getTages() async {
-    await allergyTagsStates.getTags();
-    await favoriteFoodTagsStates.getTags();
+    await allergyTagsStates.getAllergies();
+    await cuisineStates.getCuisines();
     return true;
   }
 }

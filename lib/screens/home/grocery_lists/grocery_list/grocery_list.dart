@@ -58,7 +58,7 @@ class _GroceryList extends State<GroceryList> {
                           Container(
                             height: 150,
                             child: SearchBar(
-                              onSearch: API.ingredient.searchIngredient,
+                              onSearch: Database.ingredient.searchIngredient,
                               searchBarController: _searchBarController,
                               mainAxisSpacing: 1,
                               crossAxisSpacing: 2,
