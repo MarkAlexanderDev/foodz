@@ -26,7 +26,9 @@ class ServiceGroceryList {
   Future<GroceryListModel> getFromUid(uid) async {
     GroceryListModel groceryList = GroceryListModel();
     final DataSnapshot snap = await get().child(uid).once();
-    if (snap.value != null) groceryList.fromJson(snap.value);
+    if (snap.value == null) return null;
+    groceryList.fromJson(snap.value);
+    groceryList.uid = uid;
     return groceryList;
   }
 

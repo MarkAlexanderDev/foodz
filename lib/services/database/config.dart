@@ -12,9 +12,9 @@ const endpointAccountAllergy = endpointEntries + "AccountAllergy/";
 const endpointAccountCuisine = endpointEntries + "AccountCuisine/";
 
 // Configuration
+
 const endpointConfiguration = "Configuration/";
 
-//new
 const endpointAllergy = endpointConfiguration + "Allergy/";
 const endpointCuisine = endpointConfiguration + "Cuisine/";
 const endpointIngredient = endpointConfiguration + "Ingredient/";
