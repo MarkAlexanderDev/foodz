@@ -13,18 +13,15 @@ class AccountModel {
   int peopleNumber = 2;
   int onboardingFlag = ONBOARDING_STEP_ID_AUTH;
   String createdAt = ".";
-  String updatedAt = ".";
 
   toMap() {
     return {
-      "uid": this.uid,
       "name": this.name,
       "pictureUrl": this.pictureUrl,
       "cookingExperience": this.cookingExperience,
       "peopleNumber": this.peopleNumber,
       "onboardingFlag": this.onboardingFlag,
       "createdAt": this.createdAt,
-      "updatedAt": this.updatedAt,
     };
   }
 
@@ -41,7 +38,6 @@ class AccountModel {
     this.peopleNumber = data["peopleNumber"];
     this.onboardingFlag = data["onboardingFlag"];
     this.createdAt = data["createdAt"];
-    this.updatedAt = data["updatedAt"];
     return true;
   }
 }

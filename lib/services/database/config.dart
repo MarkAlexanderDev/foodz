@@ -17,7 +17,7 @@ const endpointGroceryListIngredient =
 const endpointConfiguration = "Configuration/";
 
 const endpointTag = endpointConfiguration + "Tag/";
-const endpointTagAllergy = "/Allergy";
-const endpointTagCategory = "/Category";
-const endpointTagCuisine = "/Cuisine";
+const endpointTagAllergy = "Allergy/";
+const endpointTagCategory = "Category/";
+const endpointTagCuisine = "Cuisine/";
 const endpointIngredient = endpointConfiguration + "Ingredient/";

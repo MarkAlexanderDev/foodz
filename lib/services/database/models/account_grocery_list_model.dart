@@ -5,14 +5,10 @@ import 'dart:core';
 class AccountGroceryListModel {
   String groceryListUid;
   bool owner;
-  String createdAt = ".";
-  String updatedAt = ".";
 
   toMap() {
     return {
       "owner": this.owner,
-      "createdAt": this.createdAt,
-      "updatedAt": this.updatedAt,
     };
   }
 
@@ -24,8 +20,6 @@ class AccountGroceryListModel {
     if (data == null) return false;
     this.groceryListUid = data["groceryListUid"];
     this.owner = data["owner"];
-    this.createdAt = data["createdAt"];
-    this.updatedAt = data["updatedAt"];
     return true;
   }
 }

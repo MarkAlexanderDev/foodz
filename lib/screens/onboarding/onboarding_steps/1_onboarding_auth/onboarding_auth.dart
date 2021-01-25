@@ -47,7 +47,6 @@ class OnboardingAuth extends StatelessWidget {
         account.peopleNumber = 2;
         account.cookingExperience = COOKING_EXPERIENCE_ID_BEGINNER;
         account.createdAt = DateTime.now().toUtc().toString();
-        account.updatedAt = DateTime.now().toUtc().toString();
         await accountStates.createAccount(account);
       }
       appStates.setLoading(false);

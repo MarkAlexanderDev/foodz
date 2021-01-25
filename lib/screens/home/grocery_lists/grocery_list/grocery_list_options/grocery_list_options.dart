@@ -134,7 +134,7 @@ class _GroceryListOption extends State<GroceryListOption> {
               ),
             );
           else
-            return Loading();
+            return Container(color: Colors.white, child: Loading());
         });
   }
 
