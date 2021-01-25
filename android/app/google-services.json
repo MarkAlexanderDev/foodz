@@ -23,6 +23,14 @@
           }
         },
         {
+          "client_id": "204365600955-91149p93u61dstdl47l03p2m8b7vfrvg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.foodz.foodz",
+            "certificate_hash": "b3513846f57ac6d33317c78c21dee2702864ba6d"
+          }
+        },
+        {
           "client_id": "204365600955-cnkl67qpia9q7luv392f5vn5bd9necfp.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
@@ -36,6 +44,14 @@
           "android_info": {
             "package_name": "com.foodz.foodz",
             "certificate_hash": "6e8cdac1e6d989c3cee81570d87fe0a23c7ed36f"
+          }
+        },
+        {
+          "client_id": "204365600955-vesi0gb3jk96niu9bre72ruaabm4rcls.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.foodz.foodz",
+            "certificate_hash": "c2aac2a53d22efd5bef406d04c110e663f6b3103"
           }
         },
         {

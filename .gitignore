@@ -545,3 +545,6 @@ lib/generated_plugin_registrant.dart
 **/ios/Flutter/.last_build_id
 # android build
 **/android/key.properties
+
+## Local Visual Studio Code settings for Foodz project
+.vscode
