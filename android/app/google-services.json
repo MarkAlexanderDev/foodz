@@ -39,6 +39,14 @@
           }
         },
         {
+          "client_id": "204365600955-vesi0gb3jk96niu9bre72ruaabm4rcls.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.foodz.foodz",
+            "certificate_hash": "c2aac2a53d22efd5bef406d04c110e663f6b3103"
+          }
+        },
+        {
           "client_id": "204365600955-vfm3idnnm73kp49tm2hhe7293n78vt1l.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
