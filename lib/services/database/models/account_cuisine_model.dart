@@ -2,13 +2,12 @@ import 'dart:collection';
 import 'dart:convert';
 import 'dart:core';
 
-class AccountGroceryListModel {
-  String groceryListUid;
-  bool owner;
+class AccountCuisineModel {
+  String name = "";
 
   toMap() {
     return {
-      "owner": this.owner,
+      "name": this.name,
     };
   }
 
@@ -18,8 +17,7 @@ class AccountGroceryListModel {
 
   bool fromJson(LinkedHashMap<dynamic, dynamic> data) {
     if (data == null) return false;
-    this.groceryListUid = data["groceryListUid"];
-    this.owner = data["owner"];
+    this.name = data["name"];
     return true;
   }
 }

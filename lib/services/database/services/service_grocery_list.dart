@@ -24,9 +24,11 @@ class ServiceGroceryList {
   }
 
   Future<GroceryListModel> getFromUid(uid) async {
-    GroceryListModel groceryList = new GroceryListModel();
+    GroceryListModel groceryList = GroceryListModel();
     final DataSnapshot snap = await get().child(uid).once();
-    if (snap.value != null) groceryList.fromJson(snap.value);
+    if (snap.value == null) return null;
+    groceryList.fromJson(snap.value);
+    groceryList.uid = uid;
     return groceryList;
   }
 
@@ -38,7 +40,7 @@ class ServiceGroceryList {
 }
 
 GroceryListModel fromMapToGroceryList(Map mapGroceryList) {
-  GroceryListModel groceryList = new GroceryListModel();
+  GroceryListModel groceryList = GroceryListModel();
   groceryList.uid = mapGroceryList["uid"];
   groceryList.title = mapGroceryList["title"];
   groceryList.description = mapGroceryList["description"];

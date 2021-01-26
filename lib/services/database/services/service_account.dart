@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:EasyGroceries/services/database/config.dart';
 import 'package:EasyGroceries/services/database/database.dart';
 import 'package:EasyGroceries/services/database/models/account_model.dart';
@@ -21,38 +19,20 @@ class ServiceAccount {
     await id.update(account.toMap());
   }
 
-  Future<AccountModel> getFromUid(uid) async {
-    AccountModel account = new AccountModel();
+  Future<AccountModel> getFromUid(String uid) async {
+    AccountModel account = AccountModel();
     final DataSnapshot snap = await get().child(uid).once();
     if (snap.value != null) {
       account.fromJson(snap.value);
+      account.uid = uid;
       return account;
     }
     return null;
   }
 
-  getInMap(uid) async {
-    AccountModel entity = await getFromUid(uid);
-    Map<String, dynamic> map = json.decode(entity.toJson());
-    return map;
-  }
-
-  exist(uid) async {
+  Future<bool> exist(String uid) async {
     final DataSnapshot snap = await get().child(uid).once();
     if (snap.value == null) return false;
     return true;
   }
-}
-
-AccountModel fromMapToAccount(Map mapAccount) {
-  AccountModel account = new AccountModel();
-  account.uid = mapAccount["uid"];
-  account.name = mapAccount["name"];
-  account.cookingExperience = mapAccount["cookingExperience"];
-  account.peopleNumber = mapAccount["peopleNumber"];
-  account.onboardingFlag = mapAccount["onboardingFlag"];
-  account.pictureUrl = mapAccount["pictureUrl"];
-  account.createdAt = mapAccount["createdAt"];
-  account.updatedAt = mapAccount["updatedAt"];
-  return account;
 }

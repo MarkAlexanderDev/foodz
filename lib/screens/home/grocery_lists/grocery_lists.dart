@@ -56,7 +56,7 @@ class _GroceryLists extends State<GroceryLists> {
 
   Future<List<GroceryListModel>> _getGroceryLists() async {
     final List<GroceryListModel> grocerylists = List<GroceryListModel>();
-    final DataSnapshot snap = await API.accountGroceryList
+    final DataSnapshot snap = await Database.accountGroceryList
         .getFromUid(FirebaseAuth.instance.currentUser.uid);
     final Map<dynamic, dynamic> groceryListUids = Map();
     if (snap.isNull)
@@ -64,28 +64,29 @@ class _GroceryLists extends State<GroceryLists> {
     else {
       groceryListUids.addAll(snap.value);
       await Future.forEach(groceryListUids.keys, (groceryListUid) async {
-        grocerylists.add(await API.groceryList.getFromUid(groceryListUid));
+        grocerylists.add(await Database.groceryList.getFromUid(groceryListUid));
       });
     }
     return grocerylists;
   }
 
   Future<GroceryListModel> _createFirstGroceryList() async {
-    GroceryListModel groceryList = new GroceryListModel();
+    GroceryListModel groceryList = GroceryListModel();
     groceryList.title = "Monday's grocery list";
     groceryList.description = "All my needs for the week !";
     groceryList.color = mainColor.toHex();
     groceryList.pictureUrl =
         "https://firebasestorage.googleapis.com/v0/b/foodz-2aec5.appspot.com/o/assets%2Fgrocery.png?alt=media&token=d808b0ab-eccf-4bcf-a5ae-36d4dca1b53f";
-    await API.groceryList.create(groceryList);
-    AccountGroceryListModel accountGroceryList = new AccountGroceryListModel();
+    await Database.groceryList.create(groceryList);
+    AccountGroceryListModel accountGroceryList = AccountGroceryListModel();
     accountGroceryList.groceryListUid = groceryList.uid;
     accountGroceryList.owner = true;
-    await API.accountGroceryList.create(accountGroceryList);
+    await Database.accountGroceryList.create(accountGroceryList);
     GroceryListIngredientModel groceryListIngredient =
-        new GroceryListIngredientModel();
+        GroceryListIngredientModel();
     groceryListIngredient.checked = false;
-    await API.groceryListIngredient
+    groceryListIngredient.createdAt = DateTime.now().toString();
+    await Database.groceryListIngredient
         .create("baguette", groceryListIngredient, groceryList.uid);
     return groceryList;
   }
@@ -128,11 +129,11 @@ class _GroceryListsItem extends StatelessWidget {
               Flexible(
                 flex: 5,
                 child: Container(
-                  decoration: new BoxDecoration(
+                  decoration: BoxDecoration(
                     borderRadius: BorderRadius.only(
                         bottomLeft: Radius.circular(20),
                         bottomRight: Radius.circular(20)),
-                    image: new DecorationImage(
+                    image: DecorationImage(
                       image: NetworkImage(groceryList.pictureUrl),
                       fit: BoxFit.cover,
                     ),

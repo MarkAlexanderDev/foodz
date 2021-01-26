@@ -39,7 +39,7 @@ class OnboardingAuth extends StatelessWidget {
         }
         await accountStates.updateAccount();
       } else {
-        AccountModel account = new AccountModel();
+        AccountModel account = AccountModel();
         account.uid = FirebaseAuth.instance.currentUser.uid;
         account.name = firebaseUser.displayName;
         account.pictureUrl = firebaseUser.photoURL;
@@ -47,7 +47,6 @@ class OnboardingAuth extends StatelessWidget {
         account.peopleNumber = 2;
         account.cookingExperience = COOKING_EXPERIENCE_ID_BEGINNER;
         account.createdAt = DateTime.now().toUtc().toString();
-        account.updatedAt = DateTime.now().toUtc().toString();
         await accountStates.createAccount(account);
       }
       appStates.setLoading(false);

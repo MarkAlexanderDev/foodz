@@ -13,7 +13,7 @@ class ServiceIngredient {
   }
 
   Future<List<dynamic>> searchIngredient(String text) async {
-    List ingredients = new List();
+    List ingredients = List();
     final DataSnapshot snap = await get()
         .orderByChild('title')
         .startAt(text)

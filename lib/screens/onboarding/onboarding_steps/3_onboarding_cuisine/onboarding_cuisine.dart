@@ -2,7 +2,7 @@ import 'package:EasyGroceries/screens/consts.dart';
 import 'package:EasyGroceries/screens/onboarding/onboarding.dart';
 import 'package:EasyGroceries/states/account_states.dart';
 import 'package:EasyGroceries/states/app_states.dart';
-import 'package:EasyGroceries/states/favorite_food_tags_states.dart';
+import 'package:EasyGroceries/states/cuisine_states.dart';
 import 'package:EasyGroceries/style/text_style.dart';
 import 'package:EasyGroceries/widgets/loading.dart';
 import 'package:EasyGroceries/widgets/selectable_tags.dart';
@@ -12,20 +12,19 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 
-class OnboardingFavoriteFood extends StatefulWidget {
+class OnboardingCuisine extends StatefulWidget {
   @override
-  _OnboardingFavoriteFood createState() => _OnboardingFavoriteFood();
+  _OnboardingCuisine createState() => _OnboardingCuisine();
 }
 
-class _OnboardingFavoriteFood extends State<OnboardingFavoriteFood> {
+class _OnboardingCuisine extends State<OnboardingCuisine> {
   final AccountStates accountStates = Get.put(AccountStates());
-  final FavoriteFoodTagsStates favoriteFoodTagsStates =
-      Get.put(FavoriteFoodTagsStates());
+  final CuisineStates cuisineStates = Get.put(CuisineStates());
   Future _future;
 
   @override
   void initState() {
-    _future = favoriteFoodTagsStates.getTags();
+    _future = cuisineStates.getCuisines();
     super.initState();
   }
 
@@ -49,9 +48,9 @@ class _OnboardingFavoriteFood extends State<OnboardingFavoriteFood> {
                 Container(
                   padding: EdgeInsets.all(24.0),
                   child: SelectableTags(
-                    tags: favoriteFoodTagsStates.tags,
+                    tags: cuisineStates.cuisines,
                     onClickTag: (tag) {
-                      favoriteFoodTagsStates.setTag(tag.index, tag.active);
+                      cuisineStates.setTag(tag.index, tag.active);
                     },
                   ),
                 ),
@@ -102,7 +101,7 @@ class _OnboardingFavoriteFood extends State<OnboardingFavoriteFood> {
     accountStates.account.value.onboardingFlag =
         accountStates.account.value.onboardingFlag + 1;
     await accountStates.updateAccount();
-    await favoriteFoodTagsStates.updateTags();
+    await cuisineStates.updateCuisines();
     appStates.setLoading(false);
   }
 
