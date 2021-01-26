@@ -4,10 +4,12 @@ import 'dart:core';
 
 class GroceryListIngredientModel {
   bool checked;
+  String createdAt;
 
   toMap() {
     return {
       "checked": this.checked,
+      "createdAt": this.createdAt,
     };
   }
 
@@ -18,6 +20,7 @@ class GroceryListIngredientModel {
   bool fromJson(LinkedHashMap<dynamic, dynamic> data) {
     if (data == null) return false;
     this.checked = data["checked"];
+    this.createdAt = data["createdAt"];
     return true;
   }
 }

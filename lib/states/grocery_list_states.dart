@@ -12,6 +12,8 @@ class GroceryListStates extends GetxController {
     databaseReference
         .child(endpointGroceryListIngredient)
         .child(groceryList.value.uid)
+        .orderByChild("createdAt")
+        .endAt(DateTime.now().toString())
         .onValue
         .listen((event) async {
       final Map snapshot = Map<String, dynamic>.from(event.snapshot.value);
@@ -38,6 +40,7 @@ class GroceryListStates extends GetxController {
     GroceryListIngredientModel groceryListIngredient =
         GroceryListIngredientModel();
     groceryListIngredient.checked = false;
+    groceryListIngredient.createdAt = DateTime.now().toString();
     await Database.groceryListIngredient
         .create("baguette", groceryListIngredient, groceryList.value.uid);
   }
@@ -51,6 +54,7 @@ class GroceryListStates extends GetxController {
       GroceryListIngredientModel groceryListIngredient =
           GroceryListIngredientModel();
       groceryListIngredient.checked = false;
+      groceryListIngredient.createdAt = DateTime.now().toString();
       groceryListIngredients.add(groceryListIngredient);
       groceryListIngredients.refresh();
       groceryListIngredientsKeys.add(ingredient);

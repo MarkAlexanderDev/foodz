@@ -85,6 +85,7 @@ class _GroceryLists extends State<GroceryLists> {
     GroceryListIngredientModel groceryListIngredient =
         GroceryListIngredientModel();
     groceryListIngredient.checked = false;
+    groceryListIngredient.createdAt = DateTime.now().toString();
     await Database.groceryListIngredient
         .create("baguette", groceryListIngredient, groceryList.uid);
     return groceryList;
