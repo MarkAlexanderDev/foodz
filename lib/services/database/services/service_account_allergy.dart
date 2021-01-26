@@ -13,7 +13,7 @@ class ServiceAccountAllergy {
     await get()
         .child(FirebaseAuth.instance.currentUser.uid)
         .child(accountAllergyModel.name)
-        .set(accountAllergyModel.toMap());
+        .set(true);
   }
 
   Future<void> delete(String name) async {

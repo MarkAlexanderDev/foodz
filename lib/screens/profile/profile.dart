@@ -194,7 +194,7 @@ class _Profile extends State<Profile> {
                       },
                     )));
           else
-            return Loading();
+            return Container(color: Colors.white, child: Loading());
         });
   }
 
