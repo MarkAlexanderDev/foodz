@@ -4,6 +4,7 @@ on: push
 
 jobs:
   build:
+    name: "Build Apks"
     runs-on: ubuntu-latest
     steps:
       # Setup Java environment to build apks
@@ -15,9 +16,6 @@ jobs:
       # Setup the flutter environment.
       - uses: subosito/flutter-action@v1
 
-  flutter:
-    runs-on: ubuntu-latest
-    steps:
       # Get flutter dependencies.
       - run: flutter pub get
 
@@ -30,9 +28,6 @@ jobs:
       # Run widget tests for our flutter project if any.
       - run: flutter test
 
-  build-apks:
-    runs-on: ubuntu-latest
-    steps:
       # Build apk.
       - run: flutter build apk
 
