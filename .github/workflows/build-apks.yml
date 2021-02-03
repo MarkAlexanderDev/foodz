@@ -3,7 +3,7 @@ name: Foodz App Android Release - Dev
 on: push
 
 jobs:
-  build:
+  buil d:
     name: "Build Apks"
     runs-on: ubuntu-latest
     steps:
@@ -25,8 +25,8 @@ jobs:
       # [Statically] analyze the Dart code for any errors.
       - run: flutter analyze .
 
-      # Run widget tests for our flutter project if any.
-      - run: flutter test
+      # Run widget tests for our flutter project if any. -- To uncomment when we have tests, else it will fail
+      #- run: flutter test
 
       # Build apk.
       - run: flutter build apk
