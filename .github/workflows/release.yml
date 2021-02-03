@@ -3,7 +3,7 @@ name: Foodz App Android Release - Dev
 on: push
 
 jobs:
-  setup-envs:
+  build:
     runs-on: ubuntu-latest
     steps:
       # Setup Java environment to build apks
@@ -16,24 +16,26 @@ jobs:
       - uses: subosito/flutter-action@v1
 
   flutter:
-    # Get flutter dependencies.
-    - run: flutter pub get
+    steps:
+      # Get flutter dependencies.
+      - run: flutter pub get
 
-    # Check for any formatting issues in the code.
-    - run: flutter format --set-exit-if-changed .
+      # Check for any formatting issues in the code.
+      - run: flutter format --set-exit-if-changed .
 
-    # [Statically] analyze the Dart code for any errors.
-    - run: flutter analyze .
+      # [Statically] analyze the Dart code for any errors.
+      - run: flutter analyze .
 
-    # Run widget tests for our flutter project if any.
-    - run: flutter test
+      # Run widget tests for our flutter project if any.
+      - run: flutter test
 
-  build:
-    # Build apk.
-    - run: flutter build apk
+  build-apks:
+    steps:
+      # Build apk.
+      - run: flutter build apk
 
-    # Upload generated apk to the artifacts.
-    - uses: actions/upload-artifact@v1
-      with:
-        name: release-apk
-        path: build/app/outputs/apk/release/app-release.apk
+      # Upload generated apk to the artifacts.
+      - uses: actions/upload-artifact@v1
+        with:
+          name: release-apk
+          path: build/app/outputs/apk/release/app-release.apk
