@@ -28,22 +28,38 @@ jobs:
       # Run widget tests for our flutter project if any. -- To uncomment when we have tests, else it will fail
       #- run: flutter test
 
-      # Build apk for debug.
-      - run: flutter build apk --debug --split-per-abi
-
-      # Upload generated apk to the artifacts.
+      # Build Android appbundle for debug.
+      - run: flutter build appbundle --debug
+      # Upload generated android debug appbundle to the artifacts.
       - uses: actions/upload-artifact@v1
         with:
           name: debug-apk
-          path: build/app/outputs/apk/debug/
-          if-no-files-found: warn
+          path: build/app/outputs/android/debug/
+          if-no-files-found: error
 
-      # Build apk for release.
-      - run: flutter build apk --split-per-abi
-
-      # Upload generated apk to the artifacts.
+      # Build Android appbundle for release.
+      - run: flutter build appbundle --release
+      # Upload generated android release appbundle to the artifacts.
       - uses: actions/upload-artifact@v1
         with:
           name: release-apk
-          path: build/app/outputs/apk/release/
-          if-no-files-found: warn
+          path: build/app/outputs/android/release/
+          if-no-files-found: error
+
+      # Build iOS appbundle for debug.
+      - run: flutter build ios --debug
+      # Upload generated android release appbundle to the artifacts.
+      - uses: actions/upload-artifact@v1
+        with:
+          name: release-apk
+          path: build/app/outputs/ios/debug/
+          if-no-files-found: error
+
+      # Build iOS appbundle for release.
+      - run: flutter build ios --release
+      # Upload generated android release appbundle to the artifacts.
+      - uses: actions/upload-artifact@v1
+        with:
+          name: release-apk
+          path: build/app/outputs/ios/release/
+          if-no-files-found: error
