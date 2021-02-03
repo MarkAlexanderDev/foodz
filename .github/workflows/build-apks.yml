@@ -35,7 +35,6 @@ jobs:
         with:
           name: debug-apk
           path: build/app/outputs/android/debug/
-          if-no-files-found: error
 
       # Build Android appbundle for release.
       - run: flutter build appbundle --release
@@ -44,7 +43,6 @@ jobs:
         with:
           name: release-apk
           path: build/app/outputs/android/release/
-          if-no-files-found: error
 
       # Build iOS appbundle for debug.
       - run: flutter build ios --debug
@@ -53,7 +51,6 @@ jobs:
         with:
           name: release-apk
           path: build/app/outputs/ios/debug/
-          if-no-files-found: error
 
       # Build iOS appbundle for release.
       - run: flutter build ios --release
@@ -62,4 +59,3 @@ jobs:
         with:
           name: release-apk
           path: build/app/outputs/ios/release/
-          if-no-files-found: error
