@@ -3,7 +3,7 @@ name: Foodz App Android Release - Dev
 on: push
 
 jobs:
-  buil d:
+  build:
     name: "Build Apks"
     runs-on: ubuntu-latest
     steps:
