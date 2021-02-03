@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "151279214801",
+    "firebase_url": "https://foodz-beta-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "foodz-beta",
+    "storage_bucket": "foodz-beta.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:151279214801:android:ae4483719f9dd35ca3a5f0",
+        "android_client_info": {
+          "package_name": "com.foodz.app.beta"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "151279214801-fc8itfct8ul32j45g8i1dervib8jv5jk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBdAN3PiJt_wEdUblRIBtj5PfCiUcQz70c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "151279214801-fc8itfct8ul32j45g8i1dervib8jv5jk.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "151279214801-5dn1594dn8347uri473rl9t9qos2agga.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.foodz.beta"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -39,7 +39,7 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "com.foodz.foodz"
+        applicationId "com.foodz.app"
         minSdkVersion 16
         targetSdkVersion 29
         versionCode flutterVersionCode.toInteger()
@@ -52,6 +52,21 @@ android {
             // TODO: Add your own signing config for the release build.
             // Signing with the debug keys for now, so `flutter run --release` works.
             signingConfig signingConfigs.debug
+        }
+    }
+
+    flavorDimensions "app"
+
+    productFlavors {
+        dev {
+            dimension "app"
+            applicationId "com.foodz.app.dev"
+            manifestPlaceholders.appName = "Foodz DEV"
+        }
+        beta {
+            dimension "app"
+            applicationId "com.foodz.app.beta"
+            manifestPlaceholders.appName = "Foodz BETA"
         }
     }
 }
