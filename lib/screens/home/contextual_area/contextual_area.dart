@@ -63,7 +63,7 @@ class CAcard extends StatelessWidget {
                   image: DecorationImage(
                       image: NetworkImage(slide["image"]),
                       fit: BoxFit.cover,
-                      colorFilter: new ColorFilter.mode(
+                      colorFilter: ColorFilter.mode(
                           Colors.black.withOpacity(0.4), BlendMode.dstATop)),
                   borderRadius: BorderRadius.circular(10.0)),
           child: Column(

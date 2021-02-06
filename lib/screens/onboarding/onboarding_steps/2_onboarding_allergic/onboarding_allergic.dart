@@ -1,6 +1,6 @@
 import 'package:EasyGroceries/screens/onboarding/onboarding.dart';
 import 'package:EasyGroceries/states/account_states.dart';
-import 'package:EasyGroceries/states/allergy_tags_states.dart';
+import 'package:EasyGroceries/states/allergy_states.dart';
 import 'package:EasyGroceries/states/app_states.dart';
 import 'package:EasyGroceries/style/text_style.dart';
 import 'package:EasyGroceries/widgets/loading.dart';
@@ -23,7 +23,7 @@ class _OnboardingAllergic extends State<OnboardingAllergic> {
 
   @override
   void initState() {
-    _future = allergyTagsStates.getTags();
+    _future = allergyTagsStates.getAllergies();
     super.initState();
   }
 
@@ -47,7 +47,7 @@ class _OnboardingAllergic extends State<OnboardingAllergic> {
                 Container(
                   padding: EdgeInsets.all(24.0),
                   child: SelectableTags(
-                    tags: allergyTagsStates.tags,
+                    tags: allergyTagsStates.allergies,
                     onClickTag: (tag) {
                       allergyTagsStates.setTag(tag.index, tag.active);
                     },
@@ -100,7 +100,7 @@ class _OnboardingAllergic extends State<OnboardingAllergic> {
     accountStates.account.value.onboardingFlag =
         accountStates.account.value.onboardingFlag + 1;
     await accountStates.updateAccount();
-    await allergyTagsStates.updateTags();
+    await allergyTagsStates.updateAllergies();
     appStates.setLoading(false);
   }
 

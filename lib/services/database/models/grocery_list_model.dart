@@ -15,7 +15,6 @@ class GroceryListModel {
 
   toMap() {
     return {
-      "uid": this.uid,
       "title": this.title,
       "description": this.description,
       "pictureUrl": this.pictureUrl,

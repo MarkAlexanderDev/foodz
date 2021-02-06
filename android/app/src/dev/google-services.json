@@ -1,0 +1,95 @@
+{
+  "project_info": {
+    "project_number": "204365600955",
+    "firebase_url": "https://foodz-2aec5-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "foodz-2aec5",
+    "storage_bucket": "foodz-2aec5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:204365600955:android:1ce68cc518f7a9083a719e",
+        "android_client_info": {
+          "package_name": "com.foodz.app.dev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "204365600955-1lc8s72ajom8svlgplsest86r47q901b.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.foodz.app.dev",
+            "certificate_hash": "15ac966749358672cdbb30ec4bf8b784741626fe"
+          }
+        },
+        {
+          "client_id": "204365600955-3sit4mkfqvdp0icbiu80ba564nli6fnp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.foodz.app.dev",
+            "certificate_hash": "09c0a6653a2d2edefa9583d394a833ff5aee2f98"
+          }
+        },
+        {
+          "client_id": "204365600955-7ijtuuf37q2omje9iqv9e47duo2avsfi.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.foodz.app.dev",
+            "certificate_hash": "6e8cdac1e6d989c3cee81570d87fe0a23c7ed36f"
+          }
+        },
+        {
+          "client_id": "204365600955-b5v0l2k98hmj5fq4t3per0nl6mo3s5an.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.foodz.app.dev",
+            "certificate_hash": "3f89fe1f2af62d3c07b77651b579c5621a7239ca"
+          }
+        },
+        {
+          "client_id": "204365600955-fnjda2190ck3nbv5crcrflqpgqskiuji.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.foodz.app.dev",
+            "certificate_hash": "c2aac2a53d22efd5bef406d04c110e663f6b3103"
+          }
+        },
+        {
+          "client_id": "204365600955-mi5kbnnhf8npmh5huo0h62gsej3vbtt9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.foodz.app.dev",
+            "certificate_hash": "b3513846f57ac6d33317c78c21dee2702864ba6d"
+          }
+        },
+        {
+          "client_id": "204365600955-hhgpe43k5e9up3p3uvaeq05oftdvr9c3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAJh9LOBnmb__XQLluzXj6VnacQZ6_J-Zc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "204365600955-hhgpe43k5e9up3p3uvaeq05oftdvr9c3.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "204365600955-2j1l7pe1dcri9k5lh8mmj4mlhjr3t7l4.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.foodz.dev"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

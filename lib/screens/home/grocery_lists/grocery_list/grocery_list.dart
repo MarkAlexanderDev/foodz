@@ -58,7 +58,7 @@ class _GroceryList extends State<GroceryList> {
                           Container(
                             height: 150,
                             child: SearchBar(
-                              onSearch: API.ingredient.searchIngredient,
+                              onSearch: Database.ingredient.searchIngredient,
                               searchBarController: _searchBarController,
                               mainAxisSpacing: 1,
                               crossAxisSpacing: 2,
@@ -125,8 +125,8 @@ class _GroceryList extends State<GroceryList> {
         groceryListStates.groceryList.value.title,
         style: textStyleH3Bold,
       ),
-      leading: new IconButton(
-          icon: new Icon(Icons.arrow_back),
+      leading: IconButton(
+          icon: Icon(Icons.arrow_back),
           onPressed: () => {Get.offNamed(URL_HOME)}),
       actions: [
         GestureDetector(

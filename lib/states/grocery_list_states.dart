@@ -12,12 +12,14 @@ class GroceryListStates extends GetxController {
     databaseReference
         .child(endpointGroceryListIngredient)
         .child(groceryList.value.uid)
+        .orderByChild("createdAt")
+        .endAt(DateTime.now().toString())
         .onValue
         .listen((event) async {
-      final Map snapshot = new Map<String, dynamic>.from(event.snapshot.value);
+      final Map snapshot = Map<String, dynamic>.from(event.snapshot.value);
       for (int i = 0; i < snapshot.length; i++) {
         final GroceryListIngredientModel groceryListModel =
-            new GroceryListIngredientModel();
+            GroceryListIngredientModel();
         groceryListModel.fromJson(snapshot.entries.elementAt(i).value);
         if (groceryListIngredients.length <= i) {
           groceryListIngredientsKeys.add(snapshot.entries.elementAt(i).key);
@@ -30,32 +32,34 @@ class GroceryListStates extends GetxController {
   }
 
   Future<void> createGroceryList() async {
-    await API.groceryList.create(groceryList.value);
-    AccountGroceryListModel accountGroceryList = new AccountGroceryListModel();
+    await Database.groceryList.create(groceryList.value);
+    AccountGroceryListModel accountGroceryList = AccountGroceryListModel();
     accountGroceryList.groceryListUid = groceryList.value.uid;
     accountGroceryList.owner = true;
-    await API.accountGroceryList.create(accountGroceryList);
+    await Database.accountGroceryList.create(accountGroceryList);
     GroceryListIngredientModel groceryListIngredient =
-        new GroceryListIngredientModel();
+        GroceryListIngredientModel();
     groceryListIngredient.checked = false;
-    await API.groceryListIngredient
+    groceryListIngredient.createdAt = DateTime.now().toString();
+    await Database.groceryListIngredient
         .create("baguette", groceryListIngredient, groceryList.value.uid);
   }
 
   Future<void> updateGroceryList() async {
-    await API.groceryList.update(groceryList.value);
+    await Database.groceryList.update(groceryList.value);
   }
 
   Future<void> addIngredient(String ingredient) async {
     if (!groceryListIngredientsKeys.contains(ingredient)) {
       GroceryListIngredientModel groceryListIngredient =
-          new GroceryListIngredientModel();
+          GroceryListIngredientModel();
       groceryListIngredient.checked = false;
+      groceryListIngredient.createdAt = DateTime.now().toString();
       groceryListIngredients.add(groceryListIngredient);
       groceryListIngredients.refresh();
       groceryListIngredientsKeys.add(ingredient);
       groceryListIngredientsKeys.refresh();
-      await API.groceryListIngredient
+      await Database.groceryListIngredient
           .create(ingredient, groceryListIngredient, groceryList.value.uid);
     } else
       Get.snackbar("error", ingredient + " is already present in your list");
@@ -67,14 +71,14 @@ class GroceryListStates extends GetxController {
     groceryListIngredients.refresh();
     groceryListIngredientsKeys.removeAt(index);
     groceryListIngredientsKeys.refresh();
-    await API.groceryListIngredient
+    await Database.groceryListIngredient
         .delete(ingredientToRm, groceryList.value.uid);
   }
 
   Future<void> setIngredientCheckValue(bool value, int index) async {
     groceryListIngredients[index].checked = value;
     groceryListIngredients.refresh();
-    await API.groceryListIngredient.update(groceryListIngredients[index],
+    await Database.groceryListIngredient.update(groceryListIngredients[index],
         groceryListIngredientsKeys[index], groceryList.value.uid);
   }
 
