@@ -30,32 +30,23 @@ jobs:
 
       # Build Android appbundle for debug.
       - run: flutter build appbundle --debug
-      # Upload generated android debug appbundle to the artifacts.
-      - uses: actions/upload-artifact@v1
-        with:
-          name: debug-apk
-          path: build/app/outputs/android/debug/
-
+      
       # Build Android appbundle for release.
       - run: flutter build appbundle --release
-      # Upload generated android release appbundle to the artifacts.
-      - uses: actions/upload-artifact@v1
+
+      # Build iOS ipa for debug.
+      - run: flutter build ios --debug
+
+      # Build iOS ipa for release.
+      - run: flutter build ios --release
+      
+      # Upload generated android builds to the artifacts.
+      - uses: actions/upload-artifact@v2
         with:
-          name: release-apk
-          path: build/app/outputs/android/release/
-
-      # # Build iOS appbundle for debug.
-      # - run: flutter build ios --debug
-      # # Upload generated android release appbundle to the artifacts.
-      # - uses: actions/upload-artifact@v1
-      #   with:
-      #     name: release-apk
-      #     path: build/app/outputs/ios/debug/
-
-      # # Build iOS appbundle for release.
-      # - run: flutter build ios --release
-      # # Upload generated android release appbundle to the artifacts.
-      # - uses: actions/upload-artifact@v1
-      #   with:
-      #     name: release-apk
-      #     path: build/app/outputs/ios/release/
+          path: build/app/outputs/bundle/dev*/*.aab
+      
+      # Upload generated ios Runner app to the artifacts.
+      - uses: actions/upload-artifact@v2
+        with:
+          name: Runner.app
+          path: build/ios/iphoneos/Runner.app
