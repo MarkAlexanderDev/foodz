@@ -19,9 +19,6 @@ jobs:
       # Get flutter dependencies.
       - run: flutter pub get
 
-      # Clean the flutter project in case of any previous existant file.
-      - run: flutter clean
-
       # Check for any formatting issues in the code.
       - run: flutter format .
 
@@ -38,6 +35,7 @@ jobs:
       # Upload generated android builds to the artifacts.
       - uses: actions/upload-artifact@v2
         with:
+          name: android-builds-dev-beta
           path: build/app/outputs/bundle/*/*.aab
       
       # Build iOS ipa for debug with beta and dev flavors.
