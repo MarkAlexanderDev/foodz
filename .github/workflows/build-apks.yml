@@ -1,4 +1,4 @@
-name: Foodz App Android Release - Dev
+name: Foodz Flavors Builds - Dev
 
 on: push
 
@@ -31,25 +31,21 @@ jobs:
       # Run widget tests for our flutter project if any. -- To uncomment when we have tests, else it will fail
       #- run: flutter test
 
-      # Build Android appbundle for debug.
-      - run: flutter build appbundle --debug
-      
-      # Build Android appbundle for release.
-      - run: flutter build appbundle --release
+      # Build Android appbundle for debug with beta and dev flavors.
+      - run: flutter build appbundle --debug --flavor beta
+      - run: flutter build appbundle --debug --flavor dev
 
-      # Build iOS ipa for debug.
-      - run: flutter build ios --debug
-
-      # Build iOS ipa for release.
-      - run: flutter build ios --release
-      
       # Upload generated android builds to the artifacts.
       - uses: actions/upload-artifact@v2
         with:
           path: build/app/outputs/bundle/*/*.aab
       
+      # Build iOS ipa for debug with beta and dev flavors.
+      # - run: flutter build ios --debug --flavor beta
+      # - run: flutter build ios --debug --flavor dev
+      
       # Upload generated ios Runner app to the artifacts.
-      - uses: actions/upload-artifact@v2
-        with:
-          name: Runner.app
-          path: build/ios/iphoneos/Runner.app
+      # - uses: actions/upload-artifact@v2
+      #   with:
+      #     name: Runner.app
+      #     path: build/ios/iphoneos/Runner.app
